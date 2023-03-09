@@ -1,0 +1,18 @@
+package kr.ac.kopokr.ac.day3;
+
+public class Opeartionmmain01 {
+
+	 public static void main(String[] args) {
+
+		 int num = 123;
+		 
+		 //num = num + 1;
+		 // 자신의 수에 1을 더하는 코드 
+		 
+		 num = num + 50;
+		 
+		 System.out.println("num : " + num);
+		 
+				 	
+	 }
+}

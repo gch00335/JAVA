@@ -1,0 +1,20 @@
+package kr.ac.kopo.day01;
+
+/*
+   printf : 변환문자를 이용하여 상수 출력
+    %C    : 문자
+    %d    : 10진수 정수
+    %f    : 실수
+    %S    : 문자열
+    %b    : 논리값
+ */
+public class PrintMain2 {
+
+	public static void main(String[] args) {
+		
+		
+		System.out.printf("%d %f %s,10, 12.34, "홍길동");
+	
+	}
+
+}

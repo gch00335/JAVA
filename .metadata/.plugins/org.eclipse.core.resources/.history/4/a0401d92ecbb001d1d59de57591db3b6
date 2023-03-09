@@ -1,0 +1,16 @@
+package kr.ac.kopo.day01;
+
+/*
+   printf : 변환문자를 이용하여 상수 출력
+    %C    : 문자
+ */
+public class PrintMain2 {
+
+	public static void main(String[] args) {
+		
+		
+		System.out.printf("%c정수 실수 문자열");
+	
+	}
+
+}

@@ -1,0 +1,19 @@
+package kr.ac.kopokr.ac.day2;
+
+public class variablemain02 {
+
+	public static void main(String[] args) {
+	
+		double num = 12.34;
+		
+		num = 34;
+
+		System.out.println("num : " + num);
+		
+		int num2;
+		num2 = (int)45.67;
+		
+		System.out.println("num2 : " +num2);
+	}
+// 이것을 형변환이라고 함
+}
