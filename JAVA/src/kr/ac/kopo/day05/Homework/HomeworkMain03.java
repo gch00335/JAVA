@@ -23,7 +23,7 @@ public class HomeworkMain03 {
 					System.out.println(book + "book");
 				break;	
 			default :
-					Sstem.out.println("잘못입력했습니다");
+					System.out.println("잘못입력했습니다");
 				}
 		}
 		

@@ -14,7 +14,7 @@ public class LoopMain01 {
 			System.out.println("Hello");
 			++cnt;
 
-		
+			
 		}
 		System.out.println("cnt : " +cnt);
 		// [while]은 밖에서도 cnt 인식이 가능! 
