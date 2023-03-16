@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Homework01_11 {
 
 	public static void main(String[] args) {
-		// 11번  숫자하나를 입력했을 때 이모양이 계속나오도록 재설정해보기
+		// 11번  숫자 5 입력했을 때 이모양이 계속나오도록 재설정해보기
 		/* 
 		 *****
 		 ****
@@ -30,9 +30,11 @@ public class Homework01_11 {
 		큰수에서 거기서 짝수 홀수를 나누고 
 		거기수 짝수는 -1
 		작은수에서고 짝수-1 홀수 는 그대로 했다가 내 생각이 틀림. */
+	
+		
 		
 			for (int i = 1; i <= num; i++) {
-				for (int j = 1; j <=  6- i ; j++) {
+				for (int j = 1; j <=  num - i + 1 ; j++) {
 					System.out.print("*");
 				}
 				for (int j = 1; j <= i-1; j++) {
@@ -42,7 +44,7 @@ public class Homework01_11 {
 
 			}
 			for (int i = 1; i <= num; i++) {
-				for (int j = 1; j <= i-5 ; j++) {
+				for (int j = 1; j <= (num-i)-num; j++) {
 					System.out.print(" ");
 				}
 				for (int j = 1; j <= i; j++) {
@@ -52,6 +54,7 @@ public class Homework01_11 {
 	}
 }
 }
+
 
 
 /*
