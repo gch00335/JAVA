@@ -31,33 +31,37 @@ public class Homework01_11 {
 		거기수 짝수는 -1
 		작은수에서고 짝수-1 홀수 는 그대로 */
 		
-		for (int i = 1; i <= num; i++) {
-			if (i >= num / 2) {
-				if (num % 2 == 1) {
-					for (int j = 1; j <= i-1; j--) {
-						System.out.print("*");
-					}
-				} else {
-					if (num % 2 == 0)
-						for (int j = 1; j <= i ; j--) {
-							System.out.print("*");
-						}
+			for (int i = 1; i <= num; i++) {
+				for (int j = 1; j <=  10- i ; j++) {
+					System.out.print("*");
 				}
-			} else {
-				if (num % 2 == 1) {
-					for (int j = 1; j <= i-1; j++) {
-						System.out.print("*");
-					}
-				}
-				if (num % 2 == 0) {
-					for (int j = 1; j <= i ; j++) {
-						System.out.print("*");
-					}
+				for (int j = 1; j <= i-1; j++) {
+					System.out.print(" ");
 				}
 				System.out.println();
 
 			}
 		}
 	}
-}
 
+/*
+ * 
+				Scanner sc = new Scanner(System.in);
+				System.out.println("숫자 하나를 입력하시오");
+
+				int num = sc.nextInt();
+
+				for (int i = 1; i <= num; i++) {
+					for (int j = 1; j <= (5 + num) - i; j++) {
+						System.out.print(" ");
+					}
+					for (int j = 1; j <= i; j++) {
+						System.out.print("*");
+					}
+					System.out.println();
+				}
+			}
+
+		}
+
+ */

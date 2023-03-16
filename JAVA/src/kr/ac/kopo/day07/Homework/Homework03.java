@@ -94,7 +94,7 @@ public class Homework03 {
 		 */
 		
 	}
-	for (int i = 1; i < ar.length; i++) {
+	for (int i = 0 ; i < ar.length; i++) {
 		sum = sum + ar[i];
 		avg = (double) sum / i;
 	}
@@ -115,12 +115,16 @@ public class Homework03 {
 	System.out.printf("%d\'S score :" , i +1);
 		score[i] = sc.nextInt();
 	}
-	int errcnt = 0;
+	int errCnt = 0;
+	int sum = 0;
+	
 	
 	System.out.println("NO\tSCORE\t GRADE");
 	for (int i = 0; i < ar.length; i++) {
-	  if (ar[i] >= 0 || ar[i] <= 100) { 
 	  
+	  
+	  if (ar[i] >= 0 || ar[i] <= 100) { 
+	    sum = sum + score[i];
 	   char grade;
 	   
 	   switch(score[i]/10){
@@ -140,12 +144,12 @@ public class Homework03 {
 			System.out.println((i + 1) + "\t" + score[i] + "\t" + grade);
 			} else {
 			System.out.println((i + 1) +  "\t" + "ERROR!!" );
-            ++errnct;
+            ++errCnt;
 }
 }
-    System.out.printf("5회 입력 중[%d]회 에러발생!!", errcnt);
-	System.out.println("총점 :" + sum);
-	System.out.println("평균 : " + avg);
+    System.out.printf("5회 입력 중[%d]회 에러발생!!", errCnt);
+	System.out.println("총점 :" + sum + "점");
+	System.out.println("평균 : " + ((double)sum/length) + "점");
 	
 */
 
