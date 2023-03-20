@@ -26,7 +26,7 @@ public class Homework02 {
 
 	for (int i = 0; i < StuArr.length; i++) { // 성적 입력하는 구간 출력
 		System.out.println((i+1));
-		StuArr[i].number = (i+1);
+		StuArr[i].number = i+1;
 		StuArr[i].score = sc.nextInt();
 	}
 	System.out.println();

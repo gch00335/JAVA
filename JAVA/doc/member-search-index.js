@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"kr.ac.kopo.day10","c":"MethodExam","l":"MethodExam()","u":"%3Cinit%3E()"},{"p":"kr.ac.kopo.day10","c":"MethodExam","l":"printGugudan()"},{"p":"kr.ac.kopo.day10","c":"MethodExam","l":"printGugudan(int)"},{"p":"kr.ac.kopo.day10","c":"MethodExam","l":"printGugudan(int, int)","u":"printGugudan(int,int)"}];updateSearchResults();
