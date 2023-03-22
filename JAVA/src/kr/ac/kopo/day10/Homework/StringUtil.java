@@ -9,7 +9,7 @@ public class StringUtil {
 */
 	
 //하나의 문자를 입력받아 해당 문자가 대문자이면 true 를 반환하는 isUpperChar( char c ) 메소드를 작성하시오
-		
+/*		
 	boolean isUpperChar(char c) {
 
 		if( (int)c<=90 && 65<=(int)c) {
@@ -144,12 +144,4 @@ public class StringUtil {
 		return 0;
 	}
 
-
-// 03.21 문제 01)
-//다음은 주어진 문자열에서 문자를 찾는 문제입니다. 입력값에 따라 다음과 같은 출력이 나
-// 오도록 해당 char 의 개수를 리턴하는 ch eckChar 메소드를 작성하시오.
-
-
-
-//문제 02)문자열에서 특정 문자를 제거 // 문자열 (oriStr)의 내용 중 주어진 문자(delChar)를 삭제
-
+} */

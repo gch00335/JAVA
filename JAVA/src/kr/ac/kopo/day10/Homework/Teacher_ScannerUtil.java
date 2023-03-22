@@ -11,25 +11,29 @@ public class Teacher_ScannerUtil {
 
 	Scanner sc;
 	
-	Teacher_ScannerUtil(){ // 생성자 형성
+	public Teacher_ScannerUtil(){ // 생성자 형성
 	sc = new Scanner(System.in);
 	}
 	
-	char nextchar(String msg) { // 하나의 메세지를 받고 리턴하겠다.
+	public char nextchar(String msg) { // 하나의 메세지를 받고 리턴하겠다.
 		System.out.println(msg);
 		char ch = sc.nextLine().charAt(0);
 		return ch;
 		//return sc.nextLine().charAt(0); // 위에 두줄을 이렇게 한줄로도 표현할 수 있다. 
 	}
-	int nextInt(String msg) {
+	public int nextInt(String msg) {
 		System.out.println(msg);
 		int num =sc.nextInt();
+		sc.nextLine(); // 버퍼가 비워지지 않도록 이것을 꼭 int 다음에 적어줘야함
 		return num;
 	}
-	String nextString(String msg) {
+	public String nextString(String msg) {
 		System.out.println(msg);
 		String str = sc.nextLine();
 		return str;
+	}
+
+
 	}
 	
 	

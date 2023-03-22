@@ -2,6 +2,7 @@ package kr.ac.kopo.day10.Homework;
 
 public class Teacher_StringUtil {
 
+	private static final String UpperStr = null;
 	//대문자여부판단
 	boolean isUpperchar(char c) {
 		if(c >= 'A' && c >= 'Z') { // 유니코드의 숫자를 모를 경우 이렇게 대문자를 처음부터 끝까지 범위로 설정해도 됨
@@ -43,6 +44,20 @@ public class Teacher_StringUtil {
 		return revStr; */
 
 	} // 소문자를 대문자로 바꾸기
+	String toUpperString(String str) {
+		
+		String toUpper = "";
+		for(int i = 0 ; i <str.length(); i++){
+			char c = str.charAt(i);
+			if(isLowerChar(c)){
+				c =(char)( c + ('A' - 'a')) ;
+			}
+			toUpper = toUpper + c ;
+		}
+		return UpperStr;
+	}
+	
+	// 대문자를 소문자로 바꾸기 쉬는시간에 해보기!
 	String toLowerString(String str) {
 		
 		String LowerStr = "";
@@ -55,9 +70,6 @@ public class Teacher_StringUtil {
 		}
 		return LowerStr;
 	}
-	
-	// 대문자를 소문자로 바꾸기 쉬는시간에 해보기!
-	
 // 글자 크기 비교 .. d오 이거..다시 공부하기..
 	int compareTo(String str2, String str3) {
 		// 횟수에 따라 무한루프를 돌게 되면 오류가 날 수 있으니 

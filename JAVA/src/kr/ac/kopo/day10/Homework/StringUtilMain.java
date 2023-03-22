@@ -111,7 +111,5 @@ public class StringUtilMain {
 	String sub1= sc.nextLine();
 	String sub2 = sc.nextLine();
 	
-
-	System.out.println(sub2 +"는" + String.indexOf(sub1, sub2)+"번지에 위치함");
 	}
-	}
+}
