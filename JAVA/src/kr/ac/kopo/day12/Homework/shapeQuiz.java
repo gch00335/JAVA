@@ -52,7 +52,7 @@ public class shapeQuiz {
 			s.area2(m3,c2);
 			break;
 		case 4:
-			int m4 = scan.nextInt("한변의 길이를 입력하세요");
+			int m4 = scan.nextInt("반지름의 길이를 입력하세요");
 			r.area(m4);
 			break;
 		
