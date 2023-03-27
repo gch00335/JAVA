@@ -1,9 +1,9 @@
 package kr.ac.kopo.day14_1Homework;
 
-public class QuizMain {
+public class ballQuizMain {
 	public static void main(String[] args) {
 		
-		Quiz Quiz = new Quiz();
+		ballQuiz Quiz = new ballQuiz();
 		Quiz.Start();
 	}
 
