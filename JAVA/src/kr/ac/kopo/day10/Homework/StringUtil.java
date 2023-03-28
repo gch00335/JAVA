@@ -72,7 +72,7 @@ public class StringUtil {
 		}		
 		return n;
 
-	}
+	} 
 //문자열을 입력받아 소문자로 변경하는 toLowerString( String str ) 메소드를 작성하시오	
 	String toLowerString(String str) {
 		
