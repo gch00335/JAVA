@@ -22,10 +22,11 @@ public class machine {
 			String id = sc.nextLine();
 			
 			// 아이디가 다른지 안다른지 확인해봐야함
-			// 오늘 배운 hash를 써볼래..저
+			// 오늘 배운 hash를 써볼래.. 
 		
 		   
-			
+			// 교수님 for문 줄이기..실패했습니다..
+			// 새벽에 다시한번 도전해보겠습니다ㅠㅠ
 
 			if(m1.getID().equals(id)) {
 				System.out.println("현재 패스워드를 입력하세요 : ");
@@ -41,6 +42,7 @@ public class machine {
 					System.out.println("패스워드 변경이 완료되었습니다");
 				
 				}
+				
 			
 				
 			} else if(m2.getID().equals(id)) {
@@ -70,28 +72,32 @@ public class machine {
 					String newPassword = sc.nextLine();
 					m3.Setp(newPassword);
 					System.out.println("패스워드 변경이 완료되었습니다");
-				
+
 				}
-			
-			} else if(m4.getID().equals(id)) {
+
+			} else if (m4.getID().equals(id)) {
 				System.out.println("현재 패스워드를 입력하세요 : ");
 				String pw = sc.nextLine();
-				if(!m4.getP().equals(pw)) {
-					System.out.println("입력하신 패스워드가 올바르지 않습니다"); 
+				if (!m4.getP().equals(pw)) {
+					System.out.println("입력하신 패스워드가 올바르지 않습니다");
 					System.out.println("서비스를 종료합니다.");
-					System.exit(0);	
-				} else  {
+					System.exit(0);
+				} else {
 					System.out.print("변경할 새로운 패스워드를 입력하세요 : ");
 					String newPassword = sc.nextLine();
 					m4.Setp(newPassword);
 					System.out.println("패스워드 변경이 완료되었습니다");
-				
+
 				}
-			
+
+			} else { 
 				System.out.println("입력하신 아이디는 존재하지 않습니다.");
 				System.out.println("서비스를 종료합니다.");
-				
+				System.exit(0);
+
 			}
+
+
 			System.out.println();
 			System.out.println("<전체 회원 목록>");
 			System.out.println("=====================");
@@ -101,12 +107,5 @@ public class machine {
 			System.out.println(m2.getID() + "\t" + m2.getP());
 			System.out.println(m3.getID() + "\t" + m3.getP());
 			System.out.println(m4.getID() + "\t" + m4.getP());
-
-
-
-			
 		}
-
-}
-
-
+	}
