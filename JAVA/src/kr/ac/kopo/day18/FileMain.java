@@ -20,13 +20,13 @@ public class FileMain {
 		
 		
 		
-		/*
+	
 		//파일이 있는지 없는지 확인해보는 코드
 		File dirObj = new File("iotest/새폴더/오리");
 		System.out.println(dirObj.isDirectory()? "디렉토입니다" : "디렉토리가 아닙니다.");
 		dirObj.mkdir(); // 위에 적힌 내용대로 새롭게 폴더 형성해주는것
 		System.out.println(dirObj.isDirectory()? "디렉토입니다" : "디렉토리가 아닙니다.");
-		*/
+		
 		
 		/*
 		System.out.println(fileObj.exists() ? "존재합니다" : "잘못된 이름입니다");
