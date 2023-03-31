@@ -58,10 +58,10 @@ public class Homework02 {
 			System.out.println(StuArr[i].number +"\t"+StuArr[i].Score +"\t"+ StuArr[i].grade);
 			sum = sum + StuArr[i].score;
 			
-		} else {
+		} 
 		System.out.println(StuArr[i].number + "\t E R R O R ! ! ");
 			error++;
-	}
+	
 }
 	System.out.println();
 	

@@ -1,6 +1,6 @@
 package kr.ac.kopo.day07;
 import java.util.Scanner;
-public class ArrayMain3 {
+public class ArrayMain03 {
 
 	/*
 	 * \키보드로 3개의 실수를 입력받아 출력하는 코드를 작성하시오

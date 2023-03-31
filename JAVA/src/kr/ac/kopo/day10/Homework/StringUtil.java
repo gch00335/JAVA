@@ -1,6 +1,6 @@
 package kr.ac.kopo.day10.Homework;
 
-public class StringUtil {
+public class StringUtil {}
 
 	// 알파벳 대문자 : 65 ~ 90
 	// 알파벳 소문자 : 97 ~ 122
