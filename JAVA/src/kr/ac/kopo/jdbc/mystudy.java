@@ -15,7 +15,7 @@ public class mystudy {
 		PreparedStatement pstmt = null;
 		
 		try {
-			//2. 쿼리를 만들어
+			//2. 쿼리를 만들어서 실행할 수 있도록 해줄 것
 			
 			conn = new ConnectionFactory().getConnection();
 			
