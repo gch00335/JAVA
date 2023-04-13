@@ -16,7 +16,7 @@ public class InsertMain01 {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			// 2. DB 연결 후 연결객체 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String url = "jdbc:oracle:dthin:@localhost:1521:xe";
 			String user = "hr";
 			String password = "hr";
 			conn = DriverManager.getConnection(url, user, password);

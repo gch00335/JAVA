@@ -5,7 +5,7 @@ public class Test {
     String addr;
     protected String pass;
     public String name;
-
+    
     public void info(){
     }
 
