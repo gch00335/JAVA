@@ -29,8 +29,7 @@ public class InsertMain01 {
 			
 			// 3. 쿼리 생성
 			
-			
-		
+
 
 		   stmt = conn.createStatement();
 			String sql = " update t_test "
