@@ -28,6 +28,7 @@ public class mystudy {
 	
 			//4. 결과 출력
 			ResultSet rs = pstmt.executeQuery();
+			System.out.println("--------------------");
 			while(rs.next()) {
 				String date = rs.getString("date1");
 				System.out.println(date);
@@ -36,7 +37,7 @@ public class mystudy {
 		}catch (Exception e){
 			e.printStackTrace();
 
-			//5. 종료
+			//5. 종료 끝!
 		} finally {
 			JDBCClose.close(pstmt, conn);
 		}
