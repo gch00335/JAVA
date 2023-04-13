@@ -46,6 +46,7 @@ public class InsertMain01 {
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+			
 		} finally {
 			// 5. 종료
 			if(stmt != null) {
