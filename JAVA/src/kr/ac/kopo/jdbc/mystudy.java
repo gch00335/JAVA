@@ -19,6 +19,7 @@ public class mystudy {
 			 
 			
 			
+			
 			conn = new ConnectionFactory().getConnection();
 			
 			//3. 실행을 해보기

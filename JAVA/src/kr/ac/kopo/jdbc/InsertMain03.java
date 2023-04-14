@@ -1,4 +1,4 @@
-package kr.ac.kopo.jcbc;
+package kr.ac.kopo.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
