@@ -30,7 +30,8 @@ public class BoardUI extends BaseUI {
 			IBoardUI ui = null;
 			switch (type) {
 			case 1:
-				System.out.println("전체게시글 조회 선택");
+				ui = new SearchAllUI();
+				// 글 등록 , 수정, 삭제 등이 잘 되었는지 확인을 해야하기때문에 전체게시글 조회 ui 필요
 				break;
 			case 2:
 				ui = new SearchOneUI();

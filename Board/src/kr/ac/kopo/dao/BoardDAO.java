@@ -18,7 +18,9 @@ public class BoardDAO {
 	public void insertBoard(BoardVO board) {
 		boardList.add(board);
 		
-	// 와 망했따..오늘 배운거 진짜 1도 모르겠다...
 	
+	}
+	public List<BoardVO> selectAllBoard(){ // 앗 이거 Allboard 로 해줘야함..
+		return boardList;
 	}
 }
