@@ -25,7 +25,7 @@ public class RentalUI  extends BaseUI implements IboardUI{
 			System.out.println("<<메뉴를 선택하세요ʕ ᵔᴥᵔ ʔ >>");
 			System.out.println("1. [도서검색] 선택");
 			System.out.println("2. [도서대출] 선택");
-			System.out.println("3. [도서목록출력] 선택");
+			System.out.println("3. [도서 대여 가능한 전체 목록 출력] 선택");
 			System.out.println("0. 이전으로 돌아가기");
 			System.out.println("============================");
 			Scanner sc = new Scanner(System.in);
@@ -37,7 +37,7 @@ public class RentalUI  extends BaseUI implements IboardUI{
 	public void execute() throws Exception {
 		while(true){
 			int type2 = menu();
-			RentalUI ui = null;
+			IboardUI ui = null;
 			switch (type2) {
 			case 1:
 				System.out.println("검색할 도서명을 입력하세요");
@@ -48,8 +48,7 @@ public class RentalUI  extends BaseUI implements IboardUI{
 				
 				break;
 			case 3:
-				System.out.println("대여한 도서 목록 조회");
-				
+				ui = new BookSeeUI() ;
 				break;
 
 			}

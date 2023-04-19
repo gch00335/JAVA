@@ -33,10 +33,13 @@ public class LibraryBookService {
 		public static LibraryBookService getInstance() {
 			return null;
 		}
-		
+		public List<BookVO> selectSee(){
+			List<BookVO> boardList = boardDao.selectSeeBoard(); 
+	        return boardList; 
 		
 		}
 		
+}
 		
 	
 

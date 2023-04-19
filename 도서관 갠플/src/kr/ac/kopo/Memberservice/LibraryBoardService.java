@@ -29,13 +29,18 @@ public class LibraryBoardService {
 			LibraryBoardVO board = boardDao.selectBoardByNo(boardID);
 			return (List<LibraryBoardVO>) board;
 		}
-		//public void einsertBoard(LibraryBoardVO board) {
-		//	boardDao.einsertBoard(board);
-			
-		//}
+		
 		public LibraryBoardVO[] getUsers() {
 			// TODO Auto-generated method stub
 			return null;
+		}
+		public void UpdateUser(LibraryBoardVO user) {
+			
+			
+		}
+		public void insertManager(LibraryBoardVO manager) {
+			boardDao.insertManager(manager);
+			
 		}
 		
 		}

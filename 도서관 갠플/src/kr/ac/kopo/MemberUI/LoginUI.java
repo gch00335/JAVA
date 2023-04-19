@@ -1,6 +1,5 @@
 package kr.ac.kopo.MemberUI;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 import kr.ac.kopo.LibraryBoardServiceFactory;
@@ -46,13 +45,13 @@ public class LoginUI extends BaseUI implements IboardUI {
 		        return;
 		    } else {
 
-		    	 loggedInUser = new LibraryBoardVO();  // loggedInUser 객체 생성
-		         LibraryBoardVO[] users = new LibraryBoardVO[1];
-		         users[0] = memberId;
+		    	// loggedInUser = new LibraryBoardVO();  // loggedInUser 객체 생성
+		       //  LibraryBoardVO[] users = new LibraryBoardVO[1];
+		        // users[0] = memberId;
 		         
-		         loggedInUser.setUsers(users);  // setUsers() 메서드 호출하여 배열 저장
-		         System.out.println(memberId.getLoginID()); 
-		         System.out.println(Arrays.toString(users)); 
+		       //  loggedInUser.setUsers(users);  // setUsers() 메서드 호출하여 배열 저장
+		       //  System.out.println(memberId.getLoginID()); 
+		       //System.out.println(Arrays.toString(users)); 
 		            
 		            
 		    	/*int no = loginno.getNo();
@@ -131,17 +130,16 @@ public class LoginUI extends BaseUI implements IboardUI {
 		   
 		}
 		    
+	}
+
+	public LibraryBoardVO getLoggedInUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	} 
 	
-// 다른클래스에서 배열 불러올때의 리턴 값
-	public LibraryBoardVO getLoggedInUser() {
-	    if (loggedInUser != null) {
-	        return loggedInUser;
-	    } else {
-	        return null;
-	}
-}
-}
+
 
 
 		

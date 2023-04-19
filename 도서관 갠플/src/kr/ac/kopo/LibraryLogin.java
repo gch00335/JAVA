@@ -15,8 +15,9 @@ public class LibraryLogin extends BaseUI implements IboardUI {
 		System.out.println("1. [로그인] 선택");
 		//System.out.println("3. [회원관리메뉴] 선택"); -> 관리자꺼 new ManagerUI(); // 회원관리
 		//System.out.println("4. [도서관리메뉴] 선택"); -> 관리자꺼 new BookManageUI(); // 도서관리메뉴
-		System.out.println("2. [관리자모드 접속] 선택");
-		System.out.println("3. [회원가입] 선택");
+		
+		System.out.println("2. [회원가입] 선택");
+		System.out.println("3. [관리자모드 접속] 선택");
 		System.out.println("0. ---시스템 종료---");
 
 		
@@ -37,14 +38,13 @@ public class LibraryLogin extends BaseUI implements IboardUI {
 			switch (type) {
 			case 1:
 				ui =  new LoginUI();
-				//LoginUI();  LibraryBookUI() ; //로그인
+				 //로그인
 				break;
 			case 2:
-				ui = new LibraryBookManagerUI(); // 관리자모드입장
-				break;
-
-			case 3:
 			     ui = new JoinUI(); 
+				break;
+			case 3:
+				ui = new LibraryBookManagerUI(); // 관리자모드입장
 				break;
 			case 0:
 				System.exit(0);

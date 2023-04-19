@@ -39,7 +39,7 @@ public class MypageUI extends LoginUI {
 				//ui = new ReturnUI(); // 도서반납
 				break;
 			case 3:
-				//ui = new RentaListUI(); //마이페이지 - 개인정보 출력 , 도서대여목록조회, 개인정보 수정 
+				ui = new UpdateUI(); //개인정보 수정 
 				break;
 	
 			case 4:

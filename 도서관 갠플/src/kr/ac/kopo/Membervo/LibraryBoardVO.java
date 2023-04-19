@@ -1,5 +1,7 @@
 package kr.ac.kopo.Membervo;
 
+import java.util.Arrays;
+
 public class LibraryBoardVO {
 
 	private int no;
@@ -53,6 +55,7 @@ public class LibraryBoardVO {
 	public void setLoginPW(String loginPW) {
 		this.loginPW = loginPW;
 	}
+	
 
 	public String getName() {
 		return name;
@@ -93,13 +96,16 @@ public class LibraryBoardVO {
 	  public LibraryBoardVO[] getUsers() {
 	        return users;
 	    }
-	
+	  public void setManager(LibraryBoardVO[] users) {
+	        this.users = users;
+	    }
 
 
- @Override
-public String toString() {
-	return "LibraryBoardVO [no=" + no + ",  loginID=" + loginID + ", loginPW=" + loginPW + ", name="
-			+ name + ", birth=" + birth + ", mail=" + mail + ", phone=" + phone + "]";
+	  @Override
+	  public String toString() {
+	      return "LibraryBoardVO [no=" + no + ",  loginID=" + loginID + ", loginPW=" + loginPW + ", name="
+	              + name + ", birth=" + birth + ", mail=" + mail + ", phone=" + phone + "]" + Arrays.toString(users);
+	  
 }
 
 

@@ -41,7 +41,7 @@ public class LibraryBookDAO {
 	    }
 	}
 	
-	public List<BookVO> selectAllBoard(){ // 도서전체조회
+	public List<BookVO> selectAllBoard(){ // 관지라모드 전체 고유 도서전체조회 -- 반납하든 대출하든 정보 그대로!
 		StringBuilder sql = new StringBuilder();
 		sql.append("select no, Bookname, writer,publisher "); 
 		sql.append("  from ttt_book ");
@@ -72,7 +72,6 @@ public class LibraryBookDAO {
 	}
 
 
-		
 		
 public BookVO selectBoardByNo(int bookNo) {
 	
@@ -109,11 +108,61 @@ public BookVO selectBoardByNo(int bookNo) {
 	
 	return board;
 }
-}
+
 	
-		
-		
-		
+public List<BookVO> selectSeeBoard(){ //일반용 -- 관리자모드를 끌고와서 임시테이블로 보여주고 대출,반납기능 
+	   StringBuilder sql = new StringBuilder();
+	    sql.append("select no, Bookname, writer, publisher "); 
+	    sql.append("from ttt_book ");
+	    sql.append("order by no desc");
+	    
+	    List<BookVO> bookList = new ArrayList<>();
+	    
+	    try (
+	        Connection conn = new ConnectionFactory().getConnection();
+	        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+	        ResultSet rs = pstmt.executeQuery();
+	    ) {
+	        while (rs.next()) { 
+	            int no = rs.getInt("no");
+	            String bookName = rs.getString("Bookname");
+	            String writer = rs.getString("writer");
+	            String publisher = rs.getString("publisher");
+	            BookVO book = new BookVO(no, bookName, writer, publisher);
+	            bookList.add(book);
+	            System.out.println(bookList);
+	        }
+	        
+	        StringBuilder sql1 = new StringBuilder();
+	        sql1.append("insert into e_book(no, Bookname, writer, publisher) "); 
+	        sql1.append("values(?, ?, ?, ?)");
+
+	        try (PreparedStatement pstmt1 = conn.prepareStatement(sql1.toString())) {
+	            for (BookVO book : bookList) {
+	               
+	            	pstmt1.setInt(1, book.getNo());
+	                pstmt1.setString(2, book.getBookname());
+	                pstmt1.setString(3, book.getWriter());
+	                pstmt1.setString(4, book.getPublisher());
+	                System.out.println(bookList);
+	                pstmt1.addBatch();
+	            }
+	            pstmt1.executeBatch();
+	            pstmt1.clearBatch();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    } catch(Exception e) {
+	        e.printStackTrace();    
+	    }
+	    
+	    return bookList;
+	}
+	
+}
+
+
+
 		
 		
 	/*	
