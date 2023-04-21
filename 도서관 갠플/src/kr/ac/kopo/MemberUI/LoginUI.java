@@ -1,15 +1,22 @@
 package kr.ac.kopo.MemberUI;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import kr.ac.kopo.LibraryBoardServiceFactory;
 import kr.ac.kopo.LibraryLogin;
+import kr.ac.kopo.BookVO.BookVO;
 import kr.ac.kopo.Bookui.BaseUI;
 import kr.ac.kopo.Bookui.IboardUI;
 import kr.ac.kopo.Bookui.RentalUI;
 import kr.ac.kopo.Memberdao.LibraryBoardDAO;
 import kr.ac.kopo.Memberservice.LibraryBoardService;
 import kr.ac.kopo.Membervo.LibraryBoardVO;
+import kr.ac.kopo.util.ConnectionFactory;
 
 
 public class LoginUI extends BaseUI implements IboardUI {
@@ -29,19 +36,21 @@ public class LoginUI extends BaseUI implements IboardUI {
 	    LibraryBoardVO board = new LibraryBoardVO();
 		IboardUI ui = null;
 
-		  Scanner sc = new Scanner(System.in);
-		  System.out.println("============================================");
+		    Scanner sc = new Scanner(System.in);
+		    System.out.println("========================================================");
 		    System.out.println("아이디를 입력하세요: ");
 		    String id = sc.next();
-		    System.out.println("============================================");
+		    System.out.println("========================================================");
 		    System.out.println("비밀번호를 입력하세요: ");
 		    String password = sc.next();
-		    System.out.println("============================================");
+		    System.out.println("========================================================");
 
 		    LibraryBoardVO memberId = boardDAO.login(id, password);
 
 		    if (memberId == null) {
-		        System.out.println("로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.");
+		    	System.out.println("========================================================");
+		        System.out.println("        [로그인 실패] 아이디 또는 비밀번호가 올바르지 않습니다.     ");
+		        System.out.println("========================================================");
 		        return;
 		    } else {
 
@@ -68,9 +77,10 @@ public class LoginUI extends BaseUI implements IboardUI {
 		  
 
 		    	
-		    System.out.println("로그인에 성공하셨습니다.");
-		    System.out.println("["+id+"]" + "님 환영합니다.");
-
+			    System.out.println("========================================================");
+			    System.out.println("                     로그인에 성공하셨습니다.                    ");
+			    System.out.println("                     ["+id+"]" + "님 환영합니다.              ");
+			    System.out.println("========================================================");
 		
 		   /* board.setNo(no);;
 		    board.setLoginID(LoginID);
@@ -87,15 +97,16 @@ public class LoginUI extends BaseUI implements IboardUI {
 	*/
 		    
 		   while(true) {
-			    System.out.println("*********************************************");
-			    System.out.println("             (｡•̀ᴗ-ღ) 찌니 도서관 입장            ");
-				System.out.println("*********************************************");
-				System.out.println("1. [도서대출] 선택");
-				System.out.println("2. [도서반납] 선택");
-				System.out.println("3. [마이페이지] 선택"); // mypage
-				System.out.println("4. 이전으로 돌아가기");
+			    System.out.println("*******************************************************");
+			    System.out.println("                      찌니 도서관 입장                     ");
+				System.out.println("*******************************************************");
+				System.out.println("1. [도서 대출] ");
+				System.out.println("2. [도서 반납] ");
+				System.out.println("3. [도서 대여목록] ");
+				System.out.println("4. [마이페이지] "); // mypage
+				System.out.println("5. 이전으로 돌아가기");
 				System.out.println("0. ---시스템 종료---");
-				System.out.println("============================================");
+				System.out.println("========================================================");
 				System.out.print("원하는 항목을 선택하세요 : ");
 				Scanner sc2 = new Scanner(System.in);
 				int type = sc.nextInt();
@@ -106,25 +117,89 @@ public class LoginUI extends BaseUI implements IboardUI {
 					ui =  new RentalUI() ; // 도서대출
 					break;
 				case 2:
-					//ui = new ReturnUI(); // 도서반납
+					ui = new ReturnUI(); // 도서반납
 					break;
 				case 3:
-					ui = new MypageUI(); //마이페이지 - 개인정보 출력 , 도서대여목록조회, 개인정보 수정 
+					
+					 StringBuilder sql = new StringBuilder();
+						sql.append("SELECT no, Bookname, writer, publisher ");
+						sql.append("FROM r_book ");
+						sql.append("WHERE loginId LIKE ?");
+
+						List<BookVO> bookList = new ArrayList<>();
+						try (
+								Connection conn = new ConnectionFactory().getConnection();
+								PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+								) {
+							pstmt.setString(1, "%" + id + "%");
+							ResultSet rs = pstmt.executeQuery();
+
+							while (rs.next()) {
+								int no = rs.getInt("no");
+								String bookname = rs.getString("Bookname");
+								String writer = rs.getString("writer");
+								String publisher = rs.getString("publisher");
+
+								BookVO book = new BookVO(no, bookname, writer, publisher);
+								bookList.add(book);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+						if (bookList == null || bookList.isEmpty()) {
+							 System.out.println("========================================================");
+						   	 System.out.println("                   [검색 결과가 없습니다.]                   ");
+							 System.out.println("========================================================");
+							 
+							 break;
+						} else if (bookList.size() == 1) {
+							BookVO book = bookList.get(0);
+							System.out.println("========================================================");
+							 System.out.println(              "["+id+"]" + "님 도서대여목록입니다.           ");
+							 System.out.println("========================================================");
+							 System.out.println("코  드 : " + "["+book.getNo()+"]");
+							 System.out.println("제  목 : " + "["+ book.getBookname()+"]");
+							 System.out.println("저  자 : " + "["+ book.getWriter()+"]");
+							 System.out.println("출 판 사 : "+ "["+ book.getPublisher()+"]");
+							 System.out.println("========================================================");
+						} else {
+							for (BookVO book : bookList) {
+								 System.out.println("========================================================");
+								 System.out.println(              "["+id+"]" + "님 도서대여목록입니다.           ");
+								 System.out.println("========================================================");
+								 System.out.println("코  드 : " + "["+book.getNo()+"]");
+								 System.out.println("제  목 : " + "["+ book.getBookname()+"]");
+								 System.out.println("저  자 : " + "["+ book.getWriter()+"]");
+								 System.out.println("출 판 사 : "+ "["+ book.getPublisher()+"]");
+								 System.out.println("========================================================");
+							}
+						}
+						
+					
+					break;
+				
+				case 4:
+					ui = new MypageUI(); //마이페이지 - 개인정보 출력 , 도서대여목록조회, 개인정보 수정 , 회원탈퇴
 					break;
 		
-				case 4:
+				case 5:
 					ui = new LibraryLogin();
 					break;
 					
 				case 0:
 					System.exit(0);
+					System.out.println("                ["+id+"]" + "님 로그아웃됩니다              ");
+					System.out.println("                     안녕히 가세요                         ");
+
+					System.out.println("========================================================");
 					break;
 				}
 				
 				if(ui != null) {
 					ui.execute();
 				} else {
-					System.out.println("잘못입력하셨습니다.");
+					
 				}
 			}
 		   

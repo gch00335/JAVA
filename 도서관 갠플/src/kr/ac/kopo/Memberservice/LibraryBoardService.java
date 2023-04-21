@@ -42,6 +42,16 @@ public class LibraryBoardService {
 			boardDao.insertManager(manager);
 			
 		}
+		public String[] getBooks() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		public LibraryBoardVO DelectIdUI(Object object) {
+			  LibraryBoardVO board = boardDao.DelectIdUI();
+			return null;
+		}
+	
+		
 		
 		}
 	

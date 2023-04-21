@@ -19,11 +19,13 @@ public class JoinUI extends BaseUI implements IboardUI {
 	@Override
 	public void execute() throws Exception {
 		LibraryBoardVO board = new LibraryBoardVO();
-		
-		System.out.println("=======<<회원가입>>=======");
+
+		System.out.println("========================================================");
+		System.out.println("                       <<회원가입>>                       ");
+		System.out.println("========================================================");
 
 		while(true) {
-			String loginID = scanStr(" 1) 사용할 ID를 입력하세요 : "); // 로그인 아이디 입력
+			String loginID = scanStr(" 1) [사용할 ID]를 입력하세요 : "); // 로그인 아이디 입력
 			
 			if(loginID.length() == 0) {
 				continue;
@@ -36,30 +38,33 @@ public class JoinUI extends BaseUI implements IboardUI {
 			break;
 		}
 		while(true) {
-			String loginPW = scanStr(" 2) 사용할 패스워드를 입력하세요 : "); // 로그인 비번 입력
+			String loginPW = scanStr(" 2) [사용할 패스워드]를 입력하세요 : "); // 로그인 비번 입력
 
 			if(loginPW.length() == 0) {
 				continue;
 			}
 
 			while(true) {
-				String loginPWconfirm = scanStr(" 2) 패스워드 확인 : "); // 로그인 비번 재확인
+				String loginPWconfirm = scanStr(" 2) [패스워드 확인] : "); // 로그인 비번 재확인
 
 				if(loginPWconfirm.length() == 0) {
 					continue;
 				}
 				if(loginPW.equals(loginPWconfirm) == false) {
-					System.out.println("비밀번호가 일치하지 않습니다.");
+					System.out.println("========================================================");
+					System.out.println("                   비밀번호가 일치하지 않습니다.               ");
+					System.out.println("========================================================");
 					continue;
 				} else{
 					 board.setLoginPW(loginPW); 
 					break;
 				}
 			} 
-
-			System.out.println("=======<<개인정보 입력>>=======");
+			System.out.println("========================================================");
+			System.out.println("                      <<개인정보 입력>>                    ");
+			System.out.println("========================================================");
 			while(true) {
-				String name = scanStr(" 1) 이름을 입력하세요: "); // 이름 입력
+				String name = scanStr(" 1) [이름]을 입력하세요: "); // 이름 입력
 
 				if(name.length() == 0) {
 					continue;
@@ -68,7 +73,7 @@ public class JoinUI extends BaseUI implements IboardUI {
 				break;
 			}
 			while(true) {
-				String birth  = scanStr(" 2) 생년월일을 6자리를 입력하세요(ex: 990101): "); // 생년월일 입력
+				String birth  = scanStr(" 2) [생년월일을 6자리]를 입력하세요(ex: 990101): "); // 생년월일 입력
 
 				if(birth.length() == 0) {
 					continue;
@@ -77,7 +82,7 @@ public class JoinUI extends BaseUI implements IboardUI {
 				break;
 			}
 			while(true) {
-				String mail = scanStr(" 3) 메일을 입력하세요: "); // 메일 입력
+				String mail = scanStr(" 3) [메일]을 입력하세요: "); // 메일 입력
 
 				if(mail.length() == 0) {
 					continue;
@@ -86,7 +91,7 @@ public class JoinUI extends BaseUI implements IboardUI {
 				break;
 			}
 			while(true) {
-				String phone = scanStr(" 4) 전화번호를 입력하세요(ex : 000-0000-0000) : "); // 이름 입력
+				String phone = scanStr(" 4) [전화번호]를 입력하세요(ex : 000-0000-0000) : "); // 이름 입력
 
 				if(phone.length() == 0) {
 					continue;
@@ -100,9 +105,10 @@ public class JoinUI extends BaseUI implements IboardUI {
 		 
 		 boardService.insertBoard(board);
 		 
-		 System.out.println("*********************************************");
-		 System.out.println("********* 등록을 완료하였습니다 (*˙︶˙*)ﾉ *********");
-		 System.out.println("*********************************************");
+
+		 System.out.println("********************************************************");
+		 System.out.println("                  < 등록을 완료하였습니다  >                 ");
+		 System.out.println("********************************************************");
 	}
 }
 

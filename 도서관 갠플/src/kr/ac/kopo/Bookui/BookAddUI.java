@@ -16,20 +16,21 @@ public class BookAddUI extends BaseUI implements IboardUI  {
 
 	@Override
 	public void execute() throws Exception {
-
-		 String title = scanStr("등록할 제목을 입력하세요 : ");
-		 String writer = scanStr("글쓴이를 입력하세요 : ");
-		 String publisher = scanStr("출판사를 입력하세요 : ");
-	
+		
+		 System.out.println("========================================================");
+		 String title = scanStr("[제 목]을 입력하세요 : ");
+		 String writer = scanStr("[저 자]를 입력하세요 : ");
+		 String publisher = scanStr("[출 판 사]를 입력하세요 : ");
+		 System.out.println("========================================================");
 		 BookVO board = new BookVO();
 		 board.setBookname(title);   // 제목
 		 board.setWriter(writer); // 작성자
 		 board.setPublisher(publisher);// 출판사
 
 		 boardService.insertBoard(board);
-		 
-		 System.out.println(" 등록을 완료하였습니다");
-
+		 System.out.println("========================================================");
+		 System.out.println("                 [등록을 완료하였습니다]                     ");
+		 System.out.println("========================================================");
 	}
 }
 

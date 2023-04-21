@@ -21,19 +21,19 @@ public class information extends BaseUI implements IboardUI  {
 		LibraryBoardVO[] users = loggedInUser.getUsers();  // getUsers() 메서드로 배열 사용
 
 		
-		   System.out.println("===========================================");
-		    System.out.println("회원 정보 조회");
-		    System.out.println("===========================================");
+		    System.out.println("========================================================");
+		    System.out.println("                    [회원 정보 조회]                       ");
+		    System.out.println("========================================================");
 		
 	        // 배열에 접근하여 값을 읽기
 	        for (LibraryBoardVO user : users) {
-	            System.out.println("아이디 : " + user.getLoginID());
-	            System.out.println("비밀번호: " + user.getLoginPW());
-		        System.out.println("이름: " + user.getName());
-		        System.out.println("생일: " + user.getBirth());
-		        System.out.println("메일: " + user.getMail());
-		        System.out.println("번호: " + user.getPhone());
-		        System.out.println("===========================================");
+	            System.out.println("[아 이 디] : " + user.getLoginID());
+	            System.out.println("[비 밀 번 호] : " + user.getLoginPW());
+		        System.out.println("[이 름]: " + user.getName());
+		        System.out.println("[생 일]: " + user.getBirth());
+		        System.out.println("[메 일]: " + user.getMail());
+		        System.out.println("[번 호]: " + user.getPhone());
+		        System.out.println("========================================================");
 	        }
 	    }
 	

@@ -24,23 +24,26 @@ public class LibraryBookManagerUI extends BaseUI implements IboardUI  { // 관�
 		IboardUI ui = null;
 
 		  Scanner sc = new Scanner(System.in);
-		  System.out.println("============================================");
-		    System.out.println("아이디를 입력하세요: ");
+		   System.out.println("========================================================");
+		    System.out.println("[아이디]를 입력하세요: ");
 		    String id = sc.next();
-		    System.out.println("============================================");
-		    System.out.println("비밀번호를 입력하세요: ");
+		    System.out.println("========================================================");
+		    System.out.println("[비밀번호]를 입력하세요: ");
 		    String password = sc.next();
-		    System.out.println("============================================");
+		    System.out.println("========================================================");;
 
 		    LibraryBoardVO memberId = boardDAO.Managerlogin(id, password);
 
 		    if (memberId == null) {
-		        System.out.println("로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.");
+		    	System.out.println("========================================================");
+		        System.out.println("        [로그인 실패] 아이디 또는 비밀번호가 올바르지 않습니다.     ");
+		        System.out.println("========================================================");
 		        return;
 		    } else {
-
-		    System.out.println("로그인에 성공하셨습니다.");
-		    System.out.println("["+id+"]" + "관리자님 환영합니다.");
+		    System.out.println("========================================================");
+		    System.out.println("                    로그인에 성공하셨습니다.                    ");
+		    System.out.println("                    ["+id+"]" + "관리자님 환영합니다.             ");
+		    System.out.println("========================================================");
 	
 		    }
 			ui = new OverseeUI();

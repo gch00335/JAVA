@@ -1,25 +1,23 @@
 package kr.ac.kopo.Bookui;
 
 import java.util.List;
+import java.util.Set;
 
 import kr.ac.kopo.BookService.LibraryBookService;
 import kr.ac.kopo.BookService.LibraryBookServiceFactory;
 import kr.ac.kopo.BookVO.BookVO;
 
-
-public class BookListUI extends BaseUI implements IboardUI  { // 관리자가 보는 전체출력용
-
+public class DelectBookUI extends BaseUI implements IboardUI  { 
 	private LibraryBookService boardService;
 
-	public BookListUI() {
-		
-		
+	public DelectBookUI() {
+
 		boardService = LibraryBookServiceFactory.getInstance();
 
 	}
 
-
-	public void execute() throws Exception { 
+	@Override
+	public void execute() throws Exception {
 		List<BookVO> bookList = boardService.selectAll();
 		IboardUI ui = null;
 		System.out.println("========================================================");
@@ -32,7 +30,7 @@ public class BookListUI extends BaseUI implements IboardUI  { // 관리자가 �
 
 		}else {
 			for(BookVO board : bookList) { // 1.5버전의 구문
-				System.out.println("\t"+
+				System.out.println(
 						board.getNo()+"\t" + 
 				         board.getBookname() +"\t"+"\t"+
 						board.getWriter()+ "\t"+
@@ -44,5 +42,9 @@ public class BookListUI extends BaseUI implements IboardUI  { // 관리자가 �
 		    }
 		    System.out.println("========================================================");
 		}
+		Set<BookVO> bookList1 = boardService.DelectBook();
+		
 	}
+
+
 }
