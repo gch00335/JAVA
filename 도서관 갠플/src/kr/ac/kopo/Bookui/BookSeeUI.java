@@ -24,6 +24,7 @@ public class BookSeeUI extends BaseUI implements IboardUI  { // 일반회원한�
 		System.out.println("                    [  도서 전체 목록  ]                   ");
 		System.out.println("========================================================");
 		System.out.println("    번 호   ||    제 목    ||    저 자    ||    출 판 사"    );
+		System.out.println("========================================================");
 		if(bookList == null || bookList.size() == 0) {
 			System.out.println("\t [책이 존재하지 않습니다]");
 

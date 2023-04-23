@@ -12,6 +12,7 @@ import java.util.Set;
 
 import kr.ac.kopo.LibraryBoardServiceFactory;
 import kr.ac.kopo.BookVO.BookVO;
+import kr.ac.kopo.BookVO.RentalBookVO;
 import kr.ac.kopo.Bookui.IboardUI;
 import kr.ac.kopo.Memberdao.LibraryBoardDAO;
 import kr.ac.kopo.Memberservice.LibraryBoardService;
@@ -551,6 +552,7 @@ public List<BookVO> selectAllBoard(){ // 관지라모드 전체 고유 도서전
 			){
 
 		ResultSet rs = pstmt.executeQuery();
+		
 		while(rs.next()) { 
 			int no = rs.getInt("no");
 			String Bookname = rs.getString("Bookname");
@@ -672,6 +674,34 @@ public Set<BookVO> selectSeeBoard2(){
 }
 
 
+/////////////////관리자모드에서 보여지는 회원이 빌려간 대출 목록/////////////////////
+
+public  Set<RentalBookVO> selectAllRental() {
+	StringBuilder sql = new StringBuilder();
+    sql.append("SELECT rb.no, rb.LoginID, rb.bookname, rb.writer, rb.publisher ");
+    sql.append("FROM r_book rb ");
+    sql.append("JOIN t_member tm ON rb.LoginID = tm.LoginID");
+
+    Set<RentalBookVO> rentalList = new HashSet<>();
+    try (Connection conn = new ConnectionFactory().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
+
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            int no = rs.getInt("no");
+            String loginId = rs.getString("LoginID");
+            String bookName = rs.getString("bookname");
+            String writer = rs.getString("writer");
+            String publisher = rs.getString("publisher");
+
+            RentalBookVO rental = new RentalBookVO(loginId, no, bookName, writer, publisher);
+            rentalList.add(rental);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return rentalList;
+}
 
 
 
@@ -740,5 +770,10 @@ public List<BookVO>  BookReturn() { ////////////////////////////////////////////
 		}
 	}
 	return bookList;
+}
+
+public Set<RentalBookVO> selectMemberRental(Object object) {
+	// TODO Auto-generated method stub
+	return null;
 }
 }

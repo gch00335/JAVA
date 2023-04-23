@@ -5,6 +5,7 @@ import java.util.Set;
 
 import kr.ac.kopo.BookDAO.LibraryBookDAO;
 import kr.ac.kopo.BookVO.BookVO;
+import kr.ac.kopo.BookVO.RentalBookVO;
 
 public class LibraryBookService {
 	//ui가 서비스를 호출하면 서비스가 여러개를 호출해서 ui에게 전달하는 시스템
@@ -57,11 +58,16 @@ public class LibraryBookService {
 			List<BookVO> boardList = boardDao.DelectBook(null); 
 			return null;
 		}
-	
+		public Set<RentalBookVO> selectMemberRental() {
+			Set<RentalBookVO> boardList = boardDao.selectAllRental(); 
+			
+			return boardList;
+		}
+		
 	
 		
 }
-		
+
 	
 
 

@@ -27,14 +27,17 @@ public class JoinUI extends BaseUI implements IboardUI {
 		while(true) {
 			String loginID = scanStr(" 1) [사용할 ID]를 입력하세요 : "); // 로그인 아이디 입력
 			
-			if(loginID.length() == 0) {
-				continue;
-			}
-			//if( boardService.selectByNo(loginID)) { //중복체크는..일단 다음에..
-			//System.out.println("이미 사용중인 아이디 입니다.");
-			//	continue;
-			//}
-			board.setLoginID(loginID);
+			 if(loginID.length() == 0) {
+			        continue;
+			    }
+			    if(boardService.isDuplicateID(loginID)) { // 중복 체크
+			    	 System.out.println("========================================================");
+			    	 System.out.println("                 이미 사용중인 아이디 입니다.                 ");
+					 System.out.println("========================================================");
+			     
+			        continue;
+			    }
+			    board.setLoginID(loginID);
 			break;
 		}
 		while(true) {
@@ -107,7 +110,7 @@ public class JoinUI extends BaseUI implements IboardUI {
 		 
 
 		 System.out.println("********************************************************");
-		 System.out.println("                  < 등록을 완료하였습니다  >                 ");
+		 System.out.println("                    < 등록을 완료하였습니다  >                 ");
 		 System.out.println("********************************************************");
 	}
 }

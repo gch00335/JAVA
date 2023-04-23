@@ -79,7 +79,7 @@ public class LoginUI extends BaseUI implements IboardUI {
 		    	
 			    System.out.println("========================================================");
 			    System.out.println("                     로그인에 성공하셨습니다.                    ");
-			    System.out.println("                     ["+id+"]" + "님 환영합니다.              ");
+			    System.out.println("                    ["+id+"]" + "님 환영합니다.              ");
 			    System.out.println("========================================================");
 		
 		   /* board.setNo(no);;
@@ -98,12 +98,16 @@ public class LoginUI extends BaseUI implements IboardUI {
 		    
 		   while(true) {
 			    System.out.println("*******************************************************");
-			    System.out.println("                      찌니 도서관 입장                     ");
+			    System.out.println("                                                         ");
+			    System.out.println("                     [찌니 도서관] 입장                     ");
+			    System.out.println("                                                         ");
 				System.out.println("*******************************************************");
-				System.out.println("1. [도서 대출] ");
+				System.out.println("1. [도서 대출] : 도서검색, 도서 대출하기, 도서 대여 가능 목록 출력  ");
 				System.out.println("2. [도서 반납] ");
-				System.out.println("3. [도서 대여목록] ");
-				System.out.println("4. [마이페이지] "); // mypage
+				System.out.println("3. [도서 대여목록] : 내가 대여한 도서목록 ");
+				System.out.println("4. [마이페이지] : 개인정보 출력, 개인정보 수정, 회원 탈퇴 " );
+				System.out.println("                                                         ");
+				System.out.println("                                                         ");
 				System.out.println("5. 이전으로 돌아가기");
 				System.out.println("0. ---시스템 종료---");
 				System.out.println("========================================================");
@@ -188,11 +192,12 @@ public class LoginUI extends BaseUI implements IboardUI {
 					break;
 					
 				case 0:
-					System.exit(0);
 					System.out.println("                ["+id+"]" + "님 로그아웃됩니다              ");
 					System.out.println("                     안녕히 가세요                         ");
 
 					System.out.println("========================================================");
+					System.exit(0);
+					
 					break;
 				}
 				

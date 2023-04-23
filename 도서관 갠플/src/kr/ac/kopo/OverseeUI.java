@@ -8,6 +8,7 @@ import kr.ac.kopo.Bookui.BookListUI;
 import kr.ac.kopo.Bookui.DelectBookUI;
 import kr.ac.kopo.Bookui.IboardUI;
 import kr.ac.kopo.Bookui.SearchListUI;
+import kr.ac.kopo.Bookui.selectMemberRentalUI;
 import kr.ac.kopo.MemberUI.ManagerJoinUI;
 
 
@@ -22,15 +23,20 @@ public class OverseeUI extends BaseUI implements IboardUI  {
 		
 		while(true){
 			System.out.println("********************************************************");
+			System.out.println("                                                         ");
 			System.out.println("                       [관리자모드]                       ");
+			System.out.println("                                                         ");
 			System.out.println("********************************************************");
 			System.out.println("1. [도서전체 조회] "); //BookListUI
 			System.out.println("2. [도서 추가] "); // BookAddUI
 			System.out.println("3. [도서 삭제] "); // BookDelectUI
 			System.out.println("4. [도서 검색] "); //Booksearch UI
-			System.out.println("5. [회원 목록] "); 
-			System.out.println("6. [관리자 계정 추가] " );
-			System.out.println("7. 이전으로 돌아가기");
+			System.out.println("5. [회원 대출 목록] ");
+			System.out.println("6. [회원 목록] "); 
+			System.out.println("7. [관리자 계정 추가] " );
+			System.out.println("                                                         ");
+			System.out.println("                                                         ");
+			System.out.println("8. 이전으로 돌아가기");
 			System.out.println("0. ---시스템 종료---");
 			
 			System.out.println("========================================================");
@@ -53,14 +59,22 @@ public class OverseeUI extends BaseUI implements IboardUI  {
 			case 4:
 				ui = new SearchListUI(); //도서검색
 				break;
+				
 			case 5:
+				ui = new selectMemberRentalUI(); //도서검색
+				break;
+			
+			
+	
+			case 6:
 				ui = new SearchMemberUI(); //회원목록조회
 				break;
 				
-			case 6:
+			case 7:
 				ui = new ManagerJoinUI();
 				break;
-			case 7:
+			
+			case 8:
 				ui = new LibraryLogin();
 				break;
 			case 0:

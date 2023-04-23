@@ -381,7 +381,7 @@ public LibraryBoardVO[] Manager() {
 	            if (affectedRows > 0) {
 	                System.out.println("========================================================");
 	                System.out.println("                  ["+id+"]" + "님 탈퇴가 완료되었습니다.           ");
-	                System.out.println("                      안녕히가세요                        ");
+	            
 	                System.out.println("========================================================");
 	            } else {
 	                System.out.println("========================================================");
@@ -397,7 +397,7 @@ public LibraryBoardVO[] Manager() {
 	
 	
 /////////////////회원목록 조회///////////////////////////////
-	public List<LibraryBoardVO>  SearchMember(){ 
+	public List<BookVO>  SearchMember(){ 
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("select no, Bookname, writer,publisher "); 
@@ -428,7 +428,20 @@ public LibraryBoardVO[] Manager() {
 		return bookList;
 	}
 
+
 	}
+
+	
+	
+
+	
+	
+
+
+
+
+
+	
 	
 	
 

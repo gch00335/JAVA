@@ -29,7 +29,7 @@ public class BookAddUI extends BaseUI implements IboardUI  {
 
 		 boardService.insertBoard(board);
 		 System.out.println("========================================================");
-		 System.out.println("                 [등록을 완료하였습니다]                     ");
+		 System.out.println("                   [등록을 완료하였습니다]                     ");
 		 System.out.println("========================================================");
 	}
 }

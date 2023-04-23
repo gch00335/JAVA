@@ -9,11 +9,15 @@ public class MypageUI extends LoginUI {
 	
 	private int menu() {
 		System.out.println("*******************************************************");
-		System.out.println("                [MY PAGE] 입장                 ");
+		System.out.println("                                                         ");
+		System.out.println("                      [MY PAGE] 입장                    ");
+		System.out.println("                                                       ");
 		System.out.println("*******************************************************");
 		System.out.println("1. [개인정보 출력] ");
 		System.out.println("2. [개인정보 수정] ");
 		System.out.println("3. [회원 탈퇴] ");
+		System.out.println("                                                         ");
+		System.out.println("                                                         ");
 		System.out.println("0. ---시스템 종료---");
 		System.out.println("========================================================");
 		System.out.println("원하는 항목을 선택하세요 : ");
@@ -44,10 +48,11 @@ public class MypageUI extends LoginUI {
 	
 				
 			case 0:
+				System.out.println("                        안녕히가세요                       ");
+				System.out.println("========================================================");
 				System.exit(0);
 
-				System.out.println("                 로그아웃됩니다. 안녕히가세요                 ");
-				System.out.println("========================================================");
+				
 				break;
 			}
 			

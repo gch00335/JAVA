@@ -26,10 +26,11 @@ public class RentalUI  extends BaseUI implements IboardUI{
 			System.out.println("========================================================");
 			System.out.println("                   <<메뉴를 선택하세요 >>                   ");
 			System.out.println("1. [도서 검색] ");
-			System.out.println("2. [도서 대출] ");
+			System.out.println("2. [도서 대출하기] ");
 			System.out.println("3. [도서 대여 가능한 전체 목록 출력] ");
 			System.out.println("0. ---시스템 종료---");
 			System.out.println("========================================================");
+			System.out.print("원하는 항목을 선택하세요 : ");
 			Scanner sc = new Scanner(System.in);
 			int type2 = sc.nextInt();
 			sc.nextLine();

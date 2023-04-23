@@ -51,8 +51,18 @@ public class LibraryBoardService {
 			return null;
 		}
 	
+		public boolean isDuplicateID(String loginID) {
+		    List<LibraryBoardVO> memberList = selectAll(); // 회원목록 가져오기
+		    for (LibraryBoardVO member : memberList) {
+		        if (member.getLoginID().equals(loginID)) {
+		            return true; // 중복 아이디 발견
+		        }
+		    }
+		    return false; // 중복 아이디 없음
+		}
 		
 		
+	
 		}
 	
 	
