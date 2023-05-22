@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset= "euc-KR">
+
+<title>Insert title here</title></head>
+<body>
+<form method="get" action="/example1/QueryServlet">
+name : <input type="text" name="name"/><br/>
+password : <input type="password" name="password"/><br/>
+성별 : <input type="radio" name="sex" value="남성"/>남성
+<input type="radio" name="sex" value="여성"/>여성
+<br/>
+관심사항 : <input type="checkbox" name="favor" value="정치"/>정치 <input type="checkbox" name="favor" value="경제"/>경제
+<br/>
+직업
+<select name="job">
+<option>학생
+<option>주부
+<option>회사원
+</select>
+<br/>
+자기소개
+<textarea name="comments" rows="10" cols="35"></textarea> 
+<br/>
+<input type="submit" value="전송"/>
+</form>
+</body>
+</html>
