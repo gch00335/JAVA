@@ -6,22 +6,22 @@
 <%@ page import="java.util.*" %>
 
 <%
-	//°íÁ¤µÈ ID,PW ¼³Á¤
-	String fixedID = "admin";
-    String fixedPW = "password";
+	//ê³ ì •ëœ ID,PW ì„¤ì •
+	String fixedID = "a";
+    String fixedPW = "1234";
     
-    // ³Ñ°Ü¹ÞÀº ID¿Í PWÀ» °¡Á®¿À±â
-    String inputID =request.getParameter("ID");
-    String inputPW =request.getParameter("Password");
+    // ë„˜ê²¨ë°›ì€ IDì™€ PWì„ ê°€ì ¸ì˜¤ê¸°
+    String inputID =request.getParameter("username");
+    String inputPW =request.getParameter("password");
     
     
-    //·Î±×ÀÎ »óÅÂ¸¦ È®ÀÎ.
+    //ë¡œê·¸ì¸ ìƒíƒœë¥¼ í™•ì¸.
     boolean isLoggedIn = false;
     if(fixedID.equals(inputID)&& fixedPW.equals(inputPW)){
     	isLoggedIn = true;
     	}
     
-    //·Î±×ÀÎ »óÅÂ¸¦ ¼¼¼Ç¿¡ ÀúÀå
+    //ë¡œê·¸ì¸ ìƒíƒœë¥¼ ì„¸ì…˜ì— ì €ìž¥
      HttpSession mysession = request.getSession();
      session.setAttribute("isLoggedIn", isLoggedIn);
 %>
@@ -29,10 +29,10 @@
     
     <% 
     	if(isLoggedIn){
-    		//µî·ÏµÇ¾îÀÖÀ¸¸é ¸ÞÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+    		//ë“±ë¡ë˜ì–´ìžˆìœ¼ë©´ ë©”ì¸ íŽ˜ì´ì§€ë¡œ ì´ë™
     		response.sendRedirect("Main.jsp");
     	} else {
-    		// µî·ÏµÇÁö ¾Ê¾ÒÀ¸¸é ¿¡·¯ ÆäÀÌÁö·Î ÀÌµ¿
+    		// ë“±ë¡ë˜ì§€ ì•Šì•˜ìœ¼ë©´ ì—ëŸ¬ íŽ˜ì´ì§€ë¡œ ì´ë™
     		response.sendRedirect("Error.jsp");
     	}
     %>
