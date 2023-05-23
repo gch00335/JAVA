@@ -49,12 +49,12 @@ public class Homework0522 extends HttpServlet {
 
         if (checkIDPW(id, password)) {
             // 로그인 성공
-              RequestDispatcher dispatcher = request.getRequestDispatcher("/example1/0523HomeWork2/Main.jsp");
+              RequestDispatcher dispatcher = request.getRequestDispatcher("/0523Homework2/Main.jsp");
               dispatcher.forward(request, response);
         } else {
             // 로그인 실패
        
-              RequestDispatcher dispatcher = request.getRequestDispatcher("/example1/0523HomeWork2/Error.jsp");
+              RequestDispatcher dispatcher = request.getRequestDispatcher("/0523Homework2/Error.jsp");
               dispatcher.forward(request, response);
         }
     }
