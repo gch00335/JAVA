@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset= "utf-8">
+
+<title>Insert title here</title></head>
+<body>
+<form method="get" action="/example1/QueryServlet2">
+    <!-- 숫자 입력 등의 필드는 동일하게 유지 -->
+     <input type="number" name="num1"/><br/>
+     <input type="number" name="num2"/><br/>
+    
+
+    <!-- 연산자 선택 -->
+    <input type="radio" name="operator" value="add"/> +
+    <input type="radio" name="operator" value="subtract"/> -
+    <input type="radio" name="operator" value="multiply"/> x
+    <input type="radio" name="operator" value="divide"/> /
+    
+    <!-- 나머지 코드는 동일하게 유지 -->
+    
+    <input type="submit" value=" = "/>
+</form>
+
+</body>
+</html>
