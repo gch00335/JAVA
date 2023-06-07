@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import bbs.Bbs;
 
 public class UserDAO {
 	private Connection conn;
@@ -21,6 +24,7 @@ public class UserDAO {
 			}
 			return null;
 		}
+
 //		public static void close( Statement stmt, Connection conn) {
 //			
 //			try {
@@ -69,7 +73,7 @@ public class UserDAO {
 //		}
 	
 	public int login(String ID, String PASSWORD) {
-		 conn = getConnection(); // µ¥ÀÌÅÍº£ÀÌ½º ¿¬°áÀ» °¡Á®¿È
+		 conn = getConnection(); // ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String SQL ="SELECT PASSWORD FROM USERS WHERE ID =?" ;
 		try {
 			pstmt = conn.prepareStatement(SQL);
@@ -77,16 +81,16 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				if(rs.getString(1).equals(PASSWORD))
-					return 1 ; // ·Î±×ÀÎ ¼º°ø
+					return 1 ; // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			else 
-					return 0 ; // ºñ¹Ð¹øÈ£ ºÒÀÏÄ¡
+					return 0 ; // ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½Ä¡
 			}
 			return -1;
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return -2; //  µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -2; //  ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 	
 	public int join(User user) {
@@ -95,7 +99,7 @@ public class UserDAO {
 	    try {
 	        conn = getConnection();
 	        
-	        // ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµðÀÎ °æ¿ì
+	        // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	        pstmt = conn.prepareStatement(checkSQL);
 	        pstmt.setString(1, user.getID());
 	        rs = pstmt.executeQuery();
@@ -113,7 +117,7 @@ public class UserDAO {
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    } finally { // ¸®¼Ò½º ¹ÝÈ¯p
+	    } finally { // ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½ï¿½È¯p
 	        try {
 	            if (rs != null) {
 	                rs.close();
@@ -128,6 +132,30 @@ public class UserDAO {
 	            e.printStackTrace();
 	        }
 	    }
-	    return -2; // È¸¿ø°¡ÀÔ ½ÇÆÐ
+	    return -2; // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
+	
+	public ArrayList<User> getList(int pageNumber){
+		conn = getConnection();
+		String SQL = "SELECT * FROM USERS ";
+		ArrayList<User> list = new ArrayList<User>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				User user = new User();
+				user.setID(rs.getString(1));
+				user.setPASSWORD(rs.getString(2));
+				user.setName(rs.getString(3));
+				user.setGender(rs.getString(4));
+				user.setEmail(rs.getString(5));
+				
+				list.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 }

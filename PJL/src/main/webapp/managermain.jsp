@@ -9,6 +9,7 @@
 <meta name = "viewport" content="width=device-width", initial-scale="1">
 <link rel = "stylesheet" href="css/bootstrap.css">
 <title>니니찌니 도서관</title>
+
 <style>
   .transparent-image {
     opacity: 0.7; /* 투명도 조절 */
@@ -19,7 +20,6 @@
 
 </head>
 <body>
-
 <%   
 
 	String userID = null;
@@ -44,9 +44,12 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">메인</a></li>
-				<li><a href="bbs.jsp">자유게시판</a></li>
-				<li><a href="booksearch.jsp">도서검색</a></li>
+				 <li><a href="managermain.jsp">메인</a></li>
+				<li><a href="managerbbs.jsp">자유게시판</a></li>
+				<li><a href="managerbooksearch.jsp">도서검색</a></li>
+				<li><a href="booksearch.jsp">도서관리</a></li>
+				<li><a href="userlist.jsp">회원목록</a></li>
+
 			</ul>
 			
 			<% 
@@ -75,7 +78,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">회원관리<span class="caret"></span> </a>
+					aria-expanded="false">관리자모드<span class="caret"></span> </a>
 					<ul class="dropdown-menu">
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
 			<%
@@ -83,7 +86,8 @@
 			%>
 		</div>
 	</nav>
-	<div> <img src="css/책.jpg" alt="사진 설명" class="transparent-image"> </div> 
+		<div> <img src="css/책.jpg" alt="사진 설명" class="transparent-image"> </div> 
+	
 	
  	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
  	<script src="js/bootstrap.js"></script>

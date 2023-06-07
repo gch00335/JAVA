@@ -50,6 +50,7 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="main.jsp">메인</a></li>
 				<li><a href="bbs.jsp">자유게시판</a></li>
+				<li><a href="booksearch.jsp">도서검색</a></li>
 			</ul>
 			
 			<% 
@@ -65,6 +66,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="login.jsp">로그인</a></li>
 						<li><a href="join.jsp">회원가입</a></li>
+						<li><a href="manager.jsp">관리자모드</a></li>
 
 					</ul>
 				</li>

@@ -24,6 +24,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
 				<li><a href="bbs.jsp">자유게시판</a></li>
+				<li><a href="booksearch.jsp">도서검색</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -33,7 +34,7 @@
 					<ul class="dropdown-menu">
 						<li class="active"><a href="login.jsp">로그인</a></li>
 						<li><a href="join.jsp">회원가입</a></li>
-
+						<li><a href="manager.jsp">관리자모드</a></li>
 					</ul>
 				</li>
 			</ul>

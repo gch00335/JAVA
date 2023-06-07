@@ -1,11 +1,12 @@
-<%@page import="user.UserDAO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import = "manager.ManagerDAO" %>
     <%@ page import = "java.io.PrintWriter" %>
     <% request.setCharacterEncoding("UTF-8"); %>
-    <jsp:useBean id="user" class="user.User" scope="page" />
-    <jsp:setProperty name="user" property="ID"/>
-    <jsp:setProperty name="user" property="PASSWORD"/>
+    <jsp:useBean id="manager" class="manager.Manager" scope="page" />
+    <jsp:setProperty name="manager" property="ID"/>
+    <jsp:setProperty name="manager" property="PASSWORD"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,13 +29,13 @@
 		script.println("location.href = 'main.jsp'");
 		script.println("</script>");
 	}
-	UserDAO userDAO = new UserDAO();
-	int result = userDAO.login(user.getID(), user.getPASSWORD());
+	ManagerDAO managerDAO = new ManagerDAO();
+	int result = managerDAO.login2(manager.getID(), manager.getPASSWORD());
 	if(result == 1){
-		session.setAttribute("ID", user.getID());
+		session.setAttribute("ID", manager.getID());
 		PrintWriter script =response.getWriter();
 		script.println("<script>");
-		script.println("location.href = 'main.jsp'");
+		script.println("location.href = 'managermain.jsp'");
 		script.println("</script>");
 	}
 	else if (result == 0){
