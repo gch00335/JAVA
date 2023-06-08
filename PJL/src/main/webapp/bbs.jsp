@@ -48,8 +48,9 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
+				<li><a href="bookList.jsp">도서대출</a></li>
+				<li><a href="booksearch.jsp">전자도서검색</a></li>
 				<li><a href="bbs.jsp">자유게시판</a></li>
-				<li><a href="booksearch.jsp">도서검색</a></li>
 			</ul>
 
 			<%
