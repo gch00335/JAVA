@@ -5,7 +5,6 @@
 <%@ page import="user.User"%>
 <%@ page import="user.UserDAO"%>
 <%@ page import="java.util.ArrayList"%>
-
 <!DOCTYPE html>
 <html>
 <head>

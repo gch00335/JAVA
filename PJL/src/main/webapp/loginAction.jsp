@@ -6,6 +6,7 @@
     <jsp:useBean id="user" class="user.User" scope="page" />
     <jsp:setProperty name="user" property="ID"/>
     <jsp:setProperty name="user" property="PASSWORD"/>
+    
 <!DOCTYPE html>
 <html>
 <head>

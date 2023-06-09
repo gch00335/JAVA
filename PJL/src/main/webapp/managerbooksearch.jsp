@@ -6,6 +6,7 @@
 <%@ page import="bbs.BbsDAO"%>
 <%@ page import="java.util.ArrayList"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>

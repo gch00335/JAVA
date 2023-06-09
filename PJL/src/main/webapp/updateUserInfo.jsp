@@ -1,10 +1,12 @@
+
 <%@page import="org.h2.expression.function.SubstringFunction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
-<%@ page import="bbs.Bbs"%>
-<%@ page import="bbs.BbsDAO"%>
+<%@ page import="user.User"%>
+<%@ page import="user.UserDAO"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="javax.servlet.http.HttpSession"%>
 
 <!DOCTYPE html>
 <html>
@@ -13,10 +15,11 @@
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>니니찌니 도서관</title>
-<style type="text/css">
-a, a:hover {
-	color: #000000;
-	test-dacoration: none;
+<style>
+.book-image {
+	max-width: 200px;
+	height: auto;
+	margin-bottom: 10px;
 }
 </style>
 </head>
@@ -84,63 +87,60 @@ a, a:hover {
 						<ul class="dropdown-menu">
 							<li><a href="mypage.jsp">마이페이지</a></li>
 							<li><a href="logoutAction.jsp">로그아웃</a></li>
-							<%
-							}
-							%>
-						
+
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">마이페이지<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="mypage.jsp">대여목록</a></li>
+							<li><a href="updateUserInfo.jsp">회원정보수정</a></li>
+							<li><a href="deleteUser.jsp">회원탈퇴</a></li>
+						</ul> <%
+ }
+ %>
 		</div>
+
 	</nav>
+	    <div class="container">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="jumbotron" style="padding-top: 20px;">
+                <form method="post" action="updateAction.jsp">
+                    <h3 style="text-align: center;">회원 정보 수정</h3>
 
-	<div class="container">
-		<div class="row">
-			<table class="table table-striped"
-				style="text-align: center; border: 1px solid #E6E6E6">
-				<thead>
-					<tr>
-						<th style="background-color: #BDBDBD; text-align: center;">번호</th>
-						<th style="background-color: #BDBDBD; text-align: center;">제목</th>
-						<th style="background-color: #BDBDBD; text-align: center;">작성자</th>
-						<th style="background-color: #BDBDBD; text-align: center;">작성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-					BbsDAO bbsDAO = new BbsDAO();
-					ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-					for (int i = 0; i < list.size(); i++) {
-					%>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="비밀번호" name="PASSWORD" maxlength="20">
+                    </div>
 
-					<tr>
-						<td><%=list.get(i).getBbsID()%></td>
-						<td><a href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "gt;")
-		.replaceAll("\n", "<br>")%></a></td>
-						<td><%=list.get(i).getUserID()%></td>
-						<td><%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시"
-		+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="이름" name="name" maxlength="20">
+                    </div>
 
-					</tr>
-					<%
-					}
-					%>
-				</tbody>
-			</table>
-			<%
-			if (pageNumber != 1) {
-			%>
-			<a href="bbs.jsp?pageNumber=<%=pageNumber - 1%>"
-				class="btn btn-success btn-arraw-left">이전</a>
-			<%
-			}
-			if (bbsDAO.nextPage(pageNumber + 1)) {
-			%>
-			<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
-				class="btn btn-success btn-arraw-left">다음</a>
-			<%
-			}
-			%>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
-		</div>
-	</div>
+                    <div class="form-group" style="text-align: center;">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="gender" autocomplete="off" value="남자" checked>남자
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="gender" autocomplete="off" value="여자">여자
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="이메일" name="email" maxlength="20" value="">
+                    </div>
+
+                    <input type="submit" class="btn btn-primary form-control" value="수정">
+                </form>
+            </div>
+        </div>
+    </div>
+		<div class="col-lg-4"></div>
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>

@@ -10,6 +10,7 @@
 <%@ page import="bbs.Bbs"%>
 <%@ page import="bbs.BbsDAO"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="javax.servlet.http.HttpSession"%>
 
 <!DOCTYPE html>
 <html>
@@ -79,7 +80,12 @@
 			<%
 			} else {
 			%>
-
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <a href="#">
+            <%= userID %> 님 <!-- 로그인된 아이디 표시 -->
+        </a>
+    </li>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -92,14 +98,22 @@
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="mypage.jsp">마이페이지</a></li>
-			</ul>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false">마이페이지<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+					<li><a href="mypage.jsp">대여목록</a></li>
+					<li><a href="updateUserInfo.jsp">회원정보수정</a></li>
+					<li><a href="deleteUser.jsp">회원탈퇴</a></li>
+				</ul>
+			
 			<%
 			}
 			%>
 		</div>
 
-		</div>
+</div>
 	</nav>
 
 	<div class="container">
@@ -134,7 +148,7 @@
 							<form action="returnBook.jsp" method="post">
 								<input type="hidden" name="title" value="<%=book.getTitle()%>">
 								<input type="submit" value="반납">
-							</form>                         
+							</form>
 						</td>
 					</tr>
 					<%

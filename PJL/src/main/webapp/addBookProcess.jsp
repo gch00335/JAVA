@@ -5,6 +5,7 @@
 <%@ page import="book.BookDAO"%>
 <%@ page import="java.io.PrintWriter"%>
 
+
 <%
 request.setCharacterEncoding("UTF-8");
 %>

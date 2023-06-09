@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
  
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,12 @@
 			<%
 				} else {
 			%>
-			
+			<ul class="nav navbar-nav navbar-right">
+    <li>
+        <a href="#">
+            <%= userID %> 님 <!-- 로그인된 아이디 표시 -->
+        </a>
+    </li>
 						<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"

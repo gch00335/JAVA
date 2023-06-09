@@ -192,7 +192,7 @@ a, a:hover {
                     
                     
           <button class="rent-button" data-title="<%= book.getTitle() %>" data-thumbnai="<%= book.getThumbnai() %>"
-    data-isbn="<%= book.getIsbn() %>" data-ID="<%= userID %>">대출</button>
+  			  data-isbn="<%= book.getIsbn() %>" data-ID="<%= userID %>">대출</button>
             </div>
                
             </td>
@@ -200,9 +200,14 @@ a, a:hover {
         <% } %>
     </tbody>
     
-<script>
-    $(document).ready(function() {
-        $(".rent-button").click(function() {
+	<script>
+	$(document).ready(function() {
+	    var rentalStatus = {}; // 대출 상태를 저장할 변수
+
+	    // 대출 버튼 클릭 이벤트 핸들러
+	    $(".rent-button").click(function() {
+	        var button = $(this); // 대출 버튼을 변수에 저장
+
             var title = $(this).data("title");
             var thumbnai = $(this).data("thumbnai");
             var isbn = $(this).data("isbn");
@@ -233,6 +238,7 @@ a, a:hover {
                   //  button.remove(); // 대출 버튼 삭제
                 } else {
                 	 alert('대출 완료되었습니다.');
+                	 rentalStatus[isbn] = true; // 대출 상태를 true로 업데이트
                     // 대출중 상태 표시
                     bookInfo.append($("<p>").addClass("status").text("대출중").css("color", "red"));
                     button.remove(); // 대출 버튼 삭제
