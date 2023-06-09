@@ -1,3 +1,8 @@
+<%@page import="book.Book"%>
+<%@page import="user.User"%>
+<%@page import="rental.Rental"%>
+<%@page import="rental.RentalDAO"%>
+<%@page import="user.UserDAO"%>
 <%@page import="org.h2.expression.function.SubstringFunction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -13,11 +18,12 @@
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>니니찌니 도서관</title>
-<style type="text/css">
-	a, a:hover {
-	color: #000000;
-	test-dacoration: none;
-	}
+<style>
+.book-image {
+	max-width: 200px;
+	height: auto;
+	margin-bottom: 10px;
+}
 </style>
 </head>
 <body>
@@ -82,10 +88,17 @@
 					<ul class="dropdown-menu">
 						<li><a href="mypage.jsp">마이페이지</a></li>
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
-						<%
-						}
-						%>
-					
+
+					</ul></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="mypage.jsp">마이페이지</a></li>
+			</ul>
+			<%
+			}
+			%>
+		</div>
+
 		</div>
 	</nav>
 
@@ -94,45 +107,42 @@
 			<table class="table table-striped"
 				style="text-align: center; border: 1px solid #E6E6E6">
 				<thead>
+					<h1>대출 목록</h1>
 					<tr>
-						<th style="background-color: #BDBDBD; text-align: center;">번호</th>
-						<th style="background-color: #BDBDBD; text-align: center;">제목</th>
-						<th style="background-color: #BDBDBD; text-align: center;">작성자</th>
-						<th style="background-color: #BDBDBD; text-align: center;">작성일</th>
+						<th style="background-color: #BDBDBD; text-align: center;">이미지</th>
+						<th style="background-color: #BDBDBD; text-align: center;">도서명</th>
+						<th style="background-color: #BDBDBD; text-align: center;">ISBN</th>
+						<th style="background-color: #BDBDBD; text-align: center;">반납</th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
-					BbsDAO bbsDAO = new BbsDAO();
-					ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-					for (int i = 0; i < list.size(); i++) {
+					UserDAO userDAO = new UserDAO();
+					User user = userDAO.getID(userID);
+
+					RentalDAO rentalDAO = new RentalDAO();
+					ArrayList<Book> rentalList = rentalDAO.getRentalListByUserID(userID);
+
+					for (Book book : rentalList) {
 					%>
-
 					<tr>
-						<td><%=list.get(i).getBbsID()%></td>
-						<td><a href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ","&nbsp;").replaceAll("<","&lt;").replaceAll(">","gt;").replaceAll("\n","<br>") %></a></td>
-						<td><%=list.get(i).getUserID()%></td>
-						<td><%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시"
-							+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
-
+						<td><img class="book-image" src="<%=book.getThumbnai()%>"
+							alt="Book Image"></td>
+						<td style="vertical-align: middle; text-align: center;"><%=book.getTitle()%></td>
+						<td style="vertical-align: middle; text-align: center;"><%=book.getIsbn()%></td>
+						<td style="vertical-align: middle; text-align: center;">
+							<form action="returnBook.jsp" method="post">
+								<input type="hidden" name="title" value="<%=book.getTitle()%>">
+								<input type="submit" value="반납">
+							</form>                         
+						</td>
 					</tr>
 					<%
 					}
 					%>
+
 				</tbody>
 			</table>
-			<%
-				if(pageNumber != 1){
-			%>
-			<a href="bbs.jsp?pageNumber=<%=pageNumber -1 %>" class="btn btn-success btn-arraw-left">이전</a>
-			<%
-				}if(bbsDAO.nextPage(pageNumber + 1)){
-			%>
-			<a href="bbs.jsp?pageNumber=<%=pageNumber +1 %>" class="btn btn-success btn-arraw-left">다음</a>
-			<%
-				}
-			%>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
 

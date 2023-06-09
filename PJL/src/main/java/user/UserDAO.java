@@ -24,56 +24,9 @@ public class UserDAO {
 			}
 			return null;
 		}
-
-//		public static void close( Statement stmt, Connection conn) {
-//			
-//			try {
-//				if (stmt != null)
-//					stmt.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				stmt = null;
-//			}
-//			try {
-//				if (conn != null)
-//					conn.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				conn = null;
-//			}
-//		}
-//		
-//		public static void close(ResultSet rs, Statement stmt, Connection conn) {
-//			try {
-//				if (rs != null)
-//					rs.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				stmt = null;
-//			}
-//			try {
-//				if (stmt != null)
-//					stmt.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				stmt = null;
-//			}
-//			try {
-//				if (conn != null)
-//					conn.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				conn = null;
-//			}
-//		}
 	
 	public int login(String ID, String PASSWORD) {
-		 conn = getConnection(); // �����ͺ��̽� ������ ������
+		 conn = getConnection(); // 占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 		String SQL ="SELECT PASSWORD FROM USERS WHERE ID =?" ;
 		try {
 			pstmt = conn.prepareStatement(SQL);
@@ -81,16 +34,16 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				if(rs.getString(1).equals(PASSWORD))
-					return 1 ; // �α��� ����
+					return 1 ; // 占싸깍옙占쏙옙 占쏙옙占쏙옙
 			else 
-					return 0 ; // ��й�ȣ ����ġ
+					return 0 ; // 占쏙옙橘占싫� 占쏙옙占쏙옙치
 			}
 			return -1;
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return -2; //  �����ͺ��̽� ����
+		return -2; //  占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙
 		}
 	
 	public int join(User user) {
@@ -99,7 +52,7 @@ public class UserDAO {
 	    try {
 	        conn = getConnection();
 	        
-	        // �̹� �����ϴ� ���̵��� ���
+	        // 占싱뱄옙 占쏙옙占쏙옙占싹댐옙 占쏙옙占싱듸옙占쏙옙 占쏙옙占�
 	        pstmt = conn.prepareStatement(checkSQL);
 	        pstmt.setString(1, user.getID());
 	        rs = pstmt.executeQuery();
@@ -117,7 +70,7 @@ public class UserDAO {
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    } finally { // ���ҽ� ��ȯp
+	    } finally { // 占쏙옙占쌀쏙옙 占쏙옙환p
 	        try {
 	            if (rs != null) {
 	                rs.close();
@@ -132,7 +85,7 @@ public class UserDAO {
 	            e.printStackTrace();
 	        }
 	    }
-	    return -2; // ȸ������ ����
+	    return -2; // 회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	}
 	
 	public ArrayList<User> getList(int pageNumber){
@@ -157,5 +110,27 @@ public class UserDAO {
 		}
 		return list;
 	}
-	
+	public User getID(String userID) {
+	    User user = null;
+
+	    String query = "SELECT * FROM USERS WHERE ID = ?";
+	    try (Connection conn = getConnection();
+	         PreparedStatement statement = conn.prepareStatement(query)) {
+	        statement.setString(1, userID);
+
+	        ResultSet resultSet = statement.executeQuery();
+	        if (resultSet.next()) {
+	            user = new User();
+	            user.setID(resultSet.getString("ID"));
+	            user.setPASSWORD(resultSet.getString("PASSWORD"));
+	            user.setName(resultSet.getString("Name"));
+	            user.setGender(resultSet.getString("Gender"));
+	            user.setEmail(resultSet.getString("Email"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return user;
+	}
 }

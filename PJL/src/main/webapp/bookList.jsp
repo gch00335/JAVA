@@ -142,6 +142,7 @@ a, a:hover {
 					aria-expanded="false">회원관리<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
+						<li><a href="mypage.jsp">마이페이지</a></li>
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
 						<%
 						}
@@ -188,6 +189,8 @@ a, a:hover {
                     <p class="book-info p"><%= book.getIsbn() %></p>
                     <p class="book-info p"><%= book.getAuthors() %></p>
                     <p class="book-info p"><%= book.getContents() %></p>
+                    
+                    
           <button class="rent-button" data-title="<%= book.getTitle() %>" data-thumbnai="<%= book.getThumbnai() %>"
     data-isbn="<%= book.getIsbn() %>" data-ID="<%= userID %>">대출</button>
             </div>
@@ -197,46 +200,47 @@ a, a:hover {
         <% } %>
     </tbody>
     
-  <script>
-$(document).ready(function() {
-    $(".rent-button").click(function() {
-        var title = $(this).data("title");
-        var thumbnai = $(this).data("thumbnai");
-        var isbn = $(this).data("isbn");
-        var ID = $(this).data("id");
+<script>
+    $(document).ready(function() {
+        $(".rent-button").click(function() {
+            var title = $(this).data("title");
+            var thumbnai = $(this).data("thumbnai");
+            var isbn = $(this).data("isbn");
+            var ID = $(this).data("id");
 
-        var button = $(this);  // 대출 버튼을 변수에 저장
+            var button = $(this); // 대출 버튼을 변수에 저장
 
-        
-        $.ajax({
-            method: "post",
-            url: "rentalProcess.jsp",
-            data: {
-                title: title,
-                thumbnai:thumbnai,
-                isbn: isbn,
-                ID: ID
-            }
-        })
-       .done(function(response) {
-    alert('대출 완료되었습니다.');
-    // 대출 성공 시 처리
-    if (response["success"]) {
-        var button = $(this);
-        var bookInfo = button.closest(".book-info");
+            $.ajax({
+                method: "post",
+                url: "rentalProcess.jsp",
+                data: {
+                    title: title,
+                    thumbnai: thumbnai,
+                    isbn: isbn,
+                    ID: ID
+                }
+            }).done(function(response) {
+                console.log("Response:", response); // response 값 출력
 
-        bookInfo.append($("<p>").addClass("status").text("대출중").css("color", "green"));
-        button.remove();
-    }
-})
-        .fail(function(jqXHR, textStatus, errorThrown) {
-        	 alert('책 등록 실패');
-        	console.log("대출 요청 실패: " + textStatus + ", " + errorThrown);
+                var bookInfo = button.closest(".book-info");
+                var success = response.trim() === "true"; // 대출 성공 여부 확인
+
+                if (success) {
+                    //alert('대출 완료되었습니다.');
+
+                    // 대출중 상태 표시(아 왜 계속 안되냐고 좋아 계쏙 안되면 반대로 해본다. 쒸익)
+                   // bookInfo.append($("<p>").addClass("status").text("대출중").css("color", "red"));
+                  //  button.remove(); // 대출 버튼 삭제
+                } else {
+                	 alert('대출 완료되었습니다.');
+                    // 대출중 상태 표시
+                    bookInfo.append($("<p>").addClass("status").text("대출중").css("color", "red"));
+                    button.remove(); // 대출 버튼 삭제
+                }
+            });
         });
     });
-});
-</script>
-
+    </script>
 </table>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>

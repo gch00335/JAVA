@@ -201,34 +201,29 @@ a, a:hover {
                                      contents: currentBook.contents
                                 }
                             })
-                            .done(function(response) {
-                            	  alert('책 등록 성공');
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "책 등록 성공",
-                                    text: "책이 성공적으로 등록되었습니다.",
-                                });
-                            })
-                            .fail(function(jqXHR, textStatus, errorThrown) {
-                            	 alert('책 등록 실패');
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "책 등록 실패",
-                                    text: "책 등록에 실패했습니다.",
-                                 
-                                });
-                            });
-                        });
+                        }).done(function(response) {
+                            // 대출 성공 시 처리
+                            if (response.isSuccess) {
+                                alert('대출 완료되었습니다.');
+                                var bookInfo = button.closest(".book-info");
 
-                        bookInfo.append(registerButton);
-                        bookInfoDiv.append(bookInfo);
-                    }
-                })
-                .fail(function(jqXHR, textStatus, errorThrown) {
-                    console.log("요청 실패: " + textStatus + ", " + errorThrown);
+                                // 대출 상태 표시 업데이트
+                                var status = bookInfo.find(".status");
+                                if (status.length > 0) {
+                                    status.text("대출중").css("color", "red");
+                                } else {
+                                    bookInfo.append($("<p>").addClass("status").text("대출중").css("color", "red"));
+                                }
+
+                                // 대출 버튼 제거
+                                button.remove();
+                            } else {
+                                alert('이미 대출중인 도서입니다.');
+                                button.prop('disabled', true); // 대출 버튼 비활성화
+                            }
+                        });
+                    });
                 });
-            });
-        });
     </script>
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
