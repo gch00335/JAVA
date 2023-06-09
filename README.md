@@ -1,7 +1,6 @@
- ![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section&text=NiniJini-GitHub&animation=fadeIn)
+ ![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section&text=JAVA 프로젝트-GitHub&animation=fadeIn)
  
  
- <h1> JAVA 프로젝트 : <nini jini MARIO>  😎😎 <br> </h1>
 
 [2023.04.24 ~ 04.31]</br>
 <h2>🎈230424.도서관 관리서비스 미니프로젝트 - java 이클립스를 통한 도서관 구현</h2>
