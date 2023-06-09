@@ -1,4 +1,4 @@
- ![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section&text=JAVA 프로젝트-GitHub&animation=fadeIn)
+ ![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section&text=NiniJini.JAVA-GitHub&animation=fadeIn)
  
  
 
