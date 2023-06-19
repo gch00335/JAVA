@@ -1,0 +1,95 @@
+@charset "EUC-KR";
+/* Reset some default styles for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Styling for the top container */
+.top-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f1f1;
+  height: 50vh;
+}
+
+.left-side {
+  text-align: center;
+}
+
+.left-side h1 {
+  font-size: 24px;
+  color: #000;
+}
+
+.left-side h3 {
+  font-size: 16px;
+  color: #000;
+}
+
+.button {
+  width: 100px;
+  height: 40px;
+  margin-top: 10px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.search-bar input[type="text"] {
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+/* Styling for the middle container */
+.middle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.menu-button {
+  display: flex;
+}
+
+.menu-item {
+  width: 240px;
+  height: 168px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-item img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}
+
+.menu-item p {
+  font-size: 14px;
+}
