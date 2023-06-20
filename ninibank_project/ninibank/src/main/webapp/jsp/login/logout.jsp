@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-»£√‚¡ﬂ....
+<%
+	session.invalidate();
+%>
+	<script>
+		location.href = 'index.jsp';
+	</script>
 </body>
 </html>

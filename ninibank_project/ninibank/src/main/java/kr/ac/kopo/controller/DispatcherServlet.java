@@ -29,6 +29,9 @@ public class DispatcherServlet extends HttpServlet{
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+		// CORS 정책 설정
+//        response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+
 		
 		String uri= request.getRequestURI();
 		

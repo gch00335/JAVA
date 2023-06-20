@@ -9,7 +9,7 @@ public class LoginProcessController implements Controller{
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		
 		request.setAttribute("msg", "로그인 성공");
-		
+		response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
 		
 		return "redirect:" + request.getContextPath();
 		
