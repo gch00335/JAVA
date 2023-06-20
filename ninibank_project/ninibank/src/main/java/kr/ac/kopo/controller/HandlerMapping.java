@@ -33,6 +33,7 @@ public class HandlerMapping {
 
         // 추가: join.do와 JoinController 매핑
         mappings.put("/join.do", new JoinController());
+        mappings.put("/joinprocess.do", new JoinProcessController());
         mappings.put("/load.do", new LoadController());
         mappings.put("/kakaologin.do", new KakaoLoginController());
         mappings.put("/kakaojoin.do",  new KakaoJoinController());

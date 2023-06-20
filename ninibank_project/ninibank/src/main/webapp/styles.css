@@ -1,8 +1,10 @@
+
 /* Reset some default styles for consistency */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 /* Define @font-face rule */
 @font-face {
@@ -289,3 +291,5 @@ align-items: flex-start; /* 업데이트: 위로 정렬되도록 align-items 값
   .help-image:hover + .help-menu {
     display: block; /* 마우스 커서를 올렸을 때 메뉴 표시 */
   }
+  
+ 

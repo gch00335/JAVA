@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+    <%@ page import="java.io.PrintWriter"%>
+<%@ page import="kr.ac.kopo.bbs.Bbs"%>
+<%@ page import="kr.ac.kopo.bbs.BbsDAO"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 
@@ -278,28 +282,47 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
   padding: 20px;
 }
+ /* CSS 스타일 */
 
-/* 이하 동일 */
-.customer-service h2 {
-  font-size: 18px;
+
+/* 추가 스타일 코드 */
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-.customer-service p {
-  font-size: 14px;
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0; /* 수정: 왼쪽 정렬로 변경 */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
 
-.customer-service a {
-  color: #007bff;
-  text-decoration: none;
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
 
-.customer-service a:hover {
-  text-decoration: underline;
+.top-container {
+  position: relative; /* 상대적 위치 설정 */
+}
+
+.dropdown-menu {
+  top: calc(25vh + 10px); /* 수정: 25vh 아래로 이동 */
+}
+
+
+<style type="text/css">
+a, a:hover {
+	color: #000000;
+	test-dacoration: none;
 }
 </style>
-
   <meta charset="UTF-8" />
-  <title>Kakao map</title>
+  <title>NINI_BBS</title>
  
 </head>
 
@@ -310,8 +333,16 @@
 	String userID = null;
 	if (session.getAttribute("ID") != null){
 		userID = (String) session.getAttribute("ID");
+	}	    // 카카오톡 로그인 확인
+	boolean isKakaoLoggedIn = false;
+	String kakaoID = (String) session.getAttribute("kakaoID");
+    if (kakaoID != null) {
+        isKakaoLoggedIn = true;
+    } 
+    int pageNumber = 1;
+	if (request.getParameter("pageNumber") != null) {
+		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
-
 %>
 	 <div class="top-container">
   <div class="left-side">
@@ -319,10 +350,10 @@
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-    <h3>지점안내</h3><br>
+    <h3> Q&A 게시판</h3><br>
     <div class="button-group">
-      <h4><span class="main-page">메인화면</span></h4>
-		<h4><span class="sub-page"> > 찾아오시는 길</span></h4>
+      <h4><span class="main-page"> 메인메뉴 </span></h4>
+		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
    
     </div>
   </div>
@@ -331,38 +362,119 @@
   </div>
 </div>
 
- <div class="map-container">
-  <div style="display: flex;">
-    <div id="map" style="flex: 1; width: 500px; height: 400px;"></div>
-  
-    <div style="flex: 1; margin-left: 100px;">
-      <h3 style="margin-bottom: 10px; font-family: 'WooridaumB', sans-serif;">한국폴리텍대학 성남캠퍼스점</h3>
-      <h4 style="margin-bottom: 10px; font-family: 'WooridaumB', sans-serif;">031-739-4000 | 영업시간 09:00 ~ 22:00</h4>
-      <p class="address" style="font-family: 'WooridaumB', sans-serif;">
-        <hr>
-        <h5 style="margin-top: 10px;">도로명</h5>
-        경기 성남시 수정구 수정로 398<br>
-        경기도 성남시 분당구 산성동 4
-      </p>
-    </div>
-  </div>
-  </div>
-  	<div class="customer-service">
-  <h2>고객센터</h2><br><br>
-  <p>1:1 문의하기</p><br>
-  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/load.do">찾아오시는 길</a></p>
-</div>
- 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3be059b28175bae0d5c7b1b5d47bd7a8"></script>
-<script>
-  var container = document.getElementById('map');
-  var options = {
-    center: new kakao.maps.LatLng(37.4590828, 127.1537789),
-    level: 3
-  };
+<ul class="nav navbar-nav navbar-right">
 
-  var map = new kakao.maps.Map(container, options);
-</script>
+
+  <% if (userID == null && isKakaoLoggedIn == false ) { %>
+    <div class="dropdown">
+ <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+    접속하기<span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="login.jsp">로그인</a></li>
+        <li><a href="join.jsp">회원가입</a></li>
+        <li><a href="manager.jsp">관리자모드</a></li>
+      </ul>
+    </li>
+  <% } else if (isKakaoLoggedIn) { %>
+    <li>
+      <a href="#">
+        <%= kakaoID %> 님 <!-- 로그인된 아이디 표시 -->
+      </a>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        회원관리<span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="mypage.jsp">마이페이지</a></li>
+        <li><a href="logoutAction.jsp">로그아웃</a></li>
+      </ul>
+    </li>
+  <% } else { %>
+    <li>
+      <a href="#">
+        <%= userID %> 님 <!-- 로그인된 아이디 표시 -->
+      </a>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        회원관리<span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="mypage.jsp">마이페이지</a></li>
+        <li><a href="logoutAction.jsp">로그아웃</a></li>
+      </ul>
+    </li>
+  <% } %>
+</ul>
+
+
+
+	<div class="container">
+		<div class="row">
+			<table class="table table-striped"
+				style="text-align: center; border: 1px solid #E6E6E6">
+				<thead>
+					<tr>
+						<th style="background-color: #BDBDBD; text-align: center;">번호</th>
+						<th style="background-color: #BDBDBD; text-align: center;">제목</th>
+						<th style="background-color: #BDBDBD; text-align: center;">작성자</th>
+						<th style="background-color: #BDBDBD; text-align: center;">작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+					BbsDAO bbsDAO = new BbsDAO();
+					ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+					for (int i = 0; i < list.size(); i++) {
+					%>
+
+					<tr>
+						<td><%=list.get(i).getBbsID()%></td>
+						<td><a href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "gt;")
+		.replaceAll("\n", "<br>")%></a></td>
+						<td><%=list.get(i).getUserID()%></td>
+						<td><%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시"
+		+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
+
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+			<%
+			if (pageNumber != 1) {
+			%>
+			<a href="bbs.jsp?pageNumber=<%=pageNumber - 1%>"
+				class="btn btn-success btn-arraw-left">이전</a>
+			<%
+			}
+			if (bbsDAO.nextPage(pageNumber + 1)) {
+			%>
+			<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
+				class="btn btn-success btn-arraw-left">다음</a>
+			<%
+			}
+			%>
+			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="help-image">
   <img src="도움.png" alt="도움 아이콘" width="140" height="98">

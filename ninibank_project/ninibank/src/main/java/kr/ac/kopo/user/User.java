@@ -10,7 +10,13 @@ public class User {
 	private String Phone;
 	private String Post;
 	private String Addr;
-	private String joindate;
+	private String DETAILADDRESS ;
+	@Override
+	public String toString() {
+		return "User [ID=" + ID + ", PASSWORD=" + PASSWORD + ", Name=" + Name + ", Email=" + Email + ", Birth=" + Birth
+				+ ", Phone=" + Phone + ", Post=" + Post + ", Addr=" + Addr + ", DETAILADDRESS=" + DETAILADDRESS
+				+ ", admin=" + admin + ", agree=" + agree + "]";
+	}
 	private String admin;
 	private String agree;
 	public String getID() {
@@ -61,11 +67,11 @@ public class User {
 	public void setAddr(String addr) {
 		Addr = addr;
 	}
-	public String getJoindate() {
-		return joindate;
+	public String getDETAILADDRESS() {
+		return DETAILADDRESS;
 	}
-	public void setJoindate(String joindate) {
-		this.joindate = joindate;
+	public void setDETAILADDRESS(String dETAILADDRESS) {
+		DETAILADDRESS = dETAILADDRESS;
 	}
 	public String getAdmin() {
 		return admin;
@@ -79,9 +85,4 @@ public class User {
 	public void setAgree(String agree) {
 		this.agree = agree;
 	}
-	
-
-	
-	
-	
 }

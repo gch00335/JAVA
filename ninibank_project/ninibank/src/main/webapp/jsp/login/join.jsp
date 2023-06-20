@@ -121,51 +121,44 @@
 <body>
 <div class="container">
   <div class="login-form">
-      <div class="jumbotron" style="padding-top:20px;">
-        <form method="post" action="joinAction.jsp">
-          <h3 style="text-align: center;">회원가입화면</h3>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="아이디" name="ID" maxlength="20">
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" placeholder="비밀번호" name="PASSWORD" maxlength="20">
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="이름" name="name" maxlength="20">
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-control" placeholder="이메일" name="email" maxlength="20">
-          </div>
-            <div class="form-group">
-            <input type="text" class="form-control" placeholder="전화번호" name="phone" maxlength="50">
-          </div>
-            </div>
-      <div class="form-group">
-  <div style="display: flex;">
-    <input type="text" class="form-control" placeholder="우편번호 조회" name="post" id="post" maxlength="50">
-    <input type="button" class="btn btn-primary2 form-control" value="조회" onclick="openDaumPostcode()">
-  </div>
-</div>
-<div class="form-group">
-  <div style="display: flex;">
-    <input type="text" class="form-control" placeholder="주소" name="addr" id="addr" readonly>
-    <input type="text" class="form-control" placeholder="상세주소" name="detailAddress" maxlength="100">
-  </div>
-</div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="생일" name="Birth" id="birth" readonly>
-          </div>
-          <input type="submit" class="btn btn-primary form-control" value="회원가입">
-        </form>
      
-		<form action="${pageContext.request.contextPath}/kakaojoin.do" method="GET">
-  		<input type="submit" class="btn btn-primary2" value="카카오톡 회원가입">
-		</form>
+   <div class="jumbotron" style="padding-top:20px;">
+  <form method="post" action="${pageContext.request.contextPath}/joinprocess.do">
+    <h3 style="text-align: center;">회원가입화면</h3>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="아이디" name="ID" maxlength="20">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="비밀번호" name="PASSWORD" maxlength="20">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="이름" name="name" maxlength="20">
+    </div>
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="이메일" name="email" maxlength="20">
+      <div id="email-error" style="color: red; display: none;">올바른 이메일 형식으로 입력해주세요.</div>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="전화번호" name="phone" maxlength="50">
+    </div>
+    <div class="form-group">
+      <div style="display: flex;">
+        <input type="text" class="form-control" placeholder="우편번호 조회" name="post" id="post" maxlength="50">
+        <input type="button" class="btn btn-primary2 form-control" value="조회" onclick="openDaumPostcode()">
       </div>
     </div>
-    <div class="col-lg-4"></div>
-  </div>
+    <div class="form-group">
+      <div style="display: flex;">
+        <input type="text" class="form-control" placeholder="주소" name="addr" id="addr" readonly>
+        <input type="text" class="form-control" placeholder="상세주소" name="DETAILADDRESS" maxlength="100">
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="생일" name="Birth" id="birth" readonly>
+    </div>
+    <input type="submit" class="btn btn-primary form-control" value="회원가입">
+    <input type="button" class="btn btn-primary2" value="카카오톡 회원가입" onclick="location.href='${pageContext.request.contextPath}/kakaojoin.do'">
+  </form>
 </div>
 <script>
   $(function() {
@@ -181,8 +174,8 @@
 	  new daum.Postcode({
 	    oncomplete: function(data) {
 	      // 우편번호와 주소 정보를 가져온 후 처리할 로직 작성
-	      document.getElementById('postcode').value = data.zonecode; // 우편번호 필드에 우편번호 값 채우기
-	      document.getElementById('address').value = data.address; // 주소 필드에 주소 값 채우기
+	      document.getElementById('post').value = data.zonecode; // 우편번호 필드에 우편번호 값 채우기
+	      document.getElementById('addr').value = data.address; // 주소 필드에 주소 값 채우기
 	    }
 	  }).open();
 	}

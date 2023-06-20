@@ -5,6 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+ /* 추가 스타일 코드 */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 300px; /* 이미지 너비 조정 (적절한 값으로 변경) */
+  height: 50; /* 이미지 높이 자동 조정 */
+}
+</style>
 <meta charset="EUC-KR">
 <title>NINI_BANK</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
@@ -27,6 +37,8 @@
 
 	 <div class="top-container">
   <div class="left-side">
+  
+    <img src="니니찌니로고.png" alt="로고" class="logo">
     <h1>NINI_BANK</h1>
    <h3>오픈뱅킹시스템</h3>
     <div class="button-group">
@@ -41,6 +53,8 @@
                     <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
                 <% } %>
     </div>
+    
+    
   </div>
   <div class="right-side">
     <button class="button">Q&A게시판</button>

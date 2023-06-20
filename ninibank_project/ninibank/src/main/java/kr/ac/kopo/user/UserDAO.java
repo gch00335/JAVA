@@ -33,7 +33,7 @@ public class UserDAO {
 
 	public int login(String ID, String PASSWORD) {
 		conn = getConnection(); // 占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
-		String SQL = "SELECT PASSWORD FROM USER WHERE ID =?";
+		String SQL = "SELECT PASSWORD FROM USERS WHERE ID =?";
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, ID);
@@ -53,8 +53,8 @@ public class UserDAO {
 	}
 
 	public int join(User user) {
-		String checkSQL = "SELECT COUNT(*) FROM USER WHERE ID = ?";
-		String insertSQL = "INSERT INTO USER VALUES (?, ?, ?, ?, ?)";
+		String checkSQL = "SELECT COUNT(*) FROM USERS WHERE ID = ?";
+		String insertSQL = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			conn = getConnection();
 
@@ -66,12 +66,19 @@ public class UserDAO {
 
 				return -1;
 			} else {
-				pstmt = conn.prepareStatement(insertSQL);
-				pstmt.setString(1, user.getID());
-				pstmt.setString(2, user.getPASSWORD());
-				pstmt.setString(3, user.getName());
-				pstmt.setString(5, user.getEmail());
-				return pstmt.executeUpdate();
+				   pstmt = conn.prepareStatement(insertSQL);
+		            pstmt.setString(1, user.getID());
+		            pstmt.setString(2, user.getPASSWORD());
+		            pstmt.setString(3, user.getName());
+		            pstmt.setString(4, user.getEmail());
+		            pstmt.setString(5, user.getBirth()); // 추가: 생년월일 설정
+		            pstmt.setString(6, user.getPhone()); // 추가: 전화번호 설정
+		            pstmt.setString(7, user.getPost()); // 추가: 우편번호 설정
+		            pstmt.setString(8, user.getAddr()); // 추가: 주소 설정
+		            pstmt.setString(9, user.getDETAILADDRESS());
+		            pstmt.setString(10, user.getAdmin());
+		            pstmt.setString(11, user.getAgree());
+		            return pstmt.executeUpdate();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,12 +97,12 @@ public class UserDAO {
 				e.printStackTrace();
 			}
 		}
-		return -2; // 회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+		return -2; // 회원가입 실패
 	}
 
 	public ArrayList<User> getList(int pageNumber) {
 		conn = getConnection();
-		String SQL = "SELECT * FROM USER ";
+		String SQL = "SELECT * FROM USERS ";
 		ArrayList<User> list = new ArrayList<User>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -118,7 +125,7 @@ public class UserDAO {
 	public User getID(String userID) {
 		User user = null;
 
-		String query = "SELECT * FROM USER WHERE ID = ?";
+		String query = "SELECT * FROM USERS WHERE ID = ?";
 		try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
 			statement.setString(1, userID);
 
@@ -129,6 +136,10 @@ public class UserDAO {
 				user.setPASSWORD(resultSet.getString("PASSWORD"));
 				user.setName(resultSet.getString("Name"));
 				user.setEmail(resultSet.getString("Email"));
+				user.setBirth(resultSet.getString("Bireth"));
+				user.setPost(resultSet.getString("Post")); 
+		        user.setAddr(resultSet.getString("Addr")); 
+		        user.setDETAILADDRESS(resultSet.getString("DETAILADDRESS"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,7 +155,7 @@ public class UserDAO {
 
 	    try {
 	        connection = getConnection();
-	        String query = "SELECT * FROM USER WHERE ID = ?";
+	        String query = "SELECT * FROM USERS WHERE ID = ?";
 	        statement = connection.prepareStatement(query);
 	        statement.setString(1, userID);
 	        resultSet = statement.executeQuery();
@@ -154,6 +165,10 @@ public class UserDAO {
 	            user.setPASSWORD(resultSet.getString("PASSWORD"));
 	            user.setName(resultSet.getString("Name"));
 	            user.setEmail(resultSet.getString("Email"));
+	        	user.setBirth(resultSet.getString("Bireth"));
+				user.setPost(resultSet.getString("Post")); 
+		        user.setAddr(resultSet.getString("Addr"));
+		        user.setDETAILADDRESS(resultSet.getString("DETAILADDRESS"));
 	            return user;
 	        }
 	    } catch (SQLException e) {
@@ -172,12 +187,16 @@ public class UserDAO {
 
 	    try {
 	        connection = getConnection();
-	        String query = "UPDATE user SET password = ?,name = ?, gender = ?, email = ? WHERE id = ?";
+	        String query = "UPDATE userS SET password = ?,name = ?, email = ?,Birth = ?, Post = ?, Addr = ?,DETAILADDRESS = ?  WHERE id = ?";
 	        statement = connection.prepareStatement(query);
 	        statement.setString(1, user.getID());
 	        statement.setString(2, user.getPASSWORD());
 	        statement.setString(3, user.getName());
-	        statement.setString(5, user.getEmail());
+	        statement.setString(4, user.getEmail());
+	        statement.setString(5, user.getBirth());
+	        statement.setString(6, user.getPost());
+	        statement.setString(7, user.getAddr());
+	        statement.setString(8, user.getDETAILADDRESS());
 	        return statement.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
