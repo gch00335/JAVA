@@ -40,6 +40,12 @@ public class HandlerMapping {
         mappings.put("/bbs.do",  new  BbsController());
         mappings.put("/write.do",  new WriteController());
         mappings.put("/writeaction.do",  new WriteactionController());
+        mappings.put("/view.do",  new ViewController());
+        mappings.put("/update.do",  new UpdatdController());
+        mappings.put("/updateAction.do",  new  UpdateActionController());
+        mappings.put("/deleteAction.do",  new DeleteActionController());
+        
+        
     } catch (Exception e) {
         e.printStackTrace();
     }
