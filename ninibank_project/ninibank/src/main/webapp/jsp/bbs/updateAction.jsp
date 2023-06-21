@@ -70,7 +70,7 @@ crossorigin="anonymous"></script>
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('권한이 없습니다.')");
-		script.println("location.href = '" + bbsJSPURL + "'");
+		script.println("location.href = '" + bbsDoURL + "'");
 		script.println("</script>");
 	}
 	else {
@@ -91,7 +91,7 @@ crossorigin="anonymous"></script>
 			
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = '" + bbsJSPURL + "'");
+			script.println("location.href = '" + bbsDoURL + "'");
 			script.println("</script>");
 		}
 	}

@@ -2,20 +2,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
+<%@ page import="kr.ac.kopo.bbs.Bbs"%>
 <%@ page import="kr.ac.kopo.bbs.BbsDAO"%>
 <%@ page import="java.io.PrintWriter"%>
 
 <%
-request.setCharacterEncoding("UTF-8");
+request.setCharacterEncoding("euc-kr");
 %>
-<jsp:useBean id="bbs" class="kr.ac.kopo.bbs.Bbs" scope="page" />
-<jsp:setProperty name="bbs" property="bbsTitle" />
-<jsp:setProperty name="bbs" property="bbsContent" />
 
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="EUC-KR">
 <link rel="stylesheet" 
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
 integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
@@ -29,54 +27,73 @@ integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfoo
 crossorigin="anonymous"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>NINI_BANK</title>
+</head>
 <body>
 	<%
-	
 	String contextPath = request.getContextPath();
     String bbsDoURL = contextPath + "/bbs.do";
-    String loginDoURL = contextPath + "/login.do";
-	String userID = null;
+    String bbsJSPURL = contextPath + "/jsp/bbs/bbs.jsp";
 	
-	if (session.getAttribute("ID") != null) {
-	    userID = (String) session.getAttribute("ID");
+	String userID = null;
+	if (session.getAttribute("ID") != null){
+		userID = (String) session.getAttribute("ID");
 	}	    // 카카오톡 로그인 확인
 	boolean isKakaoLoggedIn = false;
 	String kakaoID = (String) session.getAttribute("kakaoID");
     if (kakaoID != null) {
         isKakaoLoggedIn = true;
+        userID = (String) session.getAttribute("kakaoID");
+        
+        System.out.println(userID);   
+        
     } 
-	if (userID == null || !isKakaoLoggedIn) {
+    if(userID == null){
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("alert('로그인을 하세요')");
-		script.println("location.href = '/jsp/login/loginForm.jsp'");
+		script.println("alert('로그인을 하세요.')");
+		script.println("location.href = '${pageContext.request.contextPath}/login.do'");
 		script.println("</script>");
-	} else {
-	if (bbs.getBbsTitle() == null || bbs.getBbsContent() == null) {
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('입력이 안 된 사항이 있습니다.')");
-		script.println("history.back()");
-		script.println("</script>");
-	} else {
-		BbsDAO bbsDAO = new BbsDAO();
-		int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+    }
+    
+    
+	int bbsID = 0;
+	if (request.getParameter("bbsID") != null) {
+		bbsID = Integer.parseInt(request.getParameter("bbsID"));
+	
+	}
+	
+	Bbs bbs = new BbsDAO().getBbs(bbsID);
+	
+	System.out.println(bbs.getUserID());
 
-		if (result == -1) {
+	if (!userID.equals(bbs.getUserID())) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('권한이 없습니다.')");
+		script.println("location.href = '" + bbsDoURL + "'");
+		script.println("</script>");
+	}
+	else {
+			BbsDAO bbsDAO = new BbsDAO();
+			int result = bbsDAO.delete(bbsID);
+
+			if (result == -1) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('글쓰기에 실패했습니다.')");
+			script.println("alert('글 삭제에 실패했습니다.')");
 			script.println("history.back()");
 			script.println("</script>");
 		} else {
 			
+			System.out.println(request.getParameter("bbsTilte"));
+			
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = '/jsp/bbs/bbs.jsp'");
+			script.println("location.href = '" + bbsDoURL + "'");
 			script.println("</script>");
 		}
 	}
-}
+
 	%>
 </body>
 </html>

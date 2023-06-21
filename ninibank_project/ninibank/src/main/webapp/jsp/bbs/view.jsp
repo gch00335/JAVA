@@ -514,7 +514,7 @@
 			if (userID != null && userID.equals(bbs.getUserID())) {
 			%>
 			<a href="${pageContext.request.contextPath}/update.do?bbsID=<%=bbsID%>" class="btn btn-primary btn-left">수정</a>
-			<a href="deleteAction.jsp?bbsID=<%=bbsID%>" class="btn btn-primary btn-left">삭제</a>
+			<a href="${pageContext.request.contextPath}/deleteAction.do?bbsID=<%=bbsID%>" class="btn btn-primary btn-left">삭제</a>
 			<%
 			}
 			%>
