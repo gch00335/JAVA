@@ -31,6 +31,7 @@ public class BbsDAO {
 	 public String getDate() {
 			String SQL = "SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM DUAL";
 			try {
+				 conn = getConnection(); // 수정된 부분
 				PreparedStatement pstmt = conn.prepareStatement(SQL);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
@@ -45,6 +46,7 @@ public class BbsDAO {
 		public int getNext() {
 			String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC";
 			try {
+				 conn = getConnection(); // 수정된 부분
 				PreparedStatement pstmt = conn.prepareStatement(SQL);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
@@ -58,9 +60,10 @@ public class BbsDAO {
 		}
 
 		public int write(String bbsTitle, String userID, String bbsContent ) {
-			conn = getConnection();
+			
 			String SQL = "INSERT INTO BBS VALUES(?, ?, ?, ?, ?, ?)";
 			try {
+				 conn = getConnection(); // 수정된 부분
 				PreparedStatement pstmt = conn.prepareStatement(SQL);
 				pstmt.setInt(1, getNext());
 				pstmt.setString(2, bbsTitle);
@@ -101,6 +104,7 @@ public class BbsDAO {
 	}
 	
 	public boolean nextPage(int pageNumber) {
+		 conn = getConnection(); // 수정된 부분
 		String SQL = "SELECt * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -116,7 +120,8 @@ public class BbsDAO {
 	}
 	
 	public Bbs getBbs(int bbsID) {
-		String SQL = "SELECt * FROM BBS WHERE bbsID = ?";
+		  conn = getConnection();
+		String SQL = "SELECT * FROM BBS WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bbsID);
@@ -136,5 +141,22 @@ public class BbsDAO {
 		}
 		return null;
 	}
+		public int update(int bbsID, String bbsTitle, String bbsContent ) {
+			conn = getConnection();
+			String SQL = "UPDATE BBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?" ;
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				pstmt.setString(1, bbsTitle);
+				pstmt.setString(2, bbsContent);
+				pstmt.setInt(3, bbsID);
+
+				return pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return -1; // 데이터베이스 오류
+		}
+			
 		
 }
