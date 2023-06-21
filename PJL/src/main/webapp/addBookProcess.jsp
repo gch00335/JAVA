@@ -10,7 +10,7 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <jsp:useBean id="book" class="book.Book" scope="page" />
-<jsp:setProperty name="book" property="isban" />
+<jsp:setProperty name="book" property="isbn" />
 <jsp:setProperty name="book" property="title" />
 <jsp:setProperty name="book" property="thumbnai" />
 <jsp:setProperty name="book" property="contents" />

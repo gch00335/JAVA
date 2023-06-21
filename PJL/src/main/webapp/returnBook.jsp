@@ -6,8 +6,8 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="book.Book"%>
-<%@page import="user.User"%>
-<%@page import="user.UserDAO"%>
+<%@page import="kr.ac.kopo.user.User"%>
+<%@page import="kr.ac.kopo.user.UserDAO"%>
 <%@page import="book.BookDAO"%>
 
 

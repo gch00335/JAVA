@@ -8,7 +8,7 @@ public class Rental {
 	private String userID;
 	
 	public Rental() {
-        // ±âº» »ý¼ºÀÚ Ãß°¡
+        // Â±Ã¢ÂºÂ» Â»Ã½Â¼ÂºÃ€Ãš ÃƒÃŸÂ°Â¡
     }
 	
 	public String getTitle() {

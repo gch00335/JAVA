@@ -37,7 +37,7 @@ public class BbsDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ""; // µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return ""; // ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
 
 	public int getNext() {
@@ -48,11 +48,11 @@ public class BbsDAO {
 			if (rs.next()) {
 				return rs.getInt(1) + 1;
 			}
-			return 1; // Ã¹¹øÂ° °Ô½Ã¹°ÀÎ °æ¿ì
+			return 1; // ì²«ë²ˆì§¸ ê²Œì‹œë¬¼ì¸ ê²½ìš°
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; // µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -1; // ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
 
 	public int write(String bbsTitle, String userID, String bbsContent) {
@@ -71,7 +71,7 @@ public class BbsDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; // µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -1; // ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
 	
 	public ArrayList<Bbs> getList(int pageNumber){

@@ -2,8 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
-<%@ page import="user.User"%>
-<%@ page import="user.UserDAO"%>
+<%@ page import="kr.ac.kopo.user.User"%>
+<%@ page import="kr.ac.kopo.user.UserDAO"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>

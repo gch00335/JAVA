@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="user.User"%>
+<%@ page import="kr.ac.kopo.user.User"%>
 <%@ page import="user.UserDAO"%>
 <%@ page import="java.io.PrintWriter"%>
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="user" class="user.User" scope="page" />
+<jsp:useBean id="user" class="kr.ac.kopo.user.User" scope="page" />
 <jsp:setProperty name="user" property="ID" />
 <jsp:setProperty name="user" property="PASSWORD" />
 <jsp:setProperty name="user" property="name" />

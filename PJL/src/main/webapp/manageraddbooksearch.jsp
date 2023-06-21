@@ -95,12 +95,11 @@ a, a:hover {
 			<ul class="nav navbar-nav">
 	
 					<li><a href="managermain.jsp">메인</a></li>
-			   	<li><a href="managerbookList.jsp">도서대출</a></li>
+			   	<li><a href="bookList.jsp">도서대출</a></li>
 			   	 <li><a href="managerbooksearch.jsp">전자도서검색</a></li>
 				<li><a href="managerbbs.jsp">자유게시판</a></li>
 				<li><a href="addbooksearch.jsp">도서관리</a></li>
 				<li><a href="userlist.jsp">회원목록</a></li>
-
 			</ul>
 
 			<%

@@ -21,44 +21,42 @@ a, a:hover {
 }
 </style>
 <style>
-		.book-info {
-            padding: 20px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
+.book-info {
+	padding: 20px;
+	background-color: #f8f9fa;
+	border: 1px solid #dee2e6;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
 
-        .book-info img {
-            max-width: 200px;
-            height: auto;
-            margin-bottom: 10px;
-            
-        }
+.book-info img {
+	max-width: 200px;
+	height: auto;
+	margin-bottom: 10px;
+}
 
-        .book-info h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
+.book-info h3 {
+	font-size: 18px;
+	margin-bottom: 10px;
+}
 
-        .book-info .isbn {
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
+.book-info .isbn {
+	font-size: 12px;
+	margin-bottom: 10px;
+}
 
-        .book-info p {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
+.book-info p {
+	font-size: 14px;
+	margin-bottom: 10px;
+}
 
-        .book-info .contents {
-            font-size: 12px;
-        }
-	.book-info . contents{
-		font-size: 12px;
-		
-	}		
-				
+.book-info .contents {
+	font-size: 12px;
+}
+
+.book-info . contents {
+	font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -89,12 +87,11 @@ a, a:hover {
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 					<li><a href="managermain.jsp">메인</a></li>
-			   	<li><a href="bookList.jsp">도서대출</a></li>
+			   	<li><a href="managerbookList.jsp">도서대출</a></li>
 			   	 <li><a href="managerbooksearch.jsp">전자도서검색</a></li>
 				<li><a href="managerbbs.jsp">자유게시판</a></li>
 				<li><a href="addbooksearch.jsp">도서관리</a></li>
 				<li><a href="userlist.jsp">회원목록</a></li>
-
 
 			</ul>
 
@@ -118,18 +115,27 @@ a, a:hover {
 			<%
 			} else {
 			%>
-
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">관리자모드<span class="caret"></span>
-				</a>
-					<ul class="dropdown-menu">
-						<li><a href="logoutAction.jsp">로그아웃</a></li>
-						<%
-						}
-						%>
-					
+				<li><a href="#"> <%=userID%> 님 <!-- 로그인된 아이디 표시 -->
+				</a></li>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">회원관리<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="mypage.jsp">마이페이지</a></li>
+							<li><a href="logoutAction.jsp">로그아웃</a></li>
+
+						</ul></li>
+				</ul>
+		
+				<%
+				}
+				%>
+			
+		</div>
+
 		</div>
 	</nav>
 
@@ -154,46 +160,104 @@ a, a:hover {
 		crossorigin="anonymous"></script>
 
 	<script>
-		$(document).ready(function() {
-			$("#searchButton").click(function() {
-				var searchQuery = $("#searchInput").val();
+		$(document)
+				.ready(
+						function() {
+							$("#searchButton")
+									.click(
+											function() {
+												var searchQuery = $(
+														"#searchInput").val();
 
-				$.ajax( {
-					method : "GET",
-					url : "https://dapi.kakao.com/v3/search/book?target=title",
-					data : {
-					query : $("#searchInput").val()},
-					headers : {Authorization : "KakaoAK 5cb56e48a85f67e5073a5e69238d8b71"}
-							})
-														
-							.done(function(msg) {
-								console.log(msg.documents[0].title);
-								console.log(msg.documents[0].thumbnail);
-								console.log(msg.documents[0].isbn);
-								console.log(msg.documents[0].authors);
-							    console.log(msg.documents[0].contents);
+												$
+														.ajax(
+																{
+																	method : "GET",
+																	url : "https://dapi.kakao.com/v3/search/book?target=title",
+																	data : {
+																		query : $(
+																				"#searchInput")
+																				.val()
+																	},
+																	headers : {
+																		Authorization : "KakaoAK 5cb56e48a85f67e5073a5e69238d8b71"
+																	}
+																})
 
-							    var bookInfoDiv = $("#bookInfo");
-			                    bookInfoDiv.empty();
+														.done(
+																function(msg) {
+																	console
+																			.log(msg.documents[0].title);
+																	console
+																			.log(msg.documents[0].thumbnail);
+																	console
+																			.log(msg.documents[0].isbn);
+																	console
+																			.log(msg.documents[0].authors);
+																	console
+																			.log(msg.documents[0].contents);
 
-			                    for (var i = 0; i < msg.documents.length; i++) {
-			                        var currentBook = msg.documents[i];
+																	var bookInfoDiv = $("#bookInfo");
+																	bookInfoDiv
+																			.empty();
 
-			                        var bookInfo = $("<div>").addClass("book-info");
-			                        bookInfo.append($("<img>").attr("src", currentBook.thumbnail));
-			                        bookInfo.append($("<h3>").text(currentBook.title));
-			                        bookInfo.append($("<p>").addClass("isbn").text("ISBN: " + currentBook.isbn));
-			                        bookInfo.append($("<p>").text("저자: " + currentBook.authors));
-			                        bookInfo.append($("<p>").addClass("contents").text(currentBook.contents));
+																	for (var i = 0; i < msg.documents.length; i++) {
+																		var currentBook = msg.documents[i];
 
-			                        bookInfoDiv.append(bookInfo);
-			                    }
-			                })
-			                .fail(function(jqXHR, textStatus, errorThrown) {
-			                    console.log("요청 실패: " + textStatus + ", " + errorThrown);
-				});
-			});
-		});
+																		var bookInfo = $(
+																				"<div>")
+																				.addClass(
+																						"book-info");
+																		bookInfo
+																				.append($(
+																						"<img>")
+																						.attr(
+																								"src",
+																								currentBook.thumbnail));
+																		bookInfo
+																				.append($(
+																						"<h3>")
+																						.text(
+																								currentBook.title));
+																		bookInfo
+																				.append($(
+																						"<p>")
+																						.addClass(
+																								"isbn")
+																						.text(
+																								"ISBN: "
+																										+ currentBook.isbn));
+																		bookInfo
+																				.append($(
+																						"<p>")
+																						.text(
+																								"저자: "
+																										+ currentBook.authors));
+																		bookInfo
+																				.append($(
+																						"<p>")
+																						.addClass(
+																								"contents")
+																						.text(
+																								currentBook.contents));
+
+																		bookInfoDiv
+																				.append(bookInfo);
+																	}
+																})
+														.fail(
+																function(
+																		jqXHR,
+																		textStatus,
+																		errorThrown) {
+																	console
+																			.log("요청 실패: "
+																					+ textStatus
+																					+ ", "
+																					+ errorThrown);
+																});
+											});
+						});
 	</script>
 	</div>
 	</div>

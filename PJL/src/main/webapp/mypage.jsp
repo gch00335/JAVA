@@ -1,8 +1,8 @@
 <%@page import="book.Book"%>
-<%@page import="user.User"%>
+<%@page import="kr.ac.kopo.user.User"%>
 <%@page import="rental.Rental"%>
 <%@page import="rental.RentalDAO"%>
-<%@page import="user.UserDAO"%>
+<%@page import="kr.ac.kopo.user.UserDAO"%>
 <%@page import="org.h2.expression.function.SubstringFunction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>

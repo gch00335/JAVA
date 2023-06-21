@@ -29,7 +29,7 @@ public class RentalDAO {
 		
 
 		public boolean addRental(String title, String isbn, String thumbnai, String userID) {
-		    // ÀÌ¹Ì ´ëÃâ ÁßÀÎ µµ¼­ÀÎÁö È®ÀÎ
+		    // ì´ë¯¸ ëŒ€ì¶œ ì¤‘ì¸ ë„ì„œì¸ì§€ í™•ì¸
 		    if (this.isBookAlreadyRented(isbn)) {
 		        return false;
 		    }
@@ -96,7 +96,7 @@ public class RentalDAO {
 		            pstmt.setString(1, isbn);
 
 		            try (ResultSet rs = pstmt.executeQuery()) {
-		                return rs.next(); // °á°ú°¡ Á¸ÀçÇÏ¸é ÀÌ¹Ì ´ëÃâ ÁßÀÎ µµ¼­
+		                return rs.next(); // ê²°ê³¼ê°€ ì¡´ì¬í•˜ë©´ ì´ë¯¸ ëŒ€ì¶œ ì¤‘ì¸ ë„ì„œ
 		            }
 		        } catch (SQLException e) {
 		            e.printStackTrace();
@@ -105,7 +105,7 @@ public class RentalDAO {
 		        return false;
 		    }
 		    
-		    // ´ëÃâ ¸ñ·Ï¿¡¼­ Ã¥À» ¹İ³³ÇÏ´Â ¸Ş¼­µå
+		    // ëŒ€ì¶œ ëª©ë¡ì—ì„œ ì±…ì„ ë°˜ë‚©í•˜ëŠ” ë©”ì„œë“œ
 		    public void returnBook(String title) {
 		        Connection conn = null;
 		        PreparedStatement pstmt = null;
