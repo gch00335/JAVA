@@ -37,7 +37,9 @@ public class HandlerMapping {
         mappings.put("/load.do", new LoadController());
         mappings.put("/kakaologin.do", new KakaoLoginController());
         mappings.put("/kakaojoin.do",  new KakaoJoinController());
-
+        mappings.put("/bbs.do",  new  BbsController());
+        mappings.put("/write.do",  new WriteController());
+        mappings.put("/writeaction.do",  new WriteactionController());
     } catch (Exception e) {
         e.printStackTrace();
     }
