@@ -19,6 +19,7 @@ public class WriteactionController implements Controller {
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
+		String url = "";
 		
         HttpSession session = request.getSession();
         String userID = null;
@@ -82,19 +83,12 @@ public class WriteactionController implements Controller {
                         e.printStackTrace();
                     }
                 } else {
-                    try {
-                        PrintWriter script = response.getWriter();
-                        script.println("<script>");
-                        script.println("location.href = '/jsp/bbs/bbs.jsp'");
-                        script.println("</script>");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        url = "/jsp/bbs/bbs.jsp";
                 } 
             }
         }
 
-        return"/jsp/bbs/bbs.jsp"; // 적절한 뷰 페이지를 리턴하도록 수정해야 합니다.
+        return url; // 적절한 뷰 페이지를 리턴하도록 수정해야 합니다.
     }
 
 }
