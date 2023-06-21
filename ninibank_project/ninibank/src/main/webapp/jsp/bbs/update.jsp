@@ -335,44 +335,50 @@ a, a:hover {
 	String kakaoID = (String) session.getAttribute("kakaoID");
     if (kakaoID != null) {
         isKakaoLoggedIn = true;
+        userID = (String) session.getAttribute("kakaoID");
+        
     } 
     int pageNumber = 1;
 	if (request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
+	System.out.println(userID);
+
+	if(userID == null){
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('로그인을 하세요.')");
+		script.println("location.href = '${pageContext.request.contextPath}/login.do'");
+		script.println("</script>");
+	
+	}
+
+		int bbsID = 0;
+		if (request.getParameter("bbsID") != null) {
+			bbsID = Integer.parseInt(request.getParameter("bbsID"));
+			System.out.println(bbsID);
+		}
+		
+	
+
+		Bbs bbs = new BbsDAO().getBbs(bbsID);
+		System.out.println(bbs.getUserID());
+		
+		if (!userID.equals(bbs.getUserID())) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('권한이 없습니다.')");
+			script.println("location.href = '${pageContext.request.contextPath}/bbs.do'");
+			script.println("</script>");
+		}
+
 %>
 
 <ul class="nav navbar-nav navbar-right">
 
 
-  <% if (userID == null && isKakaoLoggedIn == false ) { %>
-	 <div class="top-container">
-  <div class="left-side">
-  <a href="/bank/index.jsp">
-  <img src="니니찌니로고.png" alt="로고" class="logo">
-</a>
-   
-    <h3> Q&A 게시판</h3><br>
-    <div class="button-group">
-      <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
-   
-    </div>
-  </div>
-  <div class="right-side">
-  <div class="button-group">
-    <button class="button">Q&A게시판</button>
-  <div class="dropdown">
-    <button class="button"> 접속하기 </button>
-    <ul class="dropdown-menu">
-      <li> <a href="${pageContext.request.contextPath}/login.do" class="button">로그인</a></li>
-      <li>   <a href="${pageContext.request.contextPath}/join.do" class="button">회원 가입</a></li>
-    </ul>
-    </li>
-       </div>
-  </div>
-</div>
-  <% } else if (isKakaoLoggedIn) { %>
+  
+  <% if (isKakaoLoggedIn) { %>
     <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
@@ -433,24 +439,24 @@ a, a:hover {
 	
 	<div class="container"  >
 	<div class="row">
-	<form method="post" action="${pageContext.request.contextPath}/writeaction.do">
+	<form method="post" action="${pageContext.request.contextPath}/updateAction.do">
 		<table class="table table-striped" style="text-align: center; border:1px solid #E6E6E6; width: 1200px;">
 		<thead>
 			<tr>
-				<th colspan="2" style="background-color: #BDBDBD; text-align: center;">게시판 글쓰기 양식</th>
+				<th colspan="2" style="background-color: #BDBDBD; text-align: center;">게시판 글 수정 양식</th>
 				
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
+				<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50" value="<%= bbs.getBbsTitle()%>"></td>
 			</tr>
 			<tr>
-				<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="3000" style="height:350px"></textarea></td>
+				<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="3000" style="height:350px" ><%= bbs.getBbsContent()%>></textarea></td>
 			</tr>
 		</tbody>
 	</table>		
-		<input type="submit" class="btn btn-primary pull-right" value="글쓰기" >
+		<input type="submit" class="btn btn-primary pull-right" value="글수정" >
 	</form>
 	</div>
 </div>

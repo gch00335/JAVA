@@ -307,8 +307,19 @@ crossorigin="anonymous"></script>
 .top-container {
   position: relative; /* 상대적 위치 설정 */
 }
+.table {
+	margin-top: 40px; /* 기존 값에 25px 더해서 조정 */
+}
 
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.btn-write {
+    margin-left: auto;
+}
 <style type="text/css">
 a, a:hover {
 	color: #000000;
@@ -457,7 +468,7 @@ a, a:hover {
 
 					<tr>
 						<td><%=list.get(i).getBbsID()%></td>
-						<td><a href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "gt;")
+						<td><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "gt;")
 		.replaceAll("\n", "<br>")%></a></td>
 						<td><%=list.get(i).getUserID()%></td>
 						<td><%=list.get(i).getBbsDate().substring(0, 11) %></td>
@@ -471,18 +482,19 @@ a, a:hover {
 			<%
 			if (pageNumber != 1) {
 			%>
-			<a href="bbs.jsp?pageNumber=<%=pageNumber - 1%>"
+			<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber - 1%>"
 				class="btn btn-success btn-arraw-left">이전</a>
 			<%
 			}
 			if (bbsDAO.nextPage(pageNumber + 1)) {
 			%>
-			<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
+			<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber + 1%>"
 				class="btn btn-success btn-arraw-left">다음</a>
 			<%
 			}
 			%>
-			<a href="${pageContext.request.contextPath}/write.do" class="btn btn-primary pull-right">글쓰기</a>
+			<div class="col-auto">
+			<a href="${pageContext.request.contextPath}/write.do" class="btn btn-primary ">글쓰기</a>
 		</div>
 	</div>
 
