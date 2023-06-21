@@ -1,103 +1,454 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter" %>
-
- 
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    <%@ page import="java.io.PrintWriter"%>
+<%@ page import="kr.ac.kopo.bbs.Bbs"%>
+<%@ page import="kr.ac.kopo.bbs.BbsDAO"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name = "viewport" content="width=device-width", initial-scale="1">
-<link rel = "stylesheet" href="css/bootstrap.css">
-<title>ë‹ˆë‹ˆì°Œë‹ˆ ë„ì„œê´€</title>
+<link rel="stylesheet" 
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" 
+crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+
+crossorigin="anonymous"></script>
+<style>
+/* Reset some default styles for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Define @font-face rule */
+@font-face {
+  font-family: 'WooridaumB';
+  src: url('https://example.com/path-to/WooridaumB.woff2') format('woff2'); /* ÆùÆ® ÆÄÀÏÀÇ ½ÇÁ¦ URL·Î º¯°æ */
+  font-weight: 700;
+  font-style: normal;
+}
+/* Styling for the top container */
+.top-container {
+  background-color: #008040;
+  display: flex;
+ justify-content: space-between; /* ¼öÁ¤: ¿ŞÂÊ°ú ¿À¸¥ÂÊ »çÀÌÀÇ °ø°£À» ÃÖ´ëÈ­ */
+  align-items: center;
+  height: 25vh;
+  font-weight: bold;
+  font-family: 'WooridaumB', sans-serif;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+  height: 100%;
+  background-color: #ffffff; /* ÇÏ¾ç ¹è°æ Ãß°¡ */
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.left-side h1 {
+  font-size: 60px; /* Å« ±Û¾¾Ã¼·Î ¼öÁ¤ */
+  font-weight: bold; /* ÁøÇÑ ±Û¾¾Ã¼·Î ¼öÁ¤ */
+  color: #008040; /* ¹ÎÆ®»öÀ¸·Î ¼öÁ¤ */
+  font-family: 'WooridaumB', sans-serif; 
+}
+
+.left-side h3 {
+ font-size: 34px; /* ÀÛÀº ±Û¾¾Ã¼·Î ¼öÁ¤ */
+  color: #000;
+  margin-bottom: 10px;
+ font-family: 'WooridaumB', sans-serif; 
+}
+
+.right-side {
+  display: flex; 
+  flex-direction: column;
+  justify-content: flex-start; /* ¼öÁ¤: ¸Ç À§·Î Á¤·ÄµÇµµ·Ï º¯°æ */
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  background-color: #008040; /* ¹ÎÆ®»ö ¹è°æ Ãß°¡ */
+  border-radius: 5px;
+  margin-left: 20px;
+}
+.right-side .button {
+  margin-left: 10px; /* ¼öÁ¤: ¹öÆ° °£°İÀ» Á¶Á¤ */
+}
+
+
+
+.button-group {
+   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+
+/* Additional styles */
+
+/* 1. »ó´ÜÀÇ ¹ÎÆ®»ö°ú °Ë»öÃ¢ ½ºÅ¸ÀÏ */
+.top-container {
+  background-color: #008040;
+  display: flex;
+ justify-content: space-between; /* ¼öÁ¤: ¿ŞÂÊ°ú ¿À¸¥ÂÊ »çÀÌÀÇ °ø°£À» ÃÖ´ëÈ­ */
+  align-items: center;
+  height: 25vh;
+  font-weight: bold;
+  font-family: 'WooridaumB', sans-serif;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* ¼öÁ¤: ¸Ç ¿À¸¥ÂÊ¿¡ À§Ä¡ÇÏµµ·Ï º¯°æ */
+  margin-left: 20px;
+  background-color: #008040; /* ¹ÎÆ®»ö ¹è°æ Ãß°¡ */
+   font-weight: bold;
+    font-family: 'WooridaumB', sans-serif; 
+}
+
+
+/* 2. ¿ŞÂÊ ÇÏ¾çÂÊ µğÀÚÀÎ ¼öÁ¤ */
+.left-side {
+  text-align: center;
+  background-color: #ffffff; /* ÇÏ¾ç ¹è°æ Ãß°¡ */
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.left-side h1 {
+   font-size: 60px; /* Å« ±Û¾¾Ã¼·Î ¼öÁ¤ */
+  font-weight: bold; /* ÁøÇÑ ±Û¾¾Ã¼·Î ¼öÁ¤ */
+  color: #008040; /* ¹ÎÆ®»öÀ¸·Î ¼öÁ¤ */
+    font-family: 'WooridaumB', sans-serif; 
+    margin-left: -250px; /* ¿ŞÂÊÀ¸·Î 20px ÀÌµ¿ */
+}
+
+.left-side h3 {
+   font-size: 34px; /* ÀÛÀº ±Û¾¾Ã¼·Î ¼öÁ¤ */
+  color: #000;
+  margin-bottom: 5px;
+    font-family: 'WooridaumB', sans-serif; 
+}
+.left-side h4 {
+  font-size: 16px; /* ÀÛÀº ±Û¾¾Ã¼·Î ¼öÁ¤ */
+  margin-bottom: 5px;
+  font-family: 'WooridaumB', sans-serif;
+}
+.main-page {
+  color: #FF8000; /* ¸ŞÀÎÈ­¸éÀÇ ÁÖÈ²»ö */
+}
+
+.sub-page {
+  color: #888888; /* ÁöÁ¡¾È³»ÀÇ È¸»ö */
+}
+
+
+.button {
+   width: 100px;
+  height: 40px;
+  margin-top: 10px;
+  background-color:  #ffffff;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+   margin-right: 10px;
+    font-family: 'WooridaumB', sans-serif; 
+}
+  
+}
+
+.button:hover {
+  background-color: #ececec;
+}
+
+/* ½ºÅ¸ÀÏ ÄÚµå Ãß°¡ */
+  .help-image {
+    position: fixed; /* °íÁ¤ À§Ä¡ */
+    bottom: 60px; /* Footer ¹Ù·Î À§¿¡ À§Ä¡ */
+    right: 20px; /* ¿À¸¥ÂÊ Á¤·Ä */
+    font-family: 'WooridaumB', sans-serif; 
+  }
+
+  .help-menu {
+    display: none; /* ÃÊ±â¿¡´Â ¼û±è */
+    position: absolute;
+    bottom: 100%; /* µµ¿ò ¾ÆÀÌÄÜ À§¿¡ À§Ä¡ */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 10px;
+    width: 200px; /* ¸Ş´º Ä­ ³Êºñ Á¶Á¤ */
+    font-family: 'WooridaumB', sans-serif; 
+   
+  }
+
+  .help-menu p {
+    margin: 5px 0; /* °£°İ Á¶Á¤ */
+    cursor: pointer; /* Ä¿¼­ Æ÷ÀÎÅÍ·Î º¯°æ */
+  }
+
+  .help-menu p:hover {
+    background-color: #eee; /* ¸¶¿ì½º¸¦ ¿Ã·ÈÀ» ¶§ ¹è°æ »ö»ó º¯°æ */
+  }
+
+  .help-image:hover + .help-menu {
+    display: block; /* ¸¶¿ì½º Ä¿¼­¸¦ ¿Ã·ÈÀ» ¶§ ¸Ş´º Ç¥½Ã */
+  }
+
+/* ½ºÅ¸ÀÏ ÄÚµå Ãß°¡ */
+#footer {
+  background-color: #f1f1f1;
+  
+  text-align: center;
+  font-size: 14px;
+    /* ±âÁ¸ ½ºÅ¸ÀÏ ¼Ó¼º */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+ font-family: 'WooridaumB', sans-serif; 
+}
+
+#footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#footer li {
+  display: inline-block;
+  margin-right: 40px;
+}
+
+#footer a {
+  color: #333;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  text-decoration: underline;
+}
+
+#footer p {
+  margin-bottom: 10px;
+}
+
+.map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+  margin-top: 150px; /* ¿øÇÏ´Â ¿©¹é Å©±â·Î Á¶Á¤ */
+  margin-left: 200px; /* ¿øÇÏ´Â ¸¸Å­ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ */
+}
+ .customer-service {
+    width: 240px;
+  height: 168px;
+  border: 1px solid #000; /* °ËÁ¤ Å×µÎ¸® Ãß°¡ */
+  position: absolute; /* À§Ä¡¸¦ Àı´ëÀûÀ¸·Î ¼³Á¤ */
+  top: 350px; /* ¿øÇÏ´Â À§Ä¡·Î Á¶Á¤ */
+  left: 100px; /* ¿øÇÏ´Â À§Ä¡·Î Á¶Á¤ */
+  text-align: center; /* ÅØ½ºÆ®¸¦ ¿À¸¥ÂÊÀ¸·Î Á¤·Ä */
+   }
+   .customer-service p {
+  margin-right: 10px; /* ¿À¸¥ÂÊÀ¸·Î 10pxÀÇ ¶ç¾î¾²±â Àû¿ë */
+}
+ /* Ãß°¡ ½ºÅ¸ÀÏ ÄÚµå */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 300px; /* ÀÌ¹ÌÁö ³Êºñ Á¶Á¤ (ÀûÀıÇÑ °ªÀ¸·Î º¯°æ) */
+  height: 50; /* ÀÌ¹ÌÁö ³ôÀÌ ÀÚµ¿ Á¶Á¤ */
+}
+  
+
+
+/* Ãß°¡ ½ºÅ¸ÀÏ ÄÚµå */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  
+}
+
+.dropdown-menu {
+   display: none;
+  position: absolute;
+  top: 100%; /* Change '0%' to '100%' */
+  left: 0; /* Change 'right' to 'left' */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.top-container {
+  position: relative; /* »ó´ëÀû À§Ä¡ ¼³Á¤ */
+}
+
+
+
+<style type="text/css">
+a, a:hover {
+	color: #000000;
+	test-dacoration: none;
+}
+</style>
+  <meta charset="UTF-8" />
+  <title>NINI_BBS</title>
+ 
 </head>
+
 <body>
+
 <%   
 
 	String userID = null;
 	if (session.getAttribute("ID") != null){
 		userID = (String) session.getAttribute("ID");
+	}	    // Ä«Ä«¿ÀÅå ·Î±×ÀÎ È®ÀÎ
+	boolean isKakaoLoggedIn = false;
+	String kakaoID = (String) session.getAttribute("kakaoID");
+    if (kakaoID != null) {
+        isKakaoLoggedIn = true;
+    } 
+    int pageNumber = 1;
+	if (request.getParameter("pageNumber") != null) {
+		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
-
 %>
 
+<ul class="nav navbar-nav navbar-right">
 
 
-	<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="main.jsp">ë‹ˆë‹ˆì°Œë‹ˆ ë„ì„œê´€</a>
-		</div>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-			<li><a href="main.jsp">ë©”ì¸</a></li>
-				<li><a href="bookList.jsp">ë„ì„œëŒ€ì¶œ</a></li>
-				<li><a href="booksearch.jsp">ì „ìë„ì„œê²€ìƒ‰</a></li>
-				<li><a href="bbs.jsp">ììœ ê²Œì‹œíŒ</a></li>
-			</ul>
-			
-			<% 
-				if(userID == null){
-			%>
-			
-			
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">ì ‘ì†í•˜ê¸°<span class="caret"></span> </a>
-					<ul class="dropdown-menu">
-						<li><a href="login.jsp">ë¡œê·¸ì¸</a></li>
-						<li><a href="join.jsp">íšŒì›ê°€ì…</a></li>
-						<li><a href="manager.jsp">ê´€ë¦¬ìëª¨ë“œ</a></li>
-
-					</ul>
-				</li>
-			</ul>
-			<%
-				} else {
-			%>
-			
-						<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">íšŒì›ê´€ë¦¬<span class="caret"></span> </a>
-					<ul class="dropdown-menu">
-						<li><a href="mypage.jsp">ë§ˆì´í˜ì´ì§€</a></li>
-						<li><a href="logoutAction.jsp">ë¡œê·¸ì•„ì›ƒ</a></li>
-			<%
-				}
-			%>
-		</div>
-	</nav>
+  <% if (userID == null && isKakaoLoggedIn == false ) { %>
+	 <div class="top-container">
+  <div class="left-side">
+  <a href="/bank/index.jsp">
+  <img src="´Ï´ÏÂî´Ï·Î°í.png" alt="·Î°í" class="logo">
+</a>
+   
+    <h3> Q&A °Ô½ÃÆÇ</h3><br>
+    <div class="button-group">
+      <h4><span class="main-page"> ¸ŞÀÎ¸Ş´º </span></h4>
+		<h4><span class="sub-page"> > Q&A °Ô½ÃÆÇ</span></h4>
+   
+    </div>
+  </div>
+  <div class="right-side">
+  <div class="button-group">
+    <button class="button">Q&A°Ô½ÃÆÇ</button>
+  <div class="dropdown">
+    <button class="button"> Á¢¼ÓÇÏ±â </button>
+    <ul class="dropdown-menu">
+      <li> <a href="${pageContext.request.contextPath}/login.do" class="button">·Î±×ÀÎ</a></li>
+      <li>   <a href="${pageContext.request.contextPath}/join.do" class="button">È¸¿ø °¡ÀÔ</a></li>
+    </ul>
+    </li>
+       </div>
+  </div>
+</div>
+  <% } else if (isKakaoLoggedIn) { %>
+    <div class="top-container">
+  <div class="left-side">
+  <a href="/bank/index.jsp">
+  <img src="´Ï´ÏÂî´Ï·Î°í.png" alt="·Î°í" class="logo">
+</a>
+   
+    <h3> Q&A °Ô½ÃÆÇ</h3><br>
+    <div class="button-group">
+      <h4><span class="main-page"> ¸ŞÀÎ¸Ş´º </span></h4>
+		<h4><span class="sub-page"> > Q&A °Ô½ÃÆÇ</span></h4>
+   
+    </div>
+  </div>
+  <div class="right-side">
+  <div class="button-group">
+    <button class="button">Q&A°Ô½ÃÆÇ</button>
+    <button class="button"> MYPAGE </button>
+     <a href="${pageContext.request.contextPath}/logout.do" class="button">·Î±×¾Æ¿ô</a></button>
+ 			 <div class="dropdown">
+  				  <button class="button"> MY°èÁÂ </button>
+    <ul class="dropdown-menu">
+   		<li><a href="mypage.jsp">°èÁÂ°ü¸®</a></li>
+        <li><a href="logoutAction.jsp">¿ÀÇÂ¹ğÅ·¿¬°á</a></li>
+        <li><a href="mypage.jsp">°Å·¡³»¿ªÁ¶È¸</a></li>
+        <li><a href="logoutAction.jsp">°èÁÂÀÌÃ¼</a></li>
+      </ul>
+    </li>
+  <% } else { %>
+    <li>
+      <div class="top-container">
+  <div class="left-side">
+  <a href="/bank/index.jsp">
+  <img src="´Ï´ÏÂî´Ï·Î°í.png" alt="·Î°í" class="logo">
+</a>
+   
+    <h3> Q&A °Ô½ÃÆÇ</h3><br>
+    <div class="button-group">
+      <h4><span class="main-page"> ¸ŞÀÎ¸Ş´º </span></h4>
+		<h4><span class="sub-page"> > Q&A °Ô½ÃÆÇ</span></h4>
+   
+    </div>
+  </div>
+  <div class="right-side">
+  <div class="button-group">
+    <button class="button">Q&A°Ô½ÃÆÇ</button>
+    <button class="button"> MYPAGE </button>
+     <a href="${pageContext.request.contextPath}/logout.do" class="button">·Î±×¾Æ¿ô</a></button>
+ 			 <div class="dropdown">
+  				  <button class="button"> MY°èÁÂ </button>
+    <ul class="dropdown-menu">
+   		<li><a href="mypage.jsp">°èÁÂ°ü¸®</a></li>
+        <li><a href="logoutAction.jsp">¿ÀÇÂ¹ğÅ·¿¬°á</a></li>
+        <li><a href="mypage.jsp">°Å·¡³»¿ªÁ¶È¸</a></li>
+        <li><a href="logoutAction.jsp">°èÁÂÀÌÃ¼</a></li>
+    </li>
+  <% } %>
+</ul>
 	
-	<div class="container">
+	<div class="container"  >
 	<div class="row">
-	<form method="post" action="writeAction.jsp">
-		<table class="table table-striped" style="text-align: center; border:1px solid #E6E6E6">
+	<form method="post" action="${pageContext.request.contextPath}/writeaction.do">
+		<table class="table table-striped" style="text-align: center; border:1px solid #E6E6E6; width: 1200px;">
 		<thead>
 			<tr>
-				<th colspan="2" style="background-color: #BDBDBD; text-align: center;">ê²Œì‹œíŒ ê¸€ì“°ê¸° ì–‘ì‹</th>
+				<th colspan="2" style="background-color: #BDBDBD; text-align: center;">°Ô½ÃÆÇ ±Û¾²±â ¾ç½Ä</th>
 				
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td><input type="text" class="form-control" placeholder="ê¸€ ì œëª©" name="bbsTitle" maxlength="50"></td>
+				<td><input type="text" class="form-control" placeholder="±Û Á¦¸ñ" name="bbsTitle" maxlength="50"></td>
 			</tr>
 			<tr>
-				<td><textarea class="form-control" placeholder="ê¸€ ë‚´ìš©" name="bbsContent" maxlength="2048" style="height:350px"></textarea></td>
+				<td><textarea class="form-control" placeholder="±Û ³»¿ë" name="bbsContent" maxlength="3000" style="height:350px"></textarea></td>
 			</tr>
 		</tbody>
 	</table>		
-		<input type="submit" class="btn btn-primary pull-right" value="ê¸€ì“°ê¸°">
+		<input type="submit" class="btn btn-primary pull-right" value="±Û¾²±â" >
 	</form>
 	</div>
 </div>

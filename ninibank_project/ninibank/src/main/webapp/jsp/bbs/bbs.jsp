@@ -8,7 +8,18 @@
 <html>
 
 <head>
+<link rel="stylesheet" 
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" 
+crossorigin="anonymous"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+
+crossorigin="anonymous"></script>
 <style>
 /* Reset some default styles for consistency */
 * {
@@ -25,11 +36,13 @@
 }
 /* Styling for the top container */
 .top-container {
+  background-color: #008040;
   display: flex;
-  justify-content: center;
+ justify-content: space-between; /* 수정: 왼쪽과 오른쪽 사이의 공간을 최대화 */
   align-items: center;
-  background-color: #008040; /* 민트색 배경 추가 */
   height: 25vh;
+  font-weight: bold;
+  font-family: 'WooridaumB', sans-serif;
 }
 
 .left-side {
@@ -70,28 +83,19 @@
   border-radius: 5px;
   margin-left: 20px;
 }
-
-.left-side button {
-  margin-top: 60px;
+.right-side .button {
+  margin-left: 10px; /* 수정: 버튼 간격을 조정 */
 }
+
+
 
 .button-group {
-  display: flex;
-  justify-content: space-between; /* 수정: 버튼을 옆으로 나열 */
+   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-   margin-bottom: 10px; /* 간격 조정을 위한 수정 */
-}
-.button {
-  width: 100px;
-  height: 40px;
-  margin-top: 10px;
-  background-color:  #ffffff;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-   margin-right: 10px;
-     font-family: 'WooridaumB', sans-serif; 
-}
+
 
 
 
@@ -101,11 +105,11 @@
 .top-container {
   background-color: #008040;
   display: flex;
-  justify-content: flex-end; /* 수정: 버튼을 오른쪽으로 정렬 */
+ justify-content: space-between; /* 수정: 왼쪽과 오른쪽 사이의 공간을 최대화 */
   align-items: center;
   height: 25vh;
-   font-weight: bold;
-    font-family: 'WooridaumB', sans-serif; 
+  font-weight: bold;
+  font-family: 'WooridaumB', sans-serif;
 }
 
 .right-side {
@@ -156,14 +160,16 @@
 
 
 .button {
-  width: 100px;
+   width: 100px;
   height: 40px;
   margin-top: 10px;
+  background-color:  #ffffff;
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-   font-weight: bold;
-  font-family: 'WooridaumB', sans-serif; 
+   margin-right: 10px;
+    font-family: 'WooridaumB', sans-serif; 
+}
   
 }
 
@@ -274,28 +280,20 @@
   height: 50; /* 이미지 높이 자동 조정 */
 }
   
-.customer-service {
-  width: 300px;
-  height: 168px;
-  background-color: #ffffff; /* 하얀색으로 변경 */
-  border-radius: 10px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-  padding: 20px;
-}
- /* CSS 스타일 */
 
 
 /* 추가 스타일 코드 */
 .dropdown {
   position: relative;
   display: inline-block;
+  
 }
 
 .dropdown-menu {
-  display: none;
+   display: none;
   position: absolute;
-  top: 100%;
-  left: 0; /* 수정: 왼쪽 정렬로 변경 */
+  top: 100%; /* Change '0%' to '100%' */
+  left: 0; /* Change 'right' to 'left' */
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -310,10 +308,6 @@
   position: relative; /* 상대적 위치 설정 */
 }
 
-.dropdown-menu {
-  top: calc(25vh + 10px); /* 수정: 25vh 아래로 이동 */
-}
-
 
 <style type="text/css">
 a, a:hover {
@@ -321,7 +315,7 @@ a, a:hover {
 	test-dacoration: none;
 }
 </style>
-  <meta charset="UTF-8" />
+  <meta charset="EUC-KR">
   <title>NINI_BBS</title>
  
 </head>
@@ -344,7 +338,12 @@ a, a:hover {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
 %>
-	 <div class="top-container">
+	
+<ul class="nav navbar-nav navbar-right">
+
+
+  <% if (userID == null && isKakaoLoggedIn == false ) { %>
+    <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
@@ -358,54 +357,80 @@ a, a:hover {
     </div>
   </div>
   <div class="right-side">
+  <div class="button-group">
     <button class="button">Q&A게시판</button>
+  <div class="dropdown">
+    <button class="button"> 접속하기 </button>
+    <ul class="dropdown-menu">
+      <li> <a href="${pageContext.request.contextPath}/login.do" class="button">로그인</a></li>
+      <li>   <a href="${pageContext.request.contextPath}/join.do" class="button">회원 가입</a></li>
+    </ul>
+    </li>
+       </div>
   </div>
 </div>
-
-<ul class="nav navbar-nav navbar-right">
-
-
-  <% if (userID == null && isKakaoLoggedIn == false ) { %>
-    <div class="dropdown">
- <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
-    접속하기<span class="caret"></span>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href="login.jsp">로그인</a></li>
-        <li><a href="join.jsp">회원가입</a></li>
-        <li><a href="manager.jsp">관리자모드</a></li>
-      </ul>
-    </li>
   <% } else if (isKakaoLoggedIn) { %>
-    <li>
-      <a href="#">
-        <%= kakaoID %> 님 <!-- 로그인된 아이디 표시 -->
-      </a>
+   <div class="top-container">
+  <div class="left-side">
+  <a href="/bank/index.jsp">
+  <img src="니니찌니로고.png" alt="로고" class="logo">
+</a>
+   
+    <h3> Q&A 게시판</h3><br>
+    <div class="button-group">
+      <h4><span class="main-page"> 메인메뉴 </span></h4>
+		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+   
+    </div>
+  </div>
+  <div class="right-side">
+  <div class="button-group">
+    <button class="button">Q&A게시판</button>
+    <button class="button"> MYPAGE </button>
+     <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
+ 			 <div class="dropdown">
+  				  <button class="button"> MY계좌 </button>
+    <ul class="dropdown-menu">
+   		<li><a href="mypage.jsp">계좌관리</a></li>
+        <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
+        <li><a href="mypage.jsp">거래내역조회</a></li>
+        <li><a href="logoutAction.jsp">계좌이체</a></li>
+    </ul>
     </li>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-        회원관리<span class="caret"></span>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href="mypage.jsp">마이페이지</a></li>
-        <li><a href="logoutAction.jsp">로그아웃</a></li>
-      </ul>
-    </li>
+       </div>
+  </div>
+</div>
   <% } else { %>
-    <li>
-      <a href="#">
-        <%= userID %> 님 <!-- 로그인된 아이디 표시 -->
-      </a>
+   <div class="top-container">
+  <div class="left-side">
+  <a href="/bank/index.jsp">
+  <img src="니니찌니로고.png" alt="로고" class="logo">
+</a>
+   
+    <h3> Q&A 게시판</h3><br>
+    <div class="button-group">
+      <h4><span class="main-page"> 메인메뉴 </span></h4>
+		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+   
+    </div>
+  </div>
+  <div class="right-side">
+  <div class="button-group">
+    <button class="button">Q&A게시판</button>
+    <button class="button"> MYPAGE </button>
+     <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
+ 			 <div class="dropdown">
+  				  <button class="button"> MY계좌 </button>
+    <ul class="dropdown-menu">
+   		<li><a href="mypage.jsp">계좌관리</a></li>
+        <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
+        <li><a href="mypage.jsp">거래내역조회</a></li>
+        <li><a href="logoutAction.jsp">계좌이체</a></li>
+    </ul>
     </li>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-        회원관리<span class="caret"></span>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href="mypage.jsp">마이페이지</a></li>
-        <li><a href="logoutAction.jsp">로그아웃</a></li>
-      </ul>
-    </li>
+       </div>
+  </div>
+</div>
   <% } %>
 </ul>
 
@@ -435,8 +460,7 @@ a, a:hover {
 						<td><a href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "gt;")
 		.replaceAll("\n", "<br>")%></a></td>
 						<td><%=list.get(i).getUserID()%></td>
-						<td><%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시"
-		+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
+						<td><%=list.get(i).getBbsDate().substring(0, 11) %></td>
 
 					</tr>
 					<%
@@ -458,7 +482,7 @@ a, a:hover {
 			<%
 			}
 			%>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			<a href="${pageContext.request.contextPath}/write.do" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
 
