@@ -439,7 +439,7 @@ a, a:hover {
 	
 	<div class="container"  >
 	<div class="row">
-	<form method="post" action="${pageContext.request.contextPath}/updateAction.do">
+	<form method="post" action="${pageContext.request.contextPath}/updateAction.do?bbsID=<%= bbsID %>" %>
 		<table class="table table-striped" style="text-align: center; border:1px solid #E6E6E6; width: 1200px;">
 		<thead>
 			<tr>

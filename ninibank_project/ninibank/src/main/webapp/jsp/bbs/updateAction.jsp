@@ -7,12 +7,13 @@
 <%@ page import="java.io.PrintWriter"%>
 
 <%
-request.setCharacterEncoding("UTF-8");
+request.setCharacterEncoding("euc-kr");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="EUC-KR">
 <link rel="stylesheet" 
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
 integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
@@ -29,6 +30,10 @@ crossorigin="anonymous"></script>
 </head>
 <body>
 	<%
+	String contextPath = request.getContextPath();
+    String bbsDoURL = contextPath + "/bbs.do";
+    String bbsJSPURL = contextPath + "/jsp/bbs/bbs.jsp";
+	
 	String userID = null;
 	if (session.getAttribute("ID") != null){
 		userID = (String) session.getAttribute("ID");
@@ -65,23 +70,15 @@ crossorigin="anonymous"></script>
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('권한이 없습니다.')");
-		script.println("location.href = '${pageContext.request.contextPath}/bbs.do'");
+		script.println("location.href = '" + bbsJSPURL + "'");
 		script.println("</script>");
 	}
 	else {
-		
-
-		if (request.getParameter("bbsTilte") == null || request.getParameter("bbsContent")== null 
-			|| request.getParameter("bbsTilte").equals("") || request.getParameter("bbsContent").equals(""))  {
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('입력이 안 된 사항이 있습니다.')");
-		script.println("history.back()");
-		script.println("</script>");
-		} else {
+	
 			BbsDAO bbsDAO = new BbsDAO();
-				int result = bbsDAO.update(bbsID,request.getParameter("bbsTilte"), request.getParameter("bbsContent"));
+				int result = bbsDAO.update(bbsID, request.getParameter("bbsTitle"), request.getParameter("bbsContent"));
 
+				
 			if (result == -1) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
@@ -90,13 +87,15 @@ crossorigin="anonymous"></script>
 			script.println("</script>");
 		} else {
 			
+			System.out.println(request.getParameter("bbsTilte"));
+			
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = '/jsp/bbs/bbs.jsp'");
+			script.println("location.href = '" + bbsJSPURL + "'");
 			script.println("</script>");
 		}
 	}
-}
+
 	%>
 </body>
 </html>
