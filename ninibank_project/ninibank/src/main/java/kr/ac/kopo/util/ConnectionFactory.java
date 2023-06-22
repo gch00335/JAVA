@@ -2,6 +2,7 @@ package kr.ac.kopo.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 public class ConnectionFactory {
 public Connection getConnection() throws Exception {
 		
@@ -17,5 +18,10 @@ public Connection getConnection() throws Exception {
 
 		return conn;
 	}
+
+public static void close(PreparedStatement stmt, Connection conn) {
+	// TODO Auto-generated method stub
+	
+}
 	
 }

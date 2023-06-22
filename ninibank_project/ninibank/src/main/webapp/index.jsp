@@ -57,10 +57,10 @@
     
   </div>
   <div class="right-side">
-    <button class="button">Q&A게시판</button>
+    <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
     <li>
         <a href="#">
-            <%= kakaoID %> 님 <!-- 로그인된 아이디 표시 -->
+           로그인중 <!-- 확인용 로그인된 아이디 표시 -->
         </a>
     </li>
   </div>
@@ -69,7 +69,8 @@
   <div class="middle-container">
     <div class="menu-button">
       <div class="menu-item">
-        <img src="계좌관리.png" alt="계좌관리 아이콘">계좌관리
+        <img src="계좌관리.png" alt="계좌관리 아이콘"> <a href="${pageContext.request.contextPath}/account.do">계좌관리</a>
+        
         <p>계좌관리</p>
       </div>
       <div class="menu-item">

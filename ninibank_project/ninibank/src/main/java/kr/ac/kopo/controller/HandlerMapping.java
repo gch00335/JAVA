@@ -44,8 +44,10 @@ public class HandlerMapping {
         mappings.put("/update.do",  new UpdatdController());
         mappings.put("/updateAction.do",  new  UpdateActionController());
         mappings.put("/deleteAction.do",  new DeleteActionController());
-        
-        
+        mappings.put("/account.do",  new AccountController());
+        mappings.put("/madeac.do",  new madeacController());
+        mappings.put("/selectProduct.do",  new selectProductController());
+       
     } catch (Exception e) {
         e.printStackTrace();
     }

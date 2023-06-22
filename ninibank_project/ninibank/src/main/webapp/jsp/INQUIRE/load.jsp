@@ -11,6 +11,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+   text-decoration: none;
 }
 /* Define @font-face rule */
 @font-face {
@@ -327,8 +328,7 @@
     </div>
   </div>
   <div class="right-side">
-    <button class="button">Q&A게시판</button>
-  </div>
+     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a> </div>
 </div>
 
  <div class="map-container">

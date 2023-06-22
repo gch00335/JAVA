@@ -1,8 +1,12 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+    
     <%@ page import="java.io.PrintWriter"%>
-<%@ page import="kr.ac.kopo.bbs.Bbs"%>
-<%@ page import="kr.ac.kopo.bbs.BbsDAO"%>
+    <%@ page import="kr.ac.kopo.product.Product"%>
+<%@ page import="kr.ac.kopo.bank.Bank"%>
+<%@ page import="kr.ac.kopo.bank.BankDAO"%>
+
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -249,16 +253,7 @@ crossorigin="anonymous"></script>
   margin-bottom: 10px;
 }
 
-.map-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding-left: 20px;
-  margin-top: 150px; /* 원하는 여백 크기로 조정 */
-  margin-left: 200px; /* 원하는 만큼 오른쪽으로 이동 */
-}
+
  .customer-service {
     width: 240px;
   height: 168px;
@@ -271,6 +266,7 @@ crossorigin="anonymous"></script>
    .customer-service p {
   margin-right: 10px; /* 오른쪽으로 10px의 띄어쓰기 적용 */
 }
+
  /* 추가 스타일 코드 */
 .logo {
   position: absolute;
@@ -307,24 +303,68 @@ crossorigin="anonymous"></script>
 .top-container {
   position: relative; /* 상대적 위치 설정 */
 }
-
 .table {
 	margin-top: 40px; /* 기존 값에 25px 더해서 조정 */
 }
 
-<style type="text/css">
-a, a:hover {
-	color: #000000;
-	test-dacoration: none;
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-write {
+    margin-left: auto;
+}
+
+
+
+.customer-service {
+  width: 300px;
+  height: 300px;
+  background-color: #ffffff; /* 하얀색으로 변경 */
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+
+/* 이하 동일 */
+.customer-service h2 {
+  font-size: 18px;
+}
+
+.customer-service p {
+  font-size: 14px;
+}
+
+.customer-service a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.customer-service a:hover {
+  text-decoration: underline;
+}
+.col-auto {
+  position: absolute;
+  top: 350px;
+  left: 450px;
+  margin-top: 10px; /* 필요한 경우 여백 조정 */
+}
+
+.container{
+ position: absolute;
+  top: 360px;
+  left: 450px;
+  margin-top: 10px; /* 필요한 경우 여백 조정 */
 }
 </style>
-  <meta charset="UTF-8" />
+  <meta charset="EUC-KR">
   <title>NINI_BBS</title>
  
 </head>
 
 <body>
-
 <%   
 
 	String userID = null;
@@ -337,17 +377,19 @@ a, a:hover {
         isKakaoLoggedIn = true;
         userID = (String) session.getAttribute("kakaoID");
     } 
-    int pageNumber = 1;
-	if (request.getParameter("pageNumber") != null) {
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	}
-%>
+ 	// BankDAO 인스턴스 생성
+   BankDAO bankDAO = new BankDAO();
 
+    // getAccountList 메서드 호출 시 userID 전달
+   ArrayList<Bank> accountList = bankDAO.getAccountList(userID);
+	
+%>
+	
 <ul class="nav navbar-nav navbar-right">
 
 
   <% if (userID == null && isKakaoLoggedIn == false ) { %>
-	 <div class="top-container">
+    <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
@@ -374,89 +416,158 @@ a, a:hover {
   </div>
 </div>
   <% } else if (isKakaoLoggedIn) { %>
-    <div class="top-container">
+   <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-    <h3> Q&A 게시판</h3><br>
+<h3> 계좌관리 </h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+      <h4><span class="main-page"> MY메뉴 </span></h4>
+		<h4><span class="sub-page"> > 계좌관리 </span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A게시판</button>
     <button class="button"> MYPAGE </button>
+     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
      <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
  			 <div class="dropdown">
   				  <button class="button"> MY계좌 </button>
     <ul class="dropdown-menu">
-   		<li><a href="mypage.jsp">계좌관리</a></li>
+   		<li><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></li>
         <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
         <li><a href="mypage.jsp">거래내역조회</a></li>
         <li><a href="logoutAction.jsp">계좌이체</a></li>
-      </ul>
+    </ul>
     </li>
+       </div>
+  </div>
+</div>
   <% } else { %>
-    <li>
-      <div class="top-container">
+   <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-    <h3> Q&A 게시판</h3><br>
+ <h3> 계좌관리 </h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+      <h4><span class="main-page"> MY메뉴 </span></h4>
+		<h4><span class="sub-page"> > 계좌관리 </span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A게시판</button>
+     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
     <button class="button"> MYPAGE </button>
      <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
  			 <div class="dropdown">
   				  <button class="button"> MY계좌 </button>
     <ul class="dropdown-menu">
-   		<li><a href="mypage.jsp">계좌관리</a></li>
+   		<li><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></li>
         <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
         <li><a href="mypage.jsp">거래내역조회</a></li>
         <li><a href="logoutAction.jsp">계좌이체</a></li>
+    </ul>
     </li>
+       </div>
+  </div>
+</div>
   <% } %>
 </ul>
-	
-	<div class="container"  >
-	<div class="row">
-	<form method="post" action="${pageContext.request.contextPath}/writeaction.do">
-		<table class="table table-striped" style="text-align: center; border:1px solid #E6E6E6; width: 1200px;">
-		<thead>
-			<tr>
-				<th colspan="2" style="background-color: #BDBDBD; text-align: center;">게시판 글쓰기 양식</th>
-				
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
-			</tr>
-			<tr>
-				<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="3000" style="height:350px"></textarea></td>
-			</tr>
-		</tbody>
-	</table>		
-		<input type="submit" class="btn btn-primary pull-right" value="글쓰기" >
-	</form>
-	</div>
+
+
+
+  
+  
+  
+  
+  	<div class="customer-service">
+  <h2>MY 계좌</h2><br><br>
+  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/account.do">계좌관리</p>
+  <p><a href="${pageContext.request.contextPath}/load.do">오픈뱅킹연결</a></p>
+  <p>거래내역조회</p>
+  <p>계좌이체</p>
 </div>
-	
- 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
- 	<script src="js/bootstrap.js"></script>
+ 
+ 
+ 
+ <div class="col-auto">
+<a href="${pageContext.request.contextPath}/selectProduct.do" class="btn btn-primary ">계좌개설</a>
+<a href="${pageContext.request.contextPath}/CancellationCreate.do" class="btn btn-primary ">계좌해지</a>
+		</div>
+
+
+ <div class="container">
+    <div class="row">
+        <table class="table table-striped" style="text-align: center; border: 1px solid #E6E6E6">
+            <thead>
+                <tr>
+                    <th style="background-color: #BDBDBD; text-align: center;">계좌번호</th>
+                    <th style="background-color: #BDBDBD; text-align: center;">은행코드</th>
+                    <th style="background-color: #BDBDBD; text-align: center;">잔액</th>
+                    <th style="background-color: #BDBDBD; text-align: center;">개설일자</th>
+                    <th style="background-color: #BDBDBD; text-align: center;">계좌상품</th>
+                </tr>
+            </thead>
+            <tbody>
+                 <% 
+                for (Bank account : accountList) {
+                %>
+                <tr>
+                    <td><%= account.getAcc_num() %></td>
+                    <td><%= account.getBankcode() %></td>
+                    <td><%= account.getBalance() %></td>
+                    <td><%= account.getAcmadedate() %></td>
+                    <td><%= account.getProductID() %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="help-image">
+  <img src="도움.png" alt="도움 아이콘" width="140" height="98">
+  <div class="help-menu">
+    <p><a href="${pageContext.request.contextPath}/load.do" >찾아오시는 길</a></p>
+    <p>문의하기</p>
+  </div>
+</div>
+<script>
+  // JavaScript 코드 추가
+  const helpImage = document.querySelector('.help-image');
+  const helpMenu = document.querySelector('.help-menu');
+
+  helpImage.addEventListener('mouseover', () => {
+    helpMenu.style.display = 'block';
+  });
+
+  helpImage.addEventListener('mouseout', () => {
+    helpMenu.style.display = 'none';
+  });
+</script>
+   
+					<footer id="footer">
+						
+					
+						<ul class="copyright">
+							<li>&copy; 니니찌니'S </li ><li>E -Mail : gch00335@naver.com </li><li>PH : 010-4090-9045 </li><li>git-hub: <a href="https://github.com/gch00335/JAVA">gch00335</a></li>
+						</ul>
+					</footer>
+
 </body>
+
 </html>
