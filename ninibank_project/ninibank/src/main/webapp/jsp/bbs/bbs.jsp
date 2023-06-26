@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter"%>
     <%@ page import="java.io.PrintWriter"%>
 <%@ page import="kr.ac.kopo.bbs.Bbs"%>
 <%@ page import="kr.ac.kopo.bbs.BbsDAO"%>
@@ -30,7 +30,7 @@ crossorigin="anonymous"></script>
 /* Define @font-face rule */
 @font-face {
   font-family: 'WooridaumB';
-  src: url('https://example.com/path-to/WooridaumB.woff2') format('woff2'); /* ÆùÆ® ÆÄÀÏÀÇ ½ÇÁ¦ URL·Î º¯°æ */
+  src: url('https://example.com/path-to/WooridaumB.woff2') format('woff2'); /* í°íŠ¸ íŒŒì¼ì˜ ì‹¤ì œ URLë¡œ ë³€ê²½ */
   font-weight: 700;
   font-style: normal;
 }
@@ -38,7 +38,7 @@ crossorigin="anonymous"></script>
 .top-container {
   background-color: #008040;
   display: flex;
- justify-content: space-between; /* ¼öÁ¤: ¿ŞÂÊ°ú ¿À¸¥ÂÊ »çÀÌÀÇ °ø°£À» ÃÖ´ëÈ­ */
+ justify-content: space-between; /* ìˆ˜ì •: ì™¼ìª½ê³¼ ì˜¤ë¥¸ìª½ ì‚¬ì´ì˜ ê³µê°„ì„ ìµœëŒ€í™” */
   align-items: center;
   height: 25vh;
   font-weight: bold;
@@ -53,20 +53,20 @@ crossorigin="anonymous"></script>
   text-align: center;
   width: 50%;
   height: 100%;
-  background-color: #ffffff; /* ÇÏ¾ç ¹è°æ Ãß°¡ */
+  background-color: #ffffff; /* í•˜ì–‘ ë°°ê²½ ì¶”ê°€ */
   border-radius: 5px;
   padding: 20px;
 }
 
 .left-side h1 {
-  font-size: 60px; /* Å« ±Û¾¾Ã¼·Î ¼öÁ¤ */
-  font-weight: bold; /* ÁøÇÑ ±Û¾¾Ã¼·Î ¼öÁ¤ */
-  color: #008040; /* ¹ÎÆ®»öÀ¸·Î ¼öÁ¤ */
+  font-size: 60px; /* í° ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
+  font-weight: bold; /* ì§„í•œ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
+  color: #008040; /* ë¯¼íŠ¸ìƒ‰ìœ¼ë¡œ ìˆ˜ì • */
   font-family: 'WooridaumB', sans-serif; 
 }
 
 .left-side h3 {
- font-size: 34px; /* ÀÛÀº ±Û¾¾Ã¼·Î ¼öÁ¤ */
+ font-size: 34px; /* ì‘ì€ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
   color: #000;
   margin-bottom: 10px;
  font-family: 'WooridaumB', sans-serif; 
@@ -75,16 +75,16 @@ crossorigin="anonymous"></script>
 .right-side {
   display: flex; 
   flex-direction: column;
-  justify-content: flex-start; /* ¼öÁ¤: ¸Ç À§·Î Á¤·ÄµÇµµ·Ï º¯°æ */
+  justify-content: flex-start; /* ìˆ˜ì •: ë§¨ ìœ„ë¡œ ì •ë ¬ë˜ë„ë¡ ë³€ê²½ */
   align-items: center;
   width: 50%;
   height: 100%;
-  background-color: #008040; /* ¹ÎÆ®»ö ¹è°æ Ãß°¡ */
+  background-color: #008040; /* ë¯¼íŠ¸ìƒ‰ ë°°ê²½ ì¶”ê°€ */
   border-radius: 5px;
   margin-left: 20px;
 }
 .right-side .button {
-  margin-left: 10px; /* ¼öÁ¤: ¹öÆ° °£°İÀ» Á¶Á¤ */
+  margin-left: 10px; /* ìˆ˜ì •: ë²„íŠ¼ ê°„ê²©ì„ ì¡°ì • */
 }
 
 
@@ -101,11 +101,11 @@ crossorigin="anonymous"></script>
 
 /* Additional styles */
 
-/* 1. »ó´ÜÀÇ ¹ÎÆ®»ö°ú °Ë»öÃ¢ ½ºÅ¸ÀÏ */
+/* 1. ìƒë‹¨ì˜ ë¯¼íŠ¸ìƒ‰ê³¼ ê²€ìƒ‰ì°½ ìŠ¤íƒ€ì¼ */
 .top-container {
   background-color: #008040;
   display: flex;
- justify-content: space-between; /* ¼öÁ¤: ¿ŞÂÊ°ú ¿À¸¥ÂÊ »çÀÌÀÇ °ø°£À» ÃÖ´ëÈ­ */
+ justify-content: space-between; /* ìˆ˜ì •: ì™¼ìª½ê³¼ ì˜¤ë¥¸ìª½ ì‚¬ì´ì˜ ê³µê°„ì„ ìµœëŒ€í™” */
   align-items: center;
   height: 25vh;
   font-weight: bold;
@@ -115,47 +115,47 @@ crossorigin="anonymous"></script>
 .right-side {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* ¼öÁ¤: ¸Ç ¿À¸¥ÂÊ¿¡ À§Ä¡ÇÏµµ·Ï º¯°æ */
+  align-items: flex-end; /* ìˆ˜ì •: ë§¨ ì˜¤ë¥¸ìª½ì— ìœ„ì¹˜í•˜ë„ë¡ ë³€ê²½ */
   margin-left: 20px;
-  background-color: #008040; /* ¹ÎÆ®»ö ¹è°æ Ãß°¡ */
+  background-color: #008040; /* ë¯¼íŠ¸ìƒ‰ ë°°ê²½ ì¶”ê°€ */
    font-weight: bold;
     font-family: 'WooridaumB', sans-serif; 
 }
 
 
-/* 2. ¿ŞÂÊ ÇÏ¾çÂÊ µğÀÚÀÎ ¼öÁ¤ */
+/* 2. ì™¼ìª½ í•˜ì–‘ìª½ ë””ìì¸ ìˆ˜ì • */
 .left-side {
   text-align: center;
-  background-color: #ffffff; /* ÇÏ¾ç ¹è°æ Ãß°¡ */
+  background-color: #ffffff; /* í•˜ì–‘ ë°°ê²½ ì¶”ê°€ */
   padding: 20px;
   border-radius: 5px;
 }
 
 .left-side h1 {
-   font-size: 60px; /* Å« ±Û¾¾Ã¼·Î ¼öÁ¤ */
-  font-weight: bold; /* ÁøÇÑ ±Û¾¾Ã¼·Î ¼öÁ¤ */
-  color: #008040; /* ¹ÎÆ®»öÀ¸·Î ¼öÁ¤ */
+   font-size: 60px; /* í° ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
+  font-weight: bold; /* ì§„í•œ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
+  color: #008040; /* ë¯¼íŠ¸ìƒ‰ìœ¼ë¡œ ìˆ˜ì • */
     font-family: 'WooridaumB', sans-serif; 
-    margin-left: -250px; /* ¿ŞÂÊÀ¸·Î 20px ÀÌµ¿ */
+    margin-left: -250px; /* ì™¼ìª½ìœ¼ë¡œ 20px ì´ë™ */
 }
 
 .left-side h3 {
-   font-size: 34px; /* ÀÛÀº ±Û¾¾Ã¼·Î ¼öÁ¤ */
+   font-size: 34px; /* ì‘ì€ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
   color: #000;
   margin-bottom: 5px;
     font-family: 'WooridaumB', sans-serif; 
 }
 .left-side h4 {
-  font-size: 16px; /* ÀÛÀº ±Û¾¾Ã¼·Î ¼öÁ¤ */
+  font-size: 16px; /* ì‘ì€ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
   margin-bottom: 5px;
   font-family: 'WooridaumB', sans-serif;
 }
 .main-page {
-  color: #FF8000; /* ¸ŞÀÎÈ­¸éÀÇ ÁÖÈ²»ö */
+  color: #FF8000; /* ë©”ì¸í™”ë©´ì˜ ì£¼í™©ìƒ‰ */
 }
 
 .sub-page {
-  color: #888888; /* ÁöÁ¡¾È³»ÀÇ È¸»ö */
+  color: #888888; /* ì§€ì ì•ˆë‚´ì˜ íšŒìƒ‰ */
 }
 
 
@@ -177,47 +177,47 @@ crossorigin="anonymous"></script>
   background-color: #ececec;
 }
 
-/* ½ºÅ¸ÀÏ ÄÚµå Ãß°¡ */
+/* ìŠ¤íƒ€ì¼ ì½”ë“œ ì¶”ê°€ */
   .help-image {
-    position: fixed; /* °íÁ¤ À§Ä¡ */
-    bottom: 60px; /* Footer ¹Ù·Î À§¿¡ À§Ä¡ */
-    right: 20px; /* ¿À¸¥ÂÊ Á¤·Ä */
+    position: fixed; /* ê³ ì • ìœ„ì¹˜ */
+    bottom: 60px; /* Footer ë°”ë¡œ ìœ„ì— ìœ„ì¹˜ */
+    right: 20px; /* ì˜¤ë¥¸ìª½ ì •ë ¬ */
     font-family: 'WooridaumB', sans-serif; 
   }
 
   .help-menu {
-    display: none; /* ÃÊ±â¿¡´Â ¼û±è */
+    display: none; /* ì´ˆê¸°ì—ëŠ” ìˆ¨ê¹€ */
     position: absolute;
-    bottom: 100%; /* µµ¿ò ¾ÆÀÌÄÜ À§¿¡ À§Ä¡ */
+    bottom: 100%; /* ë„ì›€ ì•„ì´ì½˜ ìœ„ì— ìœ„ì¹˜ */
     left: 50%;
     transform: translateX(-50%);
     background-color: #fff;
     padding: 10px;
-    width: 200px; /* ¸Ş´º Ä­ ³Êºñ Á¶Á¤ */
+    width: 200px; /* ë©”ë‰´ ì¹¸ ë„ˆë¹„ ì¡°ì • */
     font-family: 'WooridaumB', sans-serif; 
    
   }
 
   .help-menu p {
-    margin: 5px 0; /* °£°İ Á¶Á¤ */
-    cursor: pointer; /* Ä¿¼­ Æ÷ÀÎÅÍ·Î º¯°æ */
+    margin: 5px 0; /* ê°„ê²© ì¡°ì • */
+    cursor: pointer; /* ì»¤ì„œ í¬ì¸í„°ë¡œ ë³€ê²½ */
   }
 
   .help-menu p:hover {
-    background-color: #eee; /* ¸¶¿ì½º¸¦ ¿Ã·ÈÀ» ¶§ ¹è°æ »ö»ó º¯°æ */
+    background-color: #eee; /* ë§ˆìš°ìŠ¤ë¥¼ ì˜¬ë ¸ì„ ë•Œ ë°°ê²½ ìƒ‰ìƒ ë³€ê²½ */
   }
 
   .help-image:hover + .help-menu {
-    display: block; /* ¸¶¿ì½º Ä¿¼­¸¦ ¿Ã·ÈÀ» ¶§ ¸Ş´º Ç¥½Ã */
+    display: block; /* ë§ˆìš°ìŠ¤ ì»¤ì„œë¥¼ ì˜¬ë ¸ì„ ë•Œ ë©”ë‰´ í‘œì‹œ */
   }
 
-/* ½ºÅ¸ÀÏ ÄÚµå Ãß°¡ */
+/* ìŠ¤íƒ€ì¼ ì½”ë“œ ì¶”ê°€ */
 #footer {
   background-color: #f1f1f1;
   
   text-align: center;
   font-size: 14px;
-    /* ±âÁ¸ ½ºÅ¸ÀÏ ¼Ó¼º */
+    /* ê¸°ì¡´ ìŠ¤íƒ€ì¼ ì†ì„± */
   position: fixed;
   bottom: 0;
   left: 0;
@@ -256,33 +256,33 @@ crossorigin="anonymous"></script>
   width: 100%;
   height: 100%;
   padding-left: 20px;
-  margin-top: 150px; /* ¿øÇÏ´Â ¿©¹é Å©±â·Î Á¶Á¤ */
-  margin-left: 200px; /* ¿øÇÏ´Â ¸¸Å­ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ */
+  margin-top: 150px; /* ì›í•˜ëŠ” ì—¬ë°± í¬ê¸°ë¡œ ì¡°ì • */
+  margin-left: 200px; /* ì›í•˜ëŠ” ë§Œí¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™ */
 }
  .customer-service {
     width: 240px;
   height: 168px;
-  border: 1px solid #000; /* °ËÁ¤ Å×µÎ¸® Ãß°¡ */
-  position: absolute; /* À§Ä¡¸¦ Àı´ëÀûÀ¸·Î ¼³Á¤ */
-  top: 350px; /* ¿øÇÏ´Â À§Ä¡·Î Á¶Á¤ */
-  left: 100px; /* ¿øÇÏ´Â À§Ä¡·Î Á¶Á¤ */
-  text-align: center; /* ÅØ½ºÆ®¸¦ ¿À¸¥ÂÊÀ¸·Î Á¤·Ä */
+  border: 1px solid #000; /* ê²€ì • í…Œë‘ë¦¬ ì¶”ê°€ */
+  position: absolute; /* ìœ„ì¹˜ë¥¼ ì ˆëŒ€ì ìœ¼ë¡œ ì„¤ì • */
+  top: 350px; /* ì›í•˜ëŠ” ìœ„ì¹˜ë¡œ ì¡°ì • */
+  left: 100px; /* ì›í•˜ëŠ” ìœ„ì¹˜ë¡œ ì¡°ì • */
+  text-align: center; /* í…ìŠ¤íŠ¸ë¥¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì •ë ¬ */
    }
    .customer-service p {
-  margin-right: 10px; /* ¿À¸¥ÂÊÀ¸·Î 10pxÀÇ ¶ç¾î¾²±â Àû¿ë */
+  margin-right: 10px; /* ì˜¤ë¥¸ìª½ìœ¼ë¡œ 10pxì˜ ë„ì–´ì“°ê¸° ì ìš© */
 }
- /* Ãß°¡ ½ºÅ¸ÀÏ ÄÚµå */
+ /* ì¶”ê°€ ìŠ¤íƒ€ì¼ ì½”ë“œ */
 .logo {
   position: absolute;
   top: 20px;
   left: 20px;
-  width: 300px; /* ÀÌ¹ÌÁö ³Êºñ Á¶Á¤ (ÀûÀıÇÑ °ªÀ¸·Î º¯°æ) */
-  height: 50; /* ÀÌ¹ÌÁö ³ôÀÌ ÀÚµ¿ Á¶Á¤ */
+  width: 300px; /* ì´ë¯¸ì§€ ë„ˆë¹„ ì¡°ì • (ì ì ˆí•œ ê°’ìœ¼ë¡œ ë³€ê²½) */
+  height: 50; /* ì´ë¯¸ì§€ ë†’ì´ ìë™ ì¡°ì • */
 }
   
 
 
-/* Ãß°¡ ½ºÅ¸ÀÏ ÄÚµå */
+/* ì¶”ê°€ ìŠ¤íƒ€ì¼ ì½”ë“œ */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -305,10 +305,10 @@ crossorigin="anonymous"></script>
 }
 
 .top-container {
-  position: relative; /* »ó´ëÀû À§Ä¡ ¼³Á¤ */
+  position: relative; /* ìƒëŒ€ì  ìœ„ì¹˜ ì„¤ì • */
 }
 .table {
-	margin-top: 40px; /* ±âÁ¸ °ª¿¡ 25px ´õÇØ¼­ Á¶Á¤ */
+	margin-top: 40px; /* ê¸°ì¡´ ê°’ì— 25px ë”í•´ì„œ ì¡°ì • */
 }
 
 .row {
@@ -320,6 +320,7 @@ crossorigin="anonymous"></script>
 .btn-write {
     margin-left: auto;
 }
+
 <style type="text/css">
 a, a:hover {
 	color: #000000;
@@ -338,7 +339,7 @@ a, a:hover {
 	String userID = null;
 	if (session.getAttribute("ID") != null){
 		userID = (String) session.getAttribute("ID");
-	}	    // Ä«Ä«¿ÀÅå ·Î±×ÀÎ È®ÀÎ
+	}	    // ì¹´ì¹´ì˜¤í†¡ ë¡œê·¸ì¸ í™•ì¸
 	boolean isKakaoLoggedIn = false;
 	String kakaoID = (String) session.getAttribute("kakaoID");
     if (kakaoID != null) {
@@ -358,24 +359,24 @@ a, a:hover {
     <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
-  <img src="´Ï´ÏÂî´Ï·Î°í.png" alt="·Î°í" class="logo">
+  <img src="ë‹ˆë‹ˆì°Œë‹ˆë¡œê³ .png" alt="ë¡œê³ " class="logo">
 </a>
    
-    <h3> Q&A °Ô½ÃÆÇ</h3><br>
+    <h3> Q&A ê²Œì‹œíŒ</h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> ¸ŞÀÎ¸Ş´º </span></h4>
-		<h4><span class="sub-page"> > Q&A °Ô½ÃÆÇ</span></h4>
+      <h4><span class="main-page"> ë©”ì¸ë©”ë‰´ </span></h4>
+		<h4><span class="sub-page"> > Q&A ê²Œì‹œíŒ</span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A°Ô½ÃÆÇ</button>
+    <button class="button">Q&Aê²Œì‹œíŒ</button>
   <div class="dropdown">
-    <button class="button"> Á¢¼ÓÇÏ±â </button>
+    <button class="button"> ì ‘ì†í•˜ê¸° </button>
     <ul class="dropdown-menu">
-      <li> <a href="${pageContext.request.contextPath}/login.do" class="button">·Î±×ÀÎ</a></li>
-      <li>   <a href="${pageContext.request.contextPath}/join.do" class="button">È¸¿ø °¡ÀÔ</a></li>
+      <li> <a href="${pageContext.request.contextPath}/login.do" class="button">ë¡œê·¸ì¸</a></li>
+      <li>   <a href="${pageContext.request.contextPath}/join.do" class="button">íšŒì› ê°€ì…</a></li>
     </ul>
     </li>
        </div>
@@ -385,28 +386,28 @@ a, a:hover {
    <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
-  <img src="´Ï´ÏÂî´Ï·Î°í.png" alt="·Î°í" class="logo">
+  <img src="ë‹ˆë‹ˆì°Œë‹ˆë¡œê³ .png" alt="ë¡œê³ " class="logo">
 </a>
    
-    <h3> Q&A °Ô½ÃÆÇ</h3><br>
+    <h3> Q&A ê²Œì‹œíŒ</h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> ¸ŞÀÎ¸Ş´º </span></h4>
-		<h4><span class="sub-page"> > Q&A °Ô½ÃÆÇ</span></h4>
+      <h4><span class="main-page"> ë©”ì¸ë©”ë‰´ </span></h4>
+		<h4><span class="sub-page"> > Q&A ê²Œì‹œíŒ</span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A°Ô½ÃÆÇ</button>
+    <button class="button">Q&Aê²Œì‹œíŒ</button>
     <button class="button"> MYPAGE </button>
-     <a href="${pageContext.request.contextPath}/logout.do" class="button">·Î±×¾Æ¿ô</a></button>
+     <a href="${pageContext.request.contextPath}/logout.do" class="button">ë¡œê·¸ì•„ì›ƒ</a></button>
  			 <div class="dropdown">
-  				  <button class="button"> MY°èÁÂ </button>
+  				  <button class="button"> MYê³„ì¢Œ </button>
     <ul class="dropdown-menu">
-   		<li><a href="mypage.jsp">°èÁÂ°ü¸®</a></li>
-        <li><a href="logoutAction.jsp">¿ÀÇÂ¹ğÅ·¿¬°á</a></li>
-        <li><a href="mypage.jsp">°Å·¡³»¿ªÁ¶È¸</a></li>
-        <li><a href="logoutAction.jsp">°èÁÂÀÌÃ¼</a></li>
+   		<li><a href="mypage.jsp">ê³„ì¢Œê´€ë¦¬</a></li>
+        <li><a href="logoutAction.jsp">ì˜¤í”ˆë±…í‚¹ì—°ê²°</a></li>
+        <li><a href="mypage.jsp">ê±°ë˜ë‚´ì—­ì¡°íšŒ</a></li>
+        <li><a href="logoutAction.jsp">ê³„ì¢Œì´ì²´</a></li>
     </ul>
     </li>
        </div>
@@ -416,28 +417,28 @@ a, a:hover {
    <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
-  <img src="´Ï´ÏÂî´Ï·Î°í.png" alt="·Î°í" class="logo">
+  <img src="ë‹ˆë‹ˆì°Œë‹ˆë¡œê³ .png" alt="ë¡œê³ " class="logo">
 </a>
    
-    <h3> Q&A °Ô½ÃÆÇ</h3><br>
+    <h3> Q&A ê²Œì‹œíŒ</h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> ¸ŞÀÎ¸Ş´º </span></h4>
-		<h4><span class="sub-page"> > Q&A °Ô½ÃÆÇ</span></h4>
+      <h4><span class="main-page"> ë©”ì¸ë©”ë‰´ </span></h4>
+		<h4><span class="sub-page"> > Q&A ê²Œì‹œíŒ</span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A°Ô½ÃÆÇ</button>
+    <button class="button">Q&Aê²Œì‹œíŒ</button>
     <button class="button"> MYPAGE </button>
-     <a href="${pageContext.request.contextPath}/logout.do" class="button">·Î±×¾Æ¿ô</a></button>
+     <a href="${pageContext.request.contextPath}/logout.do" class="button">ë¡œê·¸ì•„ì›ƒ</a></button>
  			 <div class="dropdown">
-  				  <button class="button"> MY°èÁÂ </button>
+  				  <button class="button"> MYê³„ì¢Œ </button>
     <ul class="dropdown-menu">
-   		<li><a href="mypage.jsp">°èÁÂ°ü¸®</a></li>
-        <li><a href="logoutAction.jsp">¿ÀÇÂ¹ğÅ·¿¬°á</a></li>
-        <li><a href="mypage.jsp">°Å·¡³»¿ªÁ¶È¸</a></li>
-        <li><a href="logoutAction.jsp">°èÁÂÀÌÃ¼</a></li>
+   		<li><a href="mypage.jsp">ê³„ì¢Œê´€ë¦¬</a></li>
+        <li><a href="logoutAction.jsp">ì˜¤í”ˆë±…í‚¹ì—°ê²°</a></li>
+        <li><a href="mypage.jsp">ê±°ë˜ë‚´ì—­ì¡°íšŒ</a></li>
+        <li><a href="logoutAction.jsp">ê³„ì¢Œì´ì²´</a></li>
     </ul>
     </li>
        </div>
@@ -454,10 +455,10 @@ a, a:hover {
 				style="text-align: center; border: 1px solid #E6E6E6">
 				<thead>
 					<tr>
-						<th style="background-color: #BDBDBD; text-align: center;">¹øÈ£</th>
-						<th style="background-color: #BDBDBD; text-align: center;">Á¦¸ñ</th>
-						<th style="background-color: #BDBDBD; text-align: center;">ÀÛ¼ºÀÚ</th>
-						<th style="background-color: #BDBDBD; text-align: center;">ÀÛ¼ºÀÏ</th>
+						<th style="background-color: #BDBDBD; text-align: center;">ë²ˆí˜¸</th>
+						<th style="background-color: #BDBDBD; text-align: center;">ì œëª©</th>
+						<th style="background-color: #BDBDBD; text-align: center;">ì‘ì„±ì</th>
+						<th style="background-color: #BDBDBD; text-align: center;">ì‘ì„±ì¼</th>
 					</tr>
 				</thead>
 		<tbody>
@@ -478,13 +479,13 @@ a, a:hover {
 				<%
 				    }
 				    int bbsID = bbs.getBbsID();
-				    ArrayList<Bbs> replyList = bbsDAO.getReplyList(bbsID); // ÇØ´ç °Ô½Ã±ÛÀÇ ´äº¯±Û ¸®½ºÆ® °¡Á®¿À±â
+				    ArrayList<Bbs> replyList = bbsDAO.getReplyList(bbsID); // í•´ë‹¹ ê²Œì‹œê¸€ì˜ ë‹µë³€ê¸€ ë¦¬ìŠ¤íŠ¸ ê°€ì ¸ì˜¤ê¸°
 				    for (int j = 0; j < replyList.size(); j++) {
 				        Bbs reply = replyList.get(j);
-				        if (reply.getPbbsID() != 0 && bbs.getPbbsID() == 0 ) { // PBBSID°¡ 0ÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸ ´äº¯±Û·Î Ãâ·Â
+				        if (reply.getPbbsID() != 0 && bbs.getPbbsID() == 0 ) { // PBBSIDê°€ 0ì´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ ë‹µë³€ê¸€ë¡œ ì¶œë ¥
 				%>
 				<tr>
-				    <td>[´äº¯]</td>
+				     <td style="white-space: nowrap;"><span style="font-size: 20px;"> â†³&emsp;&emsp;</span> [<%=reply.getPbbsID()%>ë²ˆ ë‹µë³€]</td> 
 				    <td style="text-align: left; padding-left: 20px;"><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=reply.getBbsID()%>"><%=reply.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
 				    <td><%=reply.getUserID()%></td>
 				    <td><%=reply.getBbsDate().substring(0, 11) %></td>
@@ -499,17 +500,17 @@ a, a:hover {
 <%
 if (pageNumber != 1) {
 %>
-<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arraw-left">ÀÌÀü</a>
+<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arraw-left">ì´ì „</a>
 <%
 }
 if (bbsDAO.nextPage(pageNumber + 1)) {
 %>
-<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber + 1%>" class="btn btn-success btn-arraw-left">´ÙÀ½</a>
+<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber + 1%>" class="btn btn-success btn-arraw-left">ë‹¤ìŒ</a>
 <%
 }
 %>
 <div class="col-auto">
-<a href="${pageContext.request.contextPath}/write.do" class="btn btn-primary ">±Û¾²±â</a>
+<a href="${pageContext.request.contextPath}/write.do" class="btn btn-primary ">ê¸€ì“°ê¸°</a>
 </div>
 </div>
 
@@ -527,14 +528,14 @@ if (bbsDAO.nextPage(pageNumber + 1)) {
 
 
 <div class="help-image">
-  <img src="µµ¿ò.png" alt="µµ¿ò ¾ÆÀÌÄÜ" width="140" height="98">
+  <img src="ë„ì›€.png" alt="ë„ì›€ ì•„ì´ì½˜" width="140" height="98">
   <div class="help-menu">
-    <p><a href="${pageContext.request.contextPath}/load.do" >Ã£¾Æ¿À½Ã´Â ±æ</a></p>
-    <p>¹®ÀÇÇÏ±â</p>
+    <p><a href="${pageContext.request.contextPath}/load.do" >ì°¾ì•„ì˜¤ì‹œëŠ” ê¸¸</a></p>
+    <p>ë¬¸ì˜í•˜ê¸°</p>
   </div>
 </div>
 <script>
-  // JavaScript ÄÚµå Ãß°¡
+  // JavaScript ì½”ë“œ ì¶”ê°€
   const helpImage = document.querySelector('.help-image');
   const helpMenu = document.querySelector('.help-menu');
 
@@ -551,7 +552,7 @@ if (bbsDAO.nextPage(pageNumber + 1)) {
 						
 					
 						<ul class="copyright">
-							<li>&copy; ´Ï´ÏÂî´Ï'S </li ><li>E -Mail : gch00335@naver.com </li><li>PH : 010-4090-9045 </li><li>git-hub: <a href="https://github.com/gch00335/JAVA">gch00335</a></li>
+							<li>&copy; ë‹ˆë‹ˆì°Œë‹ˆ'S </li ><li>E -Mail : gch00335@naver.com </li><li>PH : 010-4090-9045 </li><li>git-hub: <a href="https://github.com/gch00335/JAVA">gch00335</a></li>
 						</ul>
 					</footer>
 
