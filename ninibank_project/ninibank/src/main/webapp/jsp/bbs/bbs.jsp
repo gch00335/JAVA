@@ -343,6 +343,7 @@ a, a:hover {
 	String kakaoID = (String) session.getAttribute("kakaoID");
     if (kakaoID != null) {
         isKakaoLoggedIn = true;
+        userID = (String) session.getAttribute("kakaoID");
     } 
     int pageNumber = 1;
 	if (request.getParameter("pageNumber") != null) {
@@ -459,45 +460,58 @@ a, a:hover {
 						<th style="background-color: #BDBDBD; text-align: center;">작성일</th>
 					</tr>
 				</thead>
-				<tbody>
-					<%
-					BbsDAO bbsDAO = new BbsDAO();
-					ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-					for (int i = 0; i < list.size(); i++) {
-					%>
-
-					<tr>
-						<td><%=list.get(i).getBbsID()%></td>
-						<td><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "gt;")
-		.replaceAll("\n", "<br>")%></a></td>
-						<td><%=list.get(i).getUserID()%></td>
-						<td><%=list.get(i).getBbsDate().substring(0, 11) %></td>
-
-					</tr>
-					<%
-					}
-					%>
-				</tbody>
-			</table>
-			<%
-			if (pageNumber != 1) {
-			%>
-			<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber - 1%>"
-				class="btn btn-success btn-arraw-left">이전</a>
-			<%
-			}
-			if (bbsDAO.nextPage(pageNumber + 1)) {
-			%>
-			<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber + 1%>"
-				class="btn btn-success btn-arraw-left">다음</a>
-			<%
-			}
-			%>
-			<div class="col-auto">
-			<a href="${pageContext.request.contextPath}/write.do" class="btn btn-primary ">글쓰기</a>
-		</div>
-	</div>
-
+		<tbody>
+				<%
+				BbsDAO bbsDAO = new BbsDAO();
+				ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+				for (int i = 0; i < list.size(); i++) {
+				    Bbs bbs = list.get(i); 
+				    if (bbs.getPbbsID() == 0 ) {
+				    
+				%>
+				<tr>
+				    <td><%=bbs.getBbsID()%></td>
+				    <td><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=bbs.getBbsID()%>"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
+				    <td><%=bbs.getUserID()%></td>
+				    <td><%=bbs.getBbsDate().substring(0, 11) %></td>
+				</tr>
+				<%
+				    }
+				    int bbsID = bbs.getBbsID();
+				    ArrayList<Bbs> replyList = bbsDAO.getReplyList(bbsID); // 해당 게시글의 답변글 리스트 가져오기
+				    for (int j = 0; j < replyList.size(); j++) {
+				        Bbs reply = replyList.get(j);
+				        if (reply.getPbbsID() != 0 && bbs.getPbbsID() == 0 ) { // PBBSID가 0이 아닌 경우에만 답변글로 출력
+				%>
+				<tr>
+				    <td>[답변]</td>
+				    <td style="text-align: left; padding-left: 20px;"><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=reply.getBbsID()%>"><%=reply.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
+				    <td><%=reply.getUserID()%></td>
+				    <td><%=reply.getBbsDate().substring(0, 11) %></td>
+				</tr>
+				<%
+				        }
+				    }
+				}
+				%>
+</tbody>
+</table>
+<%
+if (pageNumber != 1) {
+%>
+<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arraw-left">이전</a>
+<%
+}
+if (bbsDAO.nextPage(pageNumber + 1)) {
+%>
+<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber + 1%>" class="btn btn-success btn-arraw-left">다음</a>
+<%
+}
+%>
+<div class="col-auto">
+<a href="${pageContext.request.contextPath}/write.do" class="btn btn-primary ">글쓰기</a>
+</div>
+</div>
 
 
 
