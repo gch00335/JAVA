@@ -47,7 +47,14 @@ public class HandlerMapping {
         mappings.put("/account.do",  new AccountController());
         mappings.put("/madeac.do",  new madeacController());
         mappings.put("/selectProduct.do",  new selectProductController());
+        mappings.put("/reply.do",  new replyController());
+        mappings.put("/replyAction.do",  new replyActionController());
+        mappings.put("/cancelAccounts.do",  new cancelAccountsController());
+        mappings.put("/transfer.do",  new transferController());
+        mappings.put("/transferaction.do",  new transferActionController());
        
+        
+        
     } catch (Exception e) {
         e.printStackTrace();
     }
