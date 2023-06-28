@@ -8,9 +8,20 @@ public class Bank {
 	private String acmadedate;
 	private String balance;
 	private String ProductID;
+	private String acName;
 	
 
 	
+
+	public String getAcName() {
+		return acName;
+	}
+
+
+	public void setAcName(String acName) {
+		this.acName = acName;
+	}
+
 
 	public String getAcc_num() {
 		return acc_num;
@@ -83,7 +94,7 @@ public class Bank {
 
 
 	public Bank(String acc_num, String id, String bankcode, String acpw, String acmadedate, String balance
-	, String ProductID) {
+	, String ProductID ,String acName) {
 		super();
 		this.acc_num = acc_num;
 		this.id = id;
@@ -92,13 +103,14 @@ public class Bank {
 		this.acmadedate = acmadedate;
 		this.ProductID = ProductID;
 		this.balance = balance;
+		this.acName = acName;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Bank [acc_num=" + acc_num + ", id=" + id + ", bankcode=" + bankcode + ", acpw=" + acpw + ", acmadedate="
-				+ acmadedate + ", balance=" + balance + ", ProductID=" + ProductID + "]";
+				+ acmadedate + ", balance=" + balance + ", ProductID=" + ProductID +", acName=" + acName +"]";
 	}
 
 

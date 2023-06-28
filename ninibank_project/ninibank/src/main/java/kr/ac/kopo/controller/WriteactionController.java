@@ -58,7 +58,8 @@ public class WriteactionController implements Controller {
             System.out.println(bbsTitle);
             System.out.println(bbsContent);
 
-            if (bbsTitle == null || bbsContent == null) {
+            if (bbsTitle == "" || bbsContent == "") {
+            	System.out.println("그럴수가 있어??");
                 try {
                     PrintWriter script = response.getWriter();
                     script.println("<script>");
@@ -69,8 +70,10 @@ public class WriteactionController implements Controller {
                     e.printStackTrace();
                 }
             } else {
+            	System.out.println("그럼 여기로와?");
                 BbsDAO bbsDAO = new BbsDAO();
-                int result = bbsDAO.write(bbsTitle, userID, bbsContent);
+                int pbbsID = Integer.parseInt(request.getParameter("pbbsID"));
+                int result = bbsDAO.write(bbsTitle, userID, bbsContent, pbbsID);
                 System.out.println(result);
                 if (result == -1) {
                     try {

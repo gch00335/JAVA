@@ -52,6 +52,7 @@ public class HandlerMapping {
         mappings.put("/cancelAccounts.do",  new cancelAccountsController());
         mappings.put("/transfer.do",  new transferController());
         mappings.put("/transferaction.do",  new transferActionController());
+        mappings.put("/detalle.do",  new detalleController());
        
         
         
