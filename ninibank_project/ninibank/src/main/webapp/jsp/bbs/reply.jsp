@@ -1,12 +1,8 @@
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-    
     <%@ page import="java.io.PrintWriter"%>
-    <%@ page import="kr.ac.kopo.product.Product"%>
-<%@ page import="kr.ac.kopo.bank.Bank"%>
-<%@ page import="kr.ac.kopo.bank.BankDAO"%>
-
+<%@ page import="kr.ac.kopo.bbs.Bbs"%>
+<%@ page import="kr.ac.kopo.bbs.BbsDAO"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -94,18 +90,12 @@ crossorigin="anonymous"></script>
 
 
 .button-group {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.button-group a {
-	color: black; /* 검정색으로 변경 */
-	text-decoration: none; /* 링크 효과 제거 */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+
 
 
 
@@ -259,7 +249,16 @@ crossorigin="anonymous"></script>
   margin-bottom: 10px;
 }
 
-
+.map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+  margin-top: 150px; /* 원하는 여백 크기로 조정 */
+  margin-left: 200px; /* 원하는 만큼 오른쪽으로 이동 */
+}
  .customer-service {
     width: 240px;
   height: 168px;
@@ -272,7 +271,6 @@ crossorigin="anonymous"></script>
    .customer-service p {
   margin-right: 10px; /* 오른쪽으로 10px의 띄어쓰기 적용 */
 }
-
  /* 추가 스타일 코드 */
 .logo {
   position: absolute;
@@ -309,68 +307,24 @@ crossorigin="anonymous"></script>
 .top-container {
   position: relative; /* 상대적 위치 설정 */
 }
+
 .table {
 	margin-top: 40px; /* 기존 값에 25px 더해서 조정 */
 }
 
-.row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.btn-write {
-    margin-left: auto;
-}
-
-
-
-.customer-service {
-  width: 300px;
-  height: 300px;
-  background-color: #ffffff; /* 하얀색으로 변경 */
-  border-radius: 10px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-  padding: 20px;
-}
-
-/* 이하 동일 */
-.customer-service h2 {
-  font-size: 18px;
-}
-
-.customer-service p {
-  font-size: 14px;
-}
-
-.customer-service a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.customer-service a:hover {
-  text-decoration: underline;
-}
-.col-auto {
-  position: absolute;
-  top: 350px;
-  left: 450px;
-  margin-top: 10px; /* 필요한 경우 여백 조정 */
-}
-
-.container{
- position: absolute;
-  top: 360px;
-  left: 450px;
-  margin-top: 10px; /* 필요한 경우 여백 조정 */
+<style type="text/css">
+a, a:hover {
+	color: #000000;
+	test-dacoration: none;
 }
 </style>
-  <meta charset="EUC-KR">
+  <meta charset="UTF-8" />
   <title>NINI_BBS</title>
  
 </head>
 
 <body>
+
 <%   
 
 	String userID = null;
@@ -383,28 +337,17 @@ crossorigin="anonymous"></script>
         isKakaoLoggedIn = true;
         userID = (String) session.getAttribute("kakaoID");
     } 
- 	// BankDAO 인스턴스 생성
-   BankDAO bankDAO = new BankDAO();
-
-    // getAccountList 메서드 호출 시 userID 전달
-   ArrayList<Bank> accountList = bankDAO.getAccountList(userID);
-// 로그인 확인 및 처리
-   if (userID == null && !isKakaoLoggedIn) {
-       response.setContentType("text/html; charset=UTF-8");
-       PrintWriter loginScript = response.getWriter();
-       loginScript.println("<script>");
-       loginScript.println("alert('로그인을 하세요');");
-       loginScript.println("location.href = '/bank/index.jsp';");
-       loginScript.println("</script>");
-       loginScript.close();
-   }
+    int pageNumber = 1;
+	if (request.getParameter("pageNumber") != null) {
+		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+	}
 %>
-	
+
 <ul class="nav navbar-nav navbar-right">
 
 
   <% if (userID == null && isKakaoLoggedIn == false ) { %>
-    <div class="top-container">
+	 <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
@@ -431,183 +374,90 @@ crossorigin="anonymous"></script>
   </div>
 </div>
   <% } else if (isKakaoLoggedIn) { %>
-   <div class="top-container">
+    <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-<h3> 계좌관리 </h3><br>
+    <h3> Q&A 게시판</h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> MY메뉴 </span></h4>
-		<h4><span class="sub-page"> > 계좌관리 </span></h4>
+      <h4><span class="main-page"> 메인메뉴 </span></h4>
+		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE </button>
+    <button class="button">Q&A게시판</button>
+    <button class="button"> MYPAGE </button>
      <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
  			 <div class="dropdown">
   				  <button class="button"> MY계좌 </button>
     <ul class="dropdown-menu">
-   		<li><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></li>
+   		<li><a href="mypage.jsp">계좌관리</a></li>
         <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
-        <li><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</a></li>
-        <li><a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a></li>
-    </ul>
+        <li><a href="mypage.jsp">거래내역조회</a></li>
+        <li><a href="logoutAction.jsp">계좌이체</a></li>
+      </ul>
     </li>
-       </div>
-  </div>
-</div>
   <% } else { %>
-   <div class="top-container">
+    <li>
+      <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
- <h3> 계좌관리 </h3><br>
+    <h3> Q&A 게시판</h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> MY메뉴 </span></h4>
-		<h4><span class="sub-page"> > 계좌관리 </span></h4>
+      <h4><span class="main-page"> 메인메뉴 </span></h4>
+		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE </button>
+    <button class="button">Q&A게시판</button>
+    <button class="button"> MYPAGE </button>
      <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
  			 <div class="dropdown">
   				  <button class="button"> MY계좌 </button>
     <ul class="dropdown-menu">
-   		<li><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></li>
+   		<li><a href="mypage.jsp">계좌관리</a></li>
         <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
-        <li><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</a></li>
-        <li><a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a></li>
-    </ul>
+        <li><a href="mypage.jsp">거래내역조회</a></li>
+        <li><a href="logoutAction.jsp">계좌이체</a></li>
     </li>
-       </div>
-  </div>
-</div>
   <% } %>
 </ul>
-
-
-
-  
-  
-  
-  
-  	<div class="customer-service">
-  <h2>MY 계좌</h2><br><br>
-  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></p>
-  <p><a href="${pageContext.request.contextPath}/load.do">오픈뱅킹연결</a></p>
-  <p><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</p>
-  <p><a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a></p>
+	
+	<div class="container"  >
+	<div class="row">
+	<form method="post" action="${pageContext.request.contextPath}/replyAction.do">
+		<table class="table table-striped" style="text-align: center; border:1px solid #E6E6E6; width: 1200px;">
+		<thead>
+			<tr>
+				<th colspan="2" style="background-color: #BDBDBD; text-align: center;">답글 글쓰기 양식</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+				<input type="hidden" name="pbbsID" value = "<%=request.getParameter("bbsID")%>">
+			<tr>
+				<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
+			</tr>
+			<tr>
+				<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="3000" style="height:350px"></textarea></td>
+			</tr>
+		</tbody>
+	</table>		
+		<input type="submit" class="btn btn-primary pull-right" value="글쓰기" >
+	</form>
+	</div>
 </div>
- 
- 
-
-
-<div class="container">
-  <div class="row">
-    <table class="table table-striped" style="text-align: center; border: 1px solid #E6E6E6">
-      <thead>
-        <tr>
-          <th style="background-color: #BDBDBD; text-align: center;">계좌번호</th>
-          <th style="background-color: #BDBDBD; text-align: center;">은행</th>
-          <th style="background-color: #BDBDBD; text-align: center;">잔액</th>
-          <th style="background-color: #BDBDBD; text-align: center;">개설일자</th>
-          <th style="background-color: #BDBDBD; text-align: center;">계좌상품</th>
-          <th style="background-color: #BDBDBD; text-align: center;">선택</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% 
-        for (Bank account : accountList) {
-        %>
-        <tr>
-          <td><%= account.getAcc_num() %></td>
-          <td><%= account.getAcName() %></td>
-          <td><%= account.getBalance() %></td>
-          <td><%= account.getAcmadedate() %></td>
-          <td><%= account.getProductID() %></td>
-          <td>
-            <!-- 계좌 선택 체크박스 -->
-            <input type="checkbox" name="accountNumbers" value="<%= account.getAcc_num() %>">
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="col-auto"> 
-  <form action="${pageContext.request.contextPath}/cancelAccounts.do" method="post">
-    <input type="hidden" name="accountNumbers" value="" id="selectedAccountsHidden">
-    <a href="${pageContext.request.contextPath}/selectProduct.do" class="btn btn-primary">계좌개설</a>
-    <button type="submit" class="btn btn-primary" onclick="cancelAccounts()">계좌해지</button>
-  </form>
-</div>
-
-<script>
-  // 계좌 해지 버튼 클릭 시 호출되는 함수
-  function cancelAccounts() {
-    var selectedAccounts = [];
-    var checkboxes = document.getElementsByName('accountNumbers');
-    for (var i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i].checked) {
-        selectedAccounts.push(checkboxes[i].value);
-      }
-    }
-    document.getElementById('selectedAccountsHidden').value = selectedAccounts.join(',');
-
-    // 선택한 계좌가 없을 경우 경고창을 띄우고 폼 제출을 막음
-    if (selectedAccounts.length === 0) {
-      alert('선택한 계좌가 없습니다.');
-      return false;
-    }
-    return true;
-  }
-</script>
-
-
-
-
-
-<div class="help-image">
-  <img src="도움.png" alt="도움 아이콘" width="140" height="98">
-  <div class="help-menu">
-    <p><a href="${pageContext.request.contextPath}/load.do" >찾아오시는 길</a></p>
-    <p>문의하기</p>
-  </div>
-</div>
-<script>
-  // JavaScript 코드 추가
-  const helpImage = document.querySelector('.help-image');
-  const helpMenu = document.querySelector('.help-menu');
-
-  helpImage.addEventListener('mouseover', () => {
-    helpMenu.style.display = 'block';
-  });
-
-  helpImage.addEventListener('mouseout', () => {
-    helpMenu.style.display = 'none';
-  });
-</script>
-   
-					<footer id="footer">
-						
-					
-						<ul class="copyright">
-							<li>&copy; 니니찌니'S </li ><li>E -Mail : gch00335@naver.com </li><li>PH : 010-4090-9045 </li><li>git-hub: <a href="https://github.com/gch00335/JAVA">gch00335</a></li>
-						</ul>
-					</footer>
-
+	
+ 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+ 	<script src="js/bootstrap.js"></script>
 </body>
-
 </html>

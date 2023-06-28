@@ -510,6 +510,7 @@
 				</tbody>
 			</table>
 			<a href="${pageContext.request.contextPath}/bbs.do" class="btn btn-primary btn-left">목록</a>
+			<a href="${pageContext.request.contextPath}/reply.do?bbsID=<%=bbsID%>" class="btn btn-primary btn-right">답글쓰기</a>
 			<%
 			if (userID != null && userID.equals(bbs.getUserID())) {
 			%>
@@ -518,7 +519,6 @@
 			<%
 			}
 			%>
-			<input type="submit" class="btn btn-primary btn-right" value="글쓰기">
 
 		</div>
 	</div>

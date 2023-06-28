@@ -1,3 +1,6 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.util.UUID"%>
+<%@page import="kr.ac.kopo.transactionHistory.TransactionHistory"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ page import="java.sql.*"%>
@@ -85,6 +88,13 @@
 	align-items: center;
 }
 
+.button-group a {
+	color: black; /* 검정색으로 변경 */
+	text-decoration: none; /* 링크 효과 제거 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 /* Additional styles */
 
 /* 1. 상단의 민트색과 검색창 스타일 */
@@ -472,11 +482,11 @@
 		isKakaoLoggedIn = true;
 		userID = (String) session.getAttribute("kakaoID");
 	}
-	int pageNumber = 1;
-	if (request.getParameter("pageNumber") != null) {
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	}
+	
 	%>
+
+	
+	
 	<ul class="nav navbar-nav navbar-right">
 
 
@@ -751,7 +761,10 @@
 			</div>
 		</div>
 	</div>
-</body><script>
+</body>
+
+
+<script>
 document.getElementById('balance').addEventListener('input', function() {
     var balanceInput = document.getElementById('balance');
     var balanceValue = parseInt(balanceInput.value);
@@ -772,15 +785,18 @@ document.getElementById('balance').addEventListener('input', function() {
 });
 
 function generateAccountNumber() {
-    var accountNumber = "";
-    var digits = "0123456789";
+	  var accountNumber = "";
+	    var digits = "0123456789";
 
-    for (var i = 0; i < 13; i++) {
-        accountNumber += digits.charAt(Math.floor(Math.random() * digits.length));
-    }
+	    for (var i = 0; i < 13; i++) {
+	        accountNumber += digits.charAt(Math.floor(Math.random() * digits.length));
+	    }
 
-    document.getElementById("acc_num").value = accountNumber;
-}
+	    var bankcode = "333";
+	    var accountNumberWithCode = bankcode + accountNumber;
+
+	    document.getElementById("acc_num").value = accountNumberWithCode;
+	}
 
 function getbankcodeNumber() {
     var bankcode = "333";

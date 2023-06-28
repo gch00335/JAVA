@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="kr.ac.kopo.transactionHistory.TransactionHistory"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -106,6 +108,7 @@ crossorigin="anonymous"></script>
 	align-items: center;
 	justify-content: center;
 }
+
 
 
 
@@ -358,52 +361,124 @@ crossorigin="anonymous"></script>
   margin-top: 10px; /* 필요한 경우 여백 조정 */
 }
 
-.container{
+
+.container2{
  position: absolute;
-  top: 360px;
+  top: 50px;
   left: 450px;
+  width: 1000px; /* Adjust the width as desired */
   margin-top: 10px; /* 필요한 경우 여백 조정 */
 }
-</style>
+	.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 300px; /* Adjust the width as desired */
+  margin-left: auto;
+  margin-right: auto;
+}
+.card2 {
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 50px;
+  width: 600px; /* Adjust the width as desired */
+  margin-left: 1800px;
+}
+
+.card-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.date {
+  color: #000;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.account {
+  color: #000;
+  
+}
+
+.amount {
+  font-weight: bold;
+}
+
+.deposit {
+  color: red;
+}
+
+.withdraw {
+  color: blue;
+}
+
+.transaction-history {
+  margin-top: 100px; /* 필요한 경우 상단 여백을 조정하세요 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* 이 속성을 추가해 보세요 */
+}		
+	
+	
+	</style>
   <meta charset="EUC-KR">
   <title>NINI_BBS</title>
  
 </head>
 
 <body>
-<%   
-
-	String userID = null;
-	if (session.getAttribute("ID") != null){
-		userID = (String) session.getAttribute("ID");
-	}	    // 카카오톡 로그인 확인
-	boolean isKakaoLoggedIn = false;
-	String kakaoID = (String) session.getAttribute("kakaoID");
-    if (kakaoID != null) {
-        isKakaoLoggedIn = true;
-        userID = (String) session.getAttribute("kakaoID");
-    } 
- 	// BankDAO 인스턴스 생성
-   BankDAO bankDAO = new BankDAO();
-
+<%
+	String url = "";
+    String userID = null;
+    boolean isKakaoLoggedIn = false;
+    
+    if (session.getAttribute("ID") != null) {
+        userID = (String) session.getAttribute("ID");
+    } else {
+        String kakaoID = (String) session.getAttribute("kakaoID");
+        if (kakaoID != null) {
+            isKakaoLoggedIn = true;
+            userID = (String) session.getAttribute("kakaoID");
+        }
+ // 로그인 확인 및 처리
+    if (userID == null && !isKakaoLoggedIn) {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter loginScript = response.getWriter();
+        loginScript.println("<script>");
+        loginScript.println("alert('로그인을 하세요');");
+        loginScript.println("location.href = '/bank/index.jsp';");
+        loginScript.println("</script>");
+        loginScript.close();
+    }
+    }
+    
+    // BankDAO 인스턴스 생성
+    BankDAO bankDAO = new BankDAO();
+    
     // getAccountList 메서드 호출 시 userID 전달
-   ArrayList<Bank> accountList = bankDAO.getAccountList(userID);
-// 로그인 확인 및 처리
-   if (userID == null && !isKakaoLoggedIn) {
-       response.setContentType("text/html; charset=UTF-8");
-       PrintWriter loginScript = response.getWriter();
-       loginScript.println("<script>");
-       loginScript.println("alert('로그인을 하세요');");
-       loginScript.println("location.href = '/bank/index.jsp';");
-       loginScript.println("</script>");
-       loginScript.close();
-   }
+    ArrayList<Bank> accountList = bankDAO.getAccountList(userID);
+    
+    // 클릭한 계좌 정보 가져오기
+    String selectedAccount = request.getParameter("selectedAccount");
+    
+    // 선택한 계좌에 해당하는 거래 내역 조회
+    List<TransactionHistory> transactionHistoryList = null;
+    if (selectedAccount != null) {
+        transactionHistoryList = bankDAO.getTransactionHistory(selectedAccount);
+    }
+    
 %>
-	
+
+
+
+
 <ul class="nav navbar-nav navbar-right">
-
-
-  <% if (userID == null && isKakaoLoggedIn == false ) { %>
+    <% if (userID == null && isKakaoLoggedIn == false) { %>
     <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
@@ -446,7 +521,7 @@ crossorigin="anonymous"></script>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
+     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
      <a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE </button>
      <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
  			 <div class="dropdown">
@@ -496,87 +571,81 @@ crossorigin="anonymous"></script>
 </ul>
 
 
-
-  
-  
-  
-  
   	<div class="customer-service">
   <h2>MY 계좌</h2><br><br>
-  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></p>
+  <p><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></p>
   <p><a href="${pageContext.request.contextPath}/load.do">오픈뱅킹연결</a></p>
-  <p><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</p>
+  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</p>
   <p><a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a></p>
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+<!-- 계좌 목록 출력 -->
+<div class="account-list">
+    <% if (accountList.isEmpty()) { %>
+        <p style="margin-top: 10px; display: flex; justify-content: center;">보유한 계좌가 없습니다.</p>
+    <% } else { %>
+        <div class="container2">
+            <div class="row">
+                <% for (Bank account : accountList) { %>
+                    <div class="col-md-4">
+                        <div class="card" style="margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-size: 18px; font-weight: bold;">계좌번호: <%= account.getAcc_num() %></h5>
+                                <h6 class="card-subtitle mb-2 text-muted">은행: <%= account.getAcName() %></h6>
+                                <p class="card-text" style="font-size: 20px; font-weight: bold;">잔액: <%= account.getBalance() %></p>
+                                <a href="?selectedAccount=<%= account.getAcc_num() %>" class="card-link" style="color: #007bff; font-weight: bold;">선택</a>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    <% } %>
 </div>
- 
- 
+<!-- 거래 내역 출력 -->
 
-
-<div class="container">
-  <div class="row">
-    <table class="table table-striped" style="text-align: center; border: 1px solid #E6E6E6">
-      <thead>
-        <tr>
-          <th style="background-color: #BDBDBD; text-align: center;">계좌번호</th>
-          <th style="background-color: #BDBDBD; text-align: center;">은행</th>
-          <th style="background-color: #BDBDBD; text-align: center;">잔액</th>
-          <th style="background-color: #BDBDBD; text-align: center;">개설일자</th>
-          <th style="background-color: #BDBDBD; text-align: center;">계좌상품</th>
-          <th style="background-color: #BDBDBD; text-align: center;">선택</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% 
-        for (Bank account : accountList) {
-        %>
-        <tr>
-          <td><%= account.getAcc_num() %></td>
-          <td><%= account.getAcName() %></td>
-          <td><%= account.getBalance() %></td>
-          <td><%= account.getAcmadedate() %></td>
-          <td><%= account.getProductID() %></td>
-          <td>
-            <!-- 계좌 선택 체크박스 -->
-            <input type="checkbox" name="accountNumbers" value="<%= account.getAcc_num() %>">
-          </td>
-        </tr>
+<div class="transaction-history">
+  
+    <% if (transactionHistoryList == null || selectedAccount == null) { %>
+      <div class="card2">
+        <p style=" display: flex; justify-content: center;">계좌를 선택해주세요.</p>
+    <% } else if (transactionHistoryList.isEmpty()) { %>
+      <div class="card2">
+        <p style=" display: flex; justify-content: center;">거래 내역이 없습니다.</p>
+    <% } else { %>
+        <% for (TransactionHistory history : transactionHistoryList) { %>
+            <div class="card2">
+                <div class="card-header">
+                    <span class="date"><%= new SimpleDateFormat("yyyy-MM-dd HH:mm").format(history.getTransactionDate()) %></span>
+                    <span class="account">
+                           <% if (history.getTransactionType().equals("입금")) { %>
+            || 보낸 계좌: <%= history.getAccountNumber() %>
+        <% } else { %>
+            || 받은 계좌: <%= history.getAccountNumber() %>
         <% } %>
-      </tbody>
-    </table>
-  </div>
+                    </span>
+                </div>
+                  <div class="amount <%= history.getTransactionType().equals("입금") ? "deposit" : "withdraw" %>">
+                    <% if (history.getTransactionType().equals("입금")) { %>
+                        + <%= String.format("%.0f", history.getAmount()).replaceAll("\\.0+$", "") %> 
+                    <% } else { %>
+                        - <%= String.format("%.0f", history.getAmount()).replaceAll("\\.0+$", "") %>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
 </div>
-
-<div class="col-auto"> 
-  <form action="${pageContext.request.contextPath}/cancelAccounts.do" method="post">
-    <input type="hidden" name="accountNumbers" value="" id="selectedAccountsHidden">
-    <a href="${pageContext.request.contextPath}/selectProduct.do" class="btn btn-primary">계좌개설</a>
-    <button type="submit" class="btn btn-primary" onclick="cancelAccounts()">계좌해지</button>
-  </form>
-</div>
-
-<script>
-  // 계좌 해지 버튼 클릭 시 호출되는 함수
-  function cancelAccounts() {
-    var selectedAccounts = [];
-    var checkboxes = document.getElementsByName('accountNumbers');
-    for (var i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i].checked) {
-        selectedAccounts.push(checkboxes[i].value);
-      }
-    }
-    document.getElementById('selectedAccountsHidden').value = selectedAccounts.join(',');
-
-    // 선택한 계좌가 없을 경우 경고창을 띄우고 폼 제출을 막음
-    if (selectedAccounts.length === 0) {
-      alert('선택한 계좌가 없습니다.');
-      return false;
-    }
-    return true;
-  }
-</script>
-
-
-
 
 
 <div class="help-image">

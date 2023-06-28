@@ -66,9 +66,17 @@
 }
 
 .button-group {
-  display: flex;
-  justify-content: space-between; /* 수정: 버튼을 옆으로 나열 */
-  width: 300px; /* 수정: 버튼 그룹의 너비 지정 */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.button-group a {
+	color: black; /* 검정색으로 변경 */
+	text-decoration: none; /* 링크 효과 제거 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .button {
   width: 100px;
@@ -120,7 +128,9 @@ align-items: flex-start; /* 업데이트: 위로 정렬되도록 align-items 값
 
 .menu-item p {
   font-size: 14px;
+  
 }
+
 
 /* Additional styles */
 
@@ -145,7 +155,15 @@ align-items: flex-start; /* 업데이트: 위로 정렬되도록 align-items 값
     font-family: 'WooridaumB', sans-serif; 
 }
 
-
+.no-link {
+  text-decoration: none; /* 하이퍼링크 스타일 제거 */
+  color: black; /* 검정색 글씨로 설정 */
+}
+.list-item {
+  list-style-type: none; /* 리스트 스타일 제거 */
+  padding: 0; /* 패딩 제거 */
+  margin: 0; /* 마진 제거 */
+}
 /* 2. 왼쪽 하양쪽 디자인 수정 */
 .left-side {
   text-align: center;

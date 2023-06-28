@@ -90,11 +90,18 @@ crossorigin="anonymous"></script>
 
 
 .button-group {
-   display: flex;
-  justify-content: space-between;
-  align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
+.button-group a {
+	color: black; /* 검정색으로 변경 */
+	text-decoration: none; /* 링크 효과 제거 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 
 
@@ -308,7 +315,8 @@ crossorigin="anonymous"></script>
   position: relative; /* 상대적 위치 설정 */
 }
 .table {
-	margin-top: 40px; /* 기존 값에 25px 더해서 조정 */
+	margin-top: 5px; /* 기존 값에 25px 더해서 조정 */
+	
 }
 
 .row {

@@ -6,6 +6,20 @@
 <html>
 <head>
 <style>
+.menu-item a {
+  color: #008040; /* 녹색으로 변경 */
+  text-decoration: none; /* 링크 효과 제거 */
+  font-weight: bold;
+  text-align: center; /* 가운데 정렬 */
+  margin-top: 10px; /* 링크와 이미지 사이의 간격 추가 */
+}
+.no-link {
+  color: black; /* 검정색으로 변경 */
+  text-decoration: none; /* 링크 효과 제거 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
  /* 추가 스타일 코드 */
 .logo {
   position: absolute;
@@ -13,6 +27,19 @@
   left: 20px;
   width: 300px; /* 이미지 너비 조정 (적절한 값으로 변경) */
   height: 50; /* 이미지 높이 자동 조정 */
+}
+.button-group {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.button-group a {
+	color: black; /* 검정색으로 변경 */
+	text-decoration: none; /* 링크 효과 제거 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 </style>
 <meta charset="EUC-KR">
@@ -57,7 +84,7 @@
     
   </div>
   <div class="right-side">
-    <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
+    <a href="${pageContext.request.contextPath}/bbs.do" class="button no-link">Q&A게시판</a>
     <li>
         <a href="#">
            로그인중 <!-- 확인용 로그인된 아이디 표시 -->
@@ -74,11 +101,11 @@
         <p>계좌관리</p>
       </div>
       <div class="menu-item">
-        <img src="계좌이체.png" alt="계좌이체 아이콘">계좌이체
+        <img src="계좌이체.png" alt="계좌이체 아이콘"><a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a>
         <p>계좌이체</p>
       </div>
       <div class="menu-item">
-        <img src="거래내역조회.png" alt="거래내역조회 아이콘">거래내역조회
+        <img src="거래내역조회.png" alt="거래내역조회 아이콘"><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</a>
       <p>거래내역조회</p>
     </div>
   </div>
