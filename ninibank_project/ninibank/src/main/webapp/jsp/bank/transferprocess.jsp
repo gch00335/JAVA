@@ -44,8 +44,7 @@
         history.setTransactionType(amount > 0 ? "출금" : "입금");
         history.setAmount(amount);
 
-        // BankDAO를 사용하여 이체 내역을 TRANSACTION_HISTORY 테이블에 저장
-        bankDAO.insertTransactionHistory(history);
+     
 
         if (amount > 0) {
             // 입금 내역 생성
@@ -56,11 +55,13 @@
             depositHistory.setTransactionType("입금");
             depositHistory.setAmount(amount);
             bankDAO.insertTransactionHistory(depositHistory);
-        } else {
+     
             // 출금 내역 생성
             TransactionHistory withdrawalHistory = new TransactionHistory();
-            withdrawalHistory.setTransactionId(transactionId);
-            withdrawalHistory.setAccountNumber(toAccount);
+            withdrawalHistory.setTransactionId(toAccount);
+            System.out.println(fromAccount);
+            System.out.println(toAccount);
+            withdrawalHistory.setAccountNumber(fromAccount); // 출금 계좌로 설정
             withdrawalHistory.setTransactionDate(new Date());
             withdrawalHistory.setTransactionType("출금");
             withdrawalHistory.setAmount(Math.abs(amount));

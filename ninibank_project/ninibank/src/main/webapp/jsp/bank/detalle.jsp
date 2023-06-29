@@ -614,7 +614,7 @@ crossorigin="anonymous"></script>
                     <span class="date"><%= new SimpleDateFormat("yyyy-MM-dd HH:mm").format(history.getTransactionDate()) %></span>
                     <span class="account">
                            <% if (history.getTransactionType().equals("입금")) { %>
-            || 보낸 계좌: <%= history.getAccountNumber() %>
+            || 보낸 계좌: <%= history.getTransactionId() %>
         <% } else { %>
             || 받은 계좌: <%= history.getAccountNumber() %>
         <% } %>
