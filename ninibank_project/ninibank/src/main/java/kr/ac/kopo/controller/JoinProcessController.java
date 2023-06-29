@@ -52,7 +52,7 @@ public class JoinProcessController implements Controller{
 	    user.setPhone(phone); // 추가: 전화번호 설정
 	    user.setPost(post); // 추가: 우편번호 설정
 	    user.setAddr(addr); // 추가: 주소 설정
-	    user.setAddr(detailAddress); 
+	    user.setDETAILADDRESS(detailAddress); 
 
 	    // ConnectionFactory 객체 생성
 	    ConnectionFactory connectionFactory = new ConnectionFactory();

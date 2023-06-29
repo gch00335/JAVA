@@ -14,7 +14,12 @@ public class LoginProcessController implements Controller{
         HttpSession session = request.getSession();
         session.setAttribute("ID", userID);
         
-        // 로그인이 완료되었으므로 다음 페이지로 이동
+        // 아이디가 "nini"인 경우 관리자 모드로 인식하여 managerindex.jsp로 이동
+        if ("nini".equals(userID)) {
+            return "manegerindex.jsp";
+        }
+        
+        // 일반 사용자의 경우 index.jsp로 이동
         return "index.jsp";
     }
 }

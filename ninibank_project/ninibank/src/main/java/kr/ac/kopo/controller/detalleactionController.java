@@ -3,12 +3,12 @@ package kr.ac.kopo.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AccountController implements Controller {
+public class detalleactionController implements Controller {
 
-	@Override 
+	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		
-		return "/jsp/bank/account.jsp";
+		return "/jsp/bank/detalleProcess.jsp";
 	}
 	
 

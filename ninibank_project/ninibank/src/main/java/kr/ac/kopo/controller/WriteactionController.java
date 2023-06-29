@@ -72,7 +72,8 @@ public class WriteactionController implements Controller {
             } else {
             	System.out.println("그럼 여기로와?");
                 BbsDAO bbsDAO = new BbsDAO();
-                int pbbsID = Integer.parseInt(request.getParameter("pbbsID"));
+                String pbbsIDParam = request.getParameter("pbbsID");
+                int pbbsID = 0; // 기본값 설정
                 int result = bbsDAO.write(bbsTitle, userID, bbsContent, pbbsID);
                 System.out.println(result);
                 if (result == -1) {

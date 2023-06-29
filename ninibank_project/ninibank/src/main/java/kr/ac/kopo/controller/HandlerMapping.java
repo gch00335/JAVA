@@ -53,6 +53,9 @@ public class HandlerMapping {
         mappings.put("/transfer.do",  new transferController());
         mappings.put("/transferaction.do",  new transferActionController());
         mappings.put("/detalle.do",  new detalleController());
+        mappings.put("/detalleaction.do",  new detalleactionController());
+        mappings.put("/productManagement.do",  new productManagementController());
+        mappings.put("/Mypage.do",  new MypageController());
        
         
         
