@@ -149,8 +149,8 @@
     </div>
     <div class="form-group">
       <div style="display: flex;">
-        <input type="text" class="form-control" placeholder="주소" name="addr" id="addr" readonly>
-        <input type="text" class="form-control" placeholder="상세주소" name="DETAILADDRESS" maxlength="100">
+        <input type="text" class="form-control" placeholder="주소" name="addr" id="addr" readonly >
+        <input type="text" class="form-control" placeholder="상세주소" name="DETAILADDRESS" id="DETAILADDRESS"  maxlength="100">
       </div>
     </div>
     <div class="form-group">
@@ -160,6 +160,7 @@
     <input type="button" class="btn btn-primary2" value="카카오톡 회원가입" onclick="location.href='${pageContext.request.contextPath}/kakaojoin.do'">
   </form>
 </div>
+
 <script>
   $(function() {
     $("#birth").datepicker({
@@ -176,6 +177,7 @@
 	      // 우편번호와 주소 정보를 가져온 후 처리할 로직 작성
 	      document.getElementById('post').value = data.zonecode; // 우편번호 필드에 우편번호 값 채우기
 	      document.getElementById('addr').value = data.address; // 주소 필드에 주소 값 채우기
+	      document.getElementsByName('DETAILADDRESS')[0].value = '';
 	    }
 	  }).open();
 	}

@@ -394,18 +394,10 @@ a, a:hover {
   </div>
   <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A게시판</button>
-    <button class="button"> MYPAGE </button>
-     <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
- 			 <div class="dropdown">
-  				  <button class="button"> MY계좌 </button>
-    <ul class="dropdown-menu">
-   		<li><a href="mypage.jsp">계좌관리</a></li>
-        <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
-        <li><a href="mypage.jsp">거래내역조회</a></li>
-        <li><a href="logoutAction.jsp">계좌이체</a></li>
-      </ul>
-    </li>
+   <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE</a>
+						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
+						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
   <% } else { %>
     <li>
       <div class="top-container">
@@ -421,19 +413,15 @@ a, a:hover {
    
     </div>
   </div>
-  <div class="right-side">
+ <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A게시판</button>
-    <button class="button"> MYPAGE </button>
-     <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
- 			 <div class="dropdown">
-  				  <button class="button"> MY계좌 </button>
-    <ul class="dropdown-menu">
-   		<li><a href="mypage.jsp">계좌관리</a></li>
-        <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
-        <li><a href="mypage.jsp">거래내역조회</a></li>
-        <li><a href="logoutAction.jsp">계좌이체</a></li>
-    </li>
+    <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE</a>
+						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
+						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
+       </div>
+  </div>
+</div>
   <% } %>
 </ul>
 	

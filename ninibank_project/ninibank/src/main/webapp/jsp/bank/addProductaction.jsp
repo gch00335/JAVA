@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
     <%@ page import="java.io.PrintWriter"%>
 <%@ page import="kr.ac.kopo.bank.Bank"%>
@@ -7,32 +6,32 @@
 <%@ page import="kr.ac.kopo.product.ProductDAO"%>
 <%@ page import="kr.ac.kopo.product.Product"%>
 <!DOCTYPE html>
-<meta charset="EUC-KR">
+
 <%
-    // DB ¿¬°á Á¤º¸
+    // DB ì—°ê²° ì •ë³´
     String url = "jdbc:oracle:thin:@localhost:1521:xe";
     String username = "hr";
     String password = "hr";
     
-    // Àü´Ş¹ŞÀº ÆÄ¶ó¹ÌÅÍ ÃßÃâ
+    // ì „ë‹¬ë°›ì€ íŒŒë¼ë¯¸í„° ì¶”ì¶œ
     String productName = request.getParameter("productName");
     double interestRate = Double.parseDouble(request.getParameter("interestRate"));
     double minimumBalance = Double.parseDouble(request.getParameter("minimumBalance"));
     
-    // DB ¿¬°á ¹× »óÇ° Ãß°¡ Ã³¸®
+    // DB ì—°ê²° ë° ìƒí’ˆ ì¶”ê°€ ì²˜ë¦¬
     Connection conn = null;
     PreparedStatement pstmt = null;
     try {
-        // JDBC µå¶óÀÌ¹ö ·Îµå
+        // JDBC ë“œë¼ì´ë²„ ë¡œë“œ
         Class.forName("oracle.jdbc.driver.OracleDriver");
         
-        // DB ¿¬°á
-        conn = DriverManager.getConnection(url, username, password);
+        // DB ì—°ê²°
+      conn = DriverManager.getConnection(url + "?useUnicode=true&characterEncoding=UTF-8", username, password);
         
-     	// »óÇ° ¹øÈ£¸¦ ÀÔ·Â¹Ş´Â º¯¼ö
+     	// ìƒí’ˆ ë²ˆí˜¸ë¥¼ ì…ë ¥ë°›ëŠ” ë³€ìˆ˜
         int productID = Integer.parseInt(request.getParameter("productID"));
 
-        // SQL Äõ¸® ½ÇÇà
+        // SQL ì¿¼ë¦¬ ì‹¤í–‰
         String sql = "INSERT INTO account_products (productID, productName, interestRate, minimumBalance) VALUES (?, ?, ?, ?)";
         pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, productID);
@@ -42,16 +41,16 @@
         
         int rowsAffected = pstmt.executeUpdate();
         if (rowsAffected > 0) {
-            // »óÇ° Ãß°¡ ¼º°ø
+            // ìƒí’ˆ ì¶”ê°€ ì„±ê³µ
             response.sendRedirect("productManagement.jsp");
         } else {
-            // »óÇ° Ãß°¡ ½ÇÆĞ
-            out.println("»óÇ° Ãß°¡¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+            // ìƒí’ˆ ì¶”ê°€ ì‹¤íŒ¨
+            out.println("ìƒí’ˆ ì¶”ê°€ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
         }
     } catch (Exception e) {
         e.printStackTrace();
     } finally {
-        // ¸®¼Ò½º ÇØÁ¦
+        // ë¦¬ì†ŒìŠ¤ í•´ì œ
         if (pstmt != null) {
             try {
                 pstmt.close();

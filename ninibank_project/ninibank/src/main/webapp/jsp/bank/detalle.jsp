@@ -102,12 +102,13 @@ crossorigin="anonymous"></script>
 }
 
 .button-group a {
-	color: black; /* 검정색으로 변경 */
+	color: white;
 	text-decoration: none; /* 링크 효과 제거 */
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
+
 
 
 
@@ -176,7 +177,7 @@ crossorigin="anonymous"></script>
    width: 100px;
   height: 40px;
   margin-top: 10px;
-  background-color:  #ffffff;
+  background-color: #4CAF50;
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -521,18 +522,10 @@ crossorigin="anonymous"></script>
   </div>
   <div class="right-side">
   <div class="button-group">
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE </button>
-     <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
- 			 <div class="dropdown">
-  				  <button class="button"> MY계좌 </button>
-    <ul class="dropdown-menu">
-   		<li><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></li>
-        <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
-        <li><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</a></li>
-        <li><a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a></li>
-    </ul>
-    </li>
+    <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE</a>
+						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
+						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
        </div>
   </div>
 </div>
@@ -552,18 +545,10 @@ crossorigin="anonymous"></script>
   </div>
   <div class="right-side">
   <div class="button-group">
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</button>
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE </button>
-     <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a></button>
- 			 <div class="dropdown">
-  				  <button class="button"> MY계좌 </button>
-    <ul class="dropdown-menu">
-   		<li><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></li>
-        <li><a href="logoutAction.jsp">오픈뱅킹연결</a></li>
-        <li><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</a></li>
-        <li><a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a></li>
-    </ul>
-    </li>
+    					<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE</a>
+						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
+						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
        </div>
   </div>
 </div>

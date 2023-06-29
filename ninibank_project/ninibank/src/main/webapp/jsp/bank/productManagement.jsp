@@ -1,18 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+
 <%@page import="kr.ac.kopo.product.Product"%>
 <%@page import="kr.ac.kopo.bank.BankDAO"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+
 <%@ page import="java.util.List" %>
 <%@ page import="kr.ac.kopo.bank.BankDAO" %>
 <%
-    // BankDAO ÀÎ½ºÅÏ½º »ı¼º
+    // BankDAO ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     BankDAO bankDAO = new BankDAO();
     
-    // »óÇ° ¸ñ·Ï Á¶È¸
+    // ìƒí’ˆ ëª©ë¡ ì¡°íšŒ
     List<Product> accountProducts = bankDAO.getAllAccountProducts();
 %>
-<meta charset="EUC-KR">
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html>
 <head>
    <link rel="stylesheet" 
@@ -37,7 +39,7 @@ crossorigin="anonymous"></script>
 /* Define @font-face rule */
 @font-face {
   font-family: 'WooridaumB';
-  src: url('https://example.com/path-to/WooridaumB.woff2') format('woff2'); /* ÆùÆ® ÆÄÀÏÀÇ ½ÇÁ¦ URL·Î º¯°æ */
+  src: url('https://example.com/path-to/WooridaumB.woff2') format('woff2'); /* í°íŠ¸ íŒŒì¼ì˜ ì‹¤ì œ URLë¡œ ë³€ê²½ */
   font-weight: 700;
   font-style: normal;
 }
@@ -45,7 +47,7 @@ crossorigin="anonymous"></script>
 .top-container {
   background-color: #008040;
   display: flex;
- justify-content: space-between; /* ¼öÁ¤: ¿ŞÂÊ°ú ¿À¸¥ÂÊ »çÀÌÀÇ °ø°£À» ÃÖ´ëÈ­ */
+ justify-content: space-between; /* ìˆ˜ì •: ì™¼ìª½ê³¼ ì˜¤ë¥¸ìª½ ì‚¬ì´ì˜ ê³µê°„ì„ ìµœëŒ€í™” */
   align-items: center;
   height: 25vh;
   font-weight: bold;
@@ -60,20 +62,20 @@ crossorigin="anonymous"></script>
   text-align: center;
   width: 50%;
   height: 100%;
-  background-color: #ffffff; /* ÇÏ¾ç ¹è°æ Ãß°¡ */
+  background-color: #ffffff; /* í•˜ì–‘ ë°°ê²½ ì¶”ê°€ */
   border-radius: 5px;
   padding: 20px;
 }
 
 .left-side h1 {
-  font-size: 60px; /* Å« ±Û¾¾Ã¼·Î ¼öÁ¤ */
-  font-weight: bold; /* ÁøÇÑ ±Û¾¾Ã¼·Î ¼öÁ¤ */
-  color: #008040; /* ¹ÎÆ®»öÀ¸·Î ¼öÁ¤ */
+  font-size: 60px; /* í° ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
+  font-weight: bold; /* ì§„í•œ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
+  color: #008040; /* ë¯¼íŠ¸ìƒ‰ìœ¼ë¡œ ìˆ˜ì • */
   font-family: 'WooridaumB', sans-serif; 
 }
 
 .left-side h3 {
- font-size: 34px; /* ÀÛÀº ±Û¾¾Ã¼·Î ¼öÁ¤ */
+ font-size: 34px; /* ì‘ì€ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
   color: #000;
   margin-bottom: 10px;
  font-family: 'WooridaumB', sans-serif; 
@@ -82,37 +84,41 @@ crossorigin="anonymous"></script>
 .right-side {
   display: flex; 
   flex-direction: column;
-  justify-content: flex-start; /* ¼öÁ¤: ¸Ç À§·Î Á¤·ÄµÇµµ·Ï º¯°æ */
+  justify-content: flex-start; /* ìˆ˜ì •: ë§¨ ìœ„ë¡œ ì •ë ¬ë˜ë„ë¡ ë³€ê²½ */
   align-items: center;
   width: 50%;
   height: 100%;
-  background-color: #008040; /* ¹ÎÆ®»ö ¹è°æ Ãß°¡ */
+  background-color: #008040; /* ë¯¼íŠ¸ìƒ‰ ë°°ê²½ ì¶”ê°€ */
   border-radius: 5px;
   margin-left: 20px;
 }
 .right-side .button {
-  margin-left: 10px; /* ¼öÁ¤: ¹öÆ° °£°İÀ» Á¶Á¤ */
+  margin-left: 10px; /* ìˆ˜ì •: ë²„íŠ¼ ê°„ê²©ì„ ì¡°ì • */
 }
-
 
 
 .button-group {
-   display: flex;
-  justify-content: space-between;
-  align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-
-
+.button-group a {
+	color: white;
+	text-decoration: none; /* ë§í¬ íš¨ê³¼ ì œê±° */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 
 /* Additional styles */
 
-/* 1. »ó´ÜÀÇ ¹ÎÆ®»ö°ú °Ë»öÃ¢ ½ºÅ¸ÀÏ */
+/* 1. ìƒë‹¨ì˜ ë¯¼íŠ¸ìƒ‰ê³¼ ê²€ìƒ‰ì°½ ìŠ¤íƒ€ì¼ */
 .top-container {
   background-color: #008040;
   display: flex;
- justify-content: space-between; /* ¼öÁ¤: ¿ŞÂÊ°ú ¿À¸¥ÂÊ »çÀÌÀÇ °ø°£À» ÃÖ´ëÈ­ */
+ justify-content: space-between; /* ìˆ˜ì •: ì™¼ìª½ê³¼ ì˜¤ë¥¸ìª½ ì‚¬ì´ì˜ ê³µê°„ì„ ìµœëŒ€í™” */
   align-items: center;
   height: 25vh;
   font-weight: bold;
@@ -122,47 +128,47 @@ crossorigin="anonymous"></script>
 .right-side {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* ¼öÁ¤: ¸Ç ¿À¸¥ÂÊ¿¡ À§Ä¡ÇÏµµ·Ï º¯°æ */
+  align-items: flex-end; /* ìˆ˜ì •: ë§¨ ì˜¤ë¥¸ìª½ì— ìœ„ì¹˜í•˜ë„ë¡ ë³€ê²½ */
   margin-left: 20px;
-  background-color: #008040; /* ¹ÎÆ®»ö ¹è°æ Ãß°¡ */
+  background-color: #008040; /* ë¯¼íŠ¸ìƒ‰ ë°°ê²½ ì¶”ê°€ */
    font-weight: bold;
     font-family: 'WooridaumB', sans-serif; 
 }
 
 
-/* 2. ¿ŞÂÊ ÇÏ¾çÂÊ µğÀÚÀÎ ¼öÁ¤ */
+/* 2. ì™¼ìª½ í•˜ì–‘ìª½ ë””ìì¸ ìˆ˜ì • */
 .left-side {
   text-align: center;
-  background-color: #ffffff; /* ÇÏ¾ç ¹è°æ Ãß°¡ */
+  background-color: #ffffff; /* í•˜ì–‘ ë°°ê²½ ì¶”ê°€ */
   padding: 20px;
   border-radius: 5px;
 }
 
 .left-side h1 {
-   font-size: 60px; /* Å« ±Û¾¾Ã¼·Î ¼öÁ¤ */
-  font-weight: bold; /* ÁøÇÑ ±Û¾¾Ã¼·Î ¼öÁ¤ */
-  color: #008040; /* ¹ÎÆ®»öÀ¸·Î ¼öÁ¤ */
+   font-size: 60px; /* í° ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
+  font-weight: bold; /* ì§„í•œ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
+  color: #008040; /* ë¯¼íŠ¸ìƒ‰ìœ¼ë¡œ ìˆ˜ì • */
     font-family: 'WooridaumB', sans-serif; 
-    margin-left: -250px; /* ¿ŞÂÊÀ¸·Î 20px ÀÌµ¿ */
+    margin-left: -250px; /* ì™¼ìª½ìœ¼ë¡œ 20px ì´ë™ */
 }
 
 .left-side h3 {
-   font-size: 34px; /* ÀÛÀº ±Û¾¾Ã¼·Î ¼öÁ¤ */
+   font-size: 34px; /* ì‘ì€ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
   color: #000;
   margin-bottom: 5px;
     font-family: 'WooridaumB', sans-serif; 
 }
 .left-side h4 {
-  font-size: 16px; /* ÀÛÀº ±Û¾¾Ã¼·Î ¼öÁ¤ */
+  font-size: 16px; /* ì‘ì€ ê¸€ì”¨ì²´ë¡œ ìˆ˜ì • */
   margin-bottom: 5px;
   font-family: 'WooridaumB', sans-serif;
 }
 .main-page {
-  color: #FF8000; /* ¸ŞÀÎÈ­¸éÀÇ ÁÖÈ²»ö */
+  color: #FF8000; /* ë©”ì¸í™”ë©´ì˜ ì£¼í™©ìƒ‰ */
 }
 
 .sub-page {
-  color: #888888; /* ÁöÁ¡¾È³»ÀÇ È¸»ö */
+  color: #888888; /* ì§€ì ì•ˆë‚´ì˜ íšŒìƒ‰ */
 }
 
 
@@ -170,7 +176,7 @@ crossorigin="anonymous"></script>
    width: 100px;
   height: 40px;
   margin-top: 10px;
-  background-color:  #ffffff;
+  background-color: #4CAF50;
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -184,47 +190,47 @@ crossorigin="anonymous"></script>
   background-color: #ececec;
 }
 
-/* ½ºÅ¸ÀÏ ÄÚµå Ãß°¡ */
+/* ìŠ¤íƒ€ì¼ ì½”ë“œ ì¶”ê°€ */
   .help-image {
-    position: fixed; /* °íÁ¤ À§Ä¡ */
-    bottom: 60px; /* Footer ¹Ù·Î À§¿¡ À§Ä¡ */
-    right: 20px; /* ¿À¸¥ÂÊ Á¤·Ä */
+    position: fixed; /* ê³ ì • ìœ„ì¹˜ */
+    bottom: 60px; /* Footer ë°”ë¡œ ìœ„ì— ìœ„ì¹˜ */
+    right: 20px; /* ì˜¤ë¥¸ìª½ ì •ë ¬ */
     font-family: 'WooridaumB', sans-serif; 
   }
 
   .help-menu {
-    display: none; /* ÃÊ±â¿¡´Â ¼û±è */
+    display: none; /* ì´ˆê¸°ì—ëŠ” ìˆ¨ê¹€ */
     position: absolute;
-    bottom: 100%; /* µµ¿ò ¾ÆÀÌÄÜ À§¿¡ À§Ä¡ */
+    bottom: 100%; /* ë„ì›€ ì•„ì´ì½˜ ìœ„ì— ìœ„ì¹˜ */
     left: 50%;
     transform: translateX(-50%);
     background-color: #fff;
     padding: 10px;
-    width: 200px; /* ¸Ş´º Ä­ ³Êºñ Á¶Á¤ */
+    width: 200px; /* ë©”ë‰´ ì¹¸ ë„ˆë¹„ ì¡°ì • */
     font-family: 'WooridaumB', sans-serif; 
    
   }
 
   .help-menu p {
-    margin: 5px 0; /* °£°İ Á¶Á¤ */
-    cursor: pointer; /* Ä¿¼­ Æ÷ÀÎÅÍ·Î º¯°æ */
+    margin: 5px 0; /* ê°„ê²© ì¡°ì • */
+    cursor: pointer; /* ì»¤ì„œ í¬ì¸í„°ë¡œ ë³€ê²½ */
   }
 
   .help-menu p:hover {
-    background-color: #eee; /* ¸¶¿ì½º¸¦ ¿Ã·ÈÀ» ¶§ ¹è°æ »ö»ó º¯°æ */
+    background-color: #eee; /* ë§ˆìš°ìŠ¤ë¥¼ ì˜¬ë ¸ì„ ë•Œ ë°°ê²½ ìƒ‰ìƒ ë³€ê²½ */
   }
 
   .help-image:hover + .help-menu {
-    display: block; /* ¸¶¿ì½º Ä¿¼­¸¦ ¿Ã·ÈÀ» ¶§ ¸Ş´º Ç¥½Ã */
+    display: block; /* ë§ˆìš°ìŠ¤ ì»¤ì„œë¥¼ ì˜¬ë ¸ì„ ë•Œ ë©”ë‰´ í‘œì‹œ */
   }
 
-/* ½ºÅ¸ÀÏ ÄÚµå Ãß°¡ */
+/* ìŠ¤íƒ€ì¼ ì½”ë“œ ì¶”ê°€ */
 #footer {
   background-color: #f1f1f1;
   
   text-align: center;
   font-size: 14px;
-    /* ±âÁ¸ ½ºÅ¸ÀÏ ¼Ó¼º */
+    /* ê¸°ì¡´ ìŠ¤íƒ€ì¼ ì†ì„± */
   position: fixed;
   bottom: 0;
   left: 0;
@@ -260,28 +266,28 @@ crossorigin="anonymous"></script>
  .customer-service {
     width: 240px;
   height: 168px;
-  border: 1px solid #000; /* °ËÁ¤ Å×µÎ¸® Ãß°¡ */
-  position: absolute; /* À§Ä¡¸¦ Àı´ëÀûÀ¸·Î ¼³Á¤ */
-  top: 350px; /* ¿øÇÏ´Â À§Ä¡·Î Á¶Á¤ */
-  left: 100px; /* ¿øÇÏ´Â À§Ä¡·Î Á¶Á¤ */
-  text-align: center; /* ÅØ½ºÆ®¸¦ ¿À¸¥ÂÊÀ¸·Î Á¤·Ä */
+  border: 1px solid #000; /* ê²€ì • í…Œë‘ë¦¬ ì¶”ê°€ */
+  position: absolute; /* ìœ„ì¹˜ë¥¼ ì ˆëŒ€ì ìœ¼ë¡œ ì„¤ì • */
+  top: 350px; /* ì›í•˜ëŠ” ìœ„ì¹˜ë¡œ ì¡°ì • */
+  left: 100px; /* ì›í•˜ëŠ” ìœ„ì¹˜ë¡œ ì¡°ì • */
+  text-align: center; /* í…ìŠ¤íŠ¸ë¥¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì •ë ¬ */
    }
    .customer-service p {
-  margin-right: 10px; /* ¿À¸¥ÂÊÀ¸·Î 10pxÀÇ ¶ç¾î¾²±â Àû¿ë */
+  margin-right: 10px; /* ì˜¤ë¥¸ìª½ìœ¼ë¡œ 10pxì˜ ë„ì–´ì“°ê¸° ì ìš© */
 }
 
- /* Ãß°¡ ½ºÅ¸ÀÏ ÄÚµå */
+ /* ì¶”ê°€ ìŠ¤íƒ€ì¼ ì½”ë“œ */
 .logo {
   position: absolute;
   top: 20px;
   left: 20px;
-  width: 300px; /* ÀÌ¹ÌÁö ³Êºñ Á¶Á¤ (ÀûÀıÇÑ °ªÀ¸·Î º¯°æ) */
-  height: 50; /* ÀÌ¹ÌÁö ³ôÀÌ ÀÚµ¿ Á¶Á¤ */
+  width: 300px; /* ì´ë¯¸ì§€ ë„ˆë¹„ ì¡°ì • (ì ì ˆí•œ ê°’ìœ¼ë¡œ ë³€ê²½) */
+  height: 50; /* ì´ë¯¸ì§€ ë†’ì´ ìë™ ì¡°ì • */
 }
   
 
 
-/* Ãß°¡ ½ºÅ¸ÀÏ ÄÚµå */
+/* ì¶”ê°€ ìŠ¤íƒ€ì¼ ì½”ë“œ */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -304,10 +310,10 @@ crossorigin="anonymous"></script>
 }
 
 .top-container {
-  position: relative; /* »ó´ëÀû À§Ä¡ ¼³Á¤ */
+  position: relative; /* ìƒëŒ€ì  ìœ„ì¹˜ ì„¤ì • */
 }
 .table {
-	margin-top: 40px; /* ±âÁ¸ °ª¿¡ 25px ´õÇØ¼­ Á¶Á¤ */
+	margin-top: 40px; /* ê¸°ì¡´ ê°’ì— 25px ë”í•´ì„œ ì¡°ì • */
 }
 
 .row {
@@ -325,13 +331,13 @@ crossorigin="anonymous"></script>
 .customer-service {
   width: 300px;
   height: 300px;
-  background-color: #ffffff; /* ÇÏ¾á»öÀ¸·Î º¯°æ */
+  background-color: #ffffff; /* í•˜ì–€ìƒ‰ìœ¼ë¡œ ë³€ê²½ */
   border-radius: 10px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
   padding: 20px;
 }
 
-/* ÀÌÇÏ µ¿ÀÏ */
+/* ì´í•˜ ë™ì¼ */
 .customer-service h2 {
   font-size: 18px;
 }
@@ -352,18 +358,75 @@ crossorigin="anonymous"></script>
   position: absolute;
   top: 350px;
   left: 450px;
-  margin-top: 10px; /* ÇÊ¿äÇÑ °æ¿ì ¿©¹é Á¶Á¤ */
+  margin-top: 10px; /* í•„ìš”í•œ ê²½ìš° ì—¬ë°± ì¡°ì • */
 }
 
-.container2{
- position: absolute;
-  top: 350px;
-  left: 450px;
-  width: 1000px; /* Adjust the width as desired */
-  margin-top: 10px; /* ÇÊ¿äÇÑ °æ¿ì ¿©¹é Á¶Á¤ */
+ .container2 {
+    position: absolute;
+    top: 360px;
+    left: 450px;
+    margin-top: 10px;
+    /* í•„ìš”í•œ ê²½ìš° ì—¬ë°± ì¡°ì • */
+  }
+
+  .card {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h2 {
+    font-size: 20px;
+    margin: 0;
+  }
+
+  .card p {
+    margin: 5px 0;
+  }
+ .card-body img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+  
+}.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.form-submit {
+  padding: 10px 20px;
+  background-color: darkgreen;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-submit:hover {
+  background-color: green;
 }
 </style>
-    <title>»óÇ° °ü¸®</title>
+    <title>ìƒí’ˆ ê´€ë¦¬</title>
 </head>
 <body>
 <%   
@@ -371,7 +434,7 @@ crossorigin="anonymous"></script>
 	String userID = null;
 	if (session.getAttribute("ID") != null){
 		userID = (String) session.getAttribute("ID");
-	}	    // Ä«Ä«¿ÀÅå ·Î±×ÀÎ È®ÀÎ
+	}	    // ì¹´ì¹´ì˜¤í†¡ ë¡œê·¸ì¸ í™•ì¸
 
  	
 	
@@ -381,25 +444,25 @@ crossorigin="anonymous"></script>
   <% if (userID == null) { %>
     <div class="top-container">
   <div class="left-side">
-  <a href="/bank/index.jsp">
-  <img src="´Ï´ÏÂî´Ï·Î°í.png" alt="·Î°í" class="logo">
+  <a href="/bank/manegerindex.jsp">
+  <img src="ë‹ˆë‹ˆì°Œë‹ˆë¡œê³ .png" alt="ë¡œê³ " class="logo">
 </a>
    
-    <h3> Q&A °Ô½ÃÆÇ</h3><br>
+    <h3> NINI_BANK ê´€ë¦¬</h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> ¸ŞÀÎ¸Ş´º </span></h4>
-		<h4><span class="sub-page"> > Q&A °Ô½ÃÆÇ</span></h4>
+      <h4><span class="main-page"> ë©”ì¸ë©”ë‰´ </span></h4>
+		<h4><span class="sub-page"> > ìƒí’ˆê´€ë¦¬</span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A°Ô½ÃÆÇ</button>
+    <button class="button">ìƒí’ˆê´€ë¦¬</button>
   <div class="dropdown">
-    <button class="button"> Á¢¼ÓÇÏ±â </button>
+    <button class="button"> ì ‘ì†í•˜ê¸° </button>
     <ul class="dropdown-menu">
-      <li> <a href="${pageContext.request.contextPath}/login.do" class="button">·Î±×ÀÎ</a></li>
-      <li>   <a href="${pageContext.request.contextPath}/join.do" class="button">È¸¿ø °¡ÀÔ</a></li>
+      <li> <a href="${pageContext.request.contextPath}/login.do" class="button">ë¡œê·¸ì¸</a></li>
+      <li>   <a href="${pageContext.request.contextPath}/join.do" class="button">íšŒì› ê°€ì…</a></li>
     </ul>
     </li>
        </div>
@@ -408,36 +471,46 @@ crossorigin="anonymous"></script>
   <% } else { %>
    <div class="top-container">
   <div class="left-side">
-  <a href="/bank/index.jsp">
-  <img src="´Ï´ÏÂî´Ï·Î°í.png" alt="·Î°í" class="logo">
+  <a href="/bank/manegerindex.jsp">
+  <img src="ë‹ˆë‹ˆì°Œë‹ˆë¡œê³ .png" alt="ë¡œê³ " class="logo">
 </a>
    
- <h3> °èÁÂ°ü¸® </h3><br>
+ <h3> NINI_BANK ê´€ë¦¬ </h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> MY¸Ş´º </span></h4>
-		<h4><span class="sub-page"> > °èÁÂ°ü¸® </span></h4>
+      <h4><span class="main-page"> MYë©”ë‰´ </span></h4>
+		<h4><span class="sub-page"> > NINI_BANK ê´€ë¦¬ </span></h4>
    
     </div>
   </div>
-  <div class="right-side">
-  <div class="button-group">
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A°Ô½ÃÆÇ</button>
-    <button class="button"> MYPAGE </button>
-     <a href="${pageContext.request.contextPath}/logout.do" class="button">·Î±×¾Æ¿ô</a></button>
- 			 <div class="dropdown">
-  				  <button class="button"> MY°èÁÂ </button>
-    <ul class="dropdown-menu">
-   		<li><a href="${pageContext.request.contextPath}/account.do">°èÁÂ°ü¸®</a></li>
-        <li><a href="logoutAction.jsp">¿ÀÇÂ¹ğÅ·¿¬°á</a></li>
-        <li><a href="mypage.jsp">°Å·¡³»¿ªÁ¶È¸</a></li>
-        <li><a href="logoutAction.jsp">°èÁÂÀÌÃ¼</a></li>
-    </ul>
-    </li>
-       </div>
-  </div>
-</div>
-  <% } %>
-</ul>
+				<div class="right-side">
+						<div class="button-group">
+							<a href="${pageContext.request.contextPath}/bbs.do"
+								class="button">Q&Aê²Œì‹œíŒ
+								</button> <a href="${pageContext.request.contextPath}/bbs.do"
+								class="button"> MYPAGE
+									</button> <a href="${pageContext.request.contextPath}/logout.do"
+									class="button">ë¡œê·¸ì•„ì›ƒ</a>
+								</button>
+									<div class="dropdown">
+										<button class="button">MYê³„ì¢Œ</button>
+										<ul class="dropdown-menu">
+											<li><a
+												href="${pageContext.request.contextPath}/account.do">ê³„ì¢Œê´€ë¦¬</a></li>
+											<li><a href="logoutAction.jsp">ì˜¤í”ˆë±…í‚¹ì—°ê²°</a></li>
+											<li><a
+												href="${pageContext.request.contextPath}/detalle.do">ê±°ë˜ë‚´ì—­ì¡°íšŒ</a></li>
+											<li><a
+												href="${pageContext.request.contextPath}/transfer.do">ê³„ì¢Œì´ì²´</a></li>
+										</ul>
+										</li>
+									</div>
+						</div>
+					</div>
+					<%
+					}
+					%>
+				
+	</ul>
 
 
 
@@ -446,38 +519,78 @@ crossorigin="anonymous"></script>
   
   
   	<div class="customer-service">
-  <h2>MY °èÁÂ</h2><br><br>
-  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/account.do">°èÁÂ°ü¸®</a></p>
-  <p><a href="${pageContext.request.contextPath}/load.do">¿ÀÇÂ¹ğÅ·¿¬°á</a></p>
-  <p><a href="${pageContext.request.contextPath}/detalle.do">°Å·¡³»¿ªÁ¶È¸</p>
-  <p><a href="${pageContext.request.contextPath}/transfer.do">°èÁÂÀÌÃ¼</a></p>
+  <h2>NINI_BANK ê´€ë¦¬</h2><br><br>
+  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/account.do">ìƒí’ˆê´€ë¦¬</a></p>
+  <p><a href="${pageContext.request.contextPath}/load.do">Q&Aê²Œì‹œíŒ ê´€ë¦¬</a></p>
+  <p><a href="${pageContext.request.contextPath}/detalle.do">íšŒì›ì •ë³´ ê´€ë¦¬</a></p>
 </div>
  
-
-
+<div class="account-list">
   <div class="container2">
-    <h1>»óÇ° °ü¸®</h1>
+    <h1 style="font-size: 30px; font-weight: bold; color: darkgreen; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">ìƒí’ˆ ê´€ë¦¬</h1>
+       
+    <div style="display: flex; align-items: flex-start;">
+      <a href="#" id="addProductButton" class="button text-center mt-2" style="display: block; color: white; background-color: #4CAF50;">ì¶”ê°€í•˜ê¸°</a>
+      <a href="#" id="deleteProductButton" class="button text-center mt-2 ml-2" style="display: inline-block; color: white; background-color: #4CAF50;">ì‚­ì œí•˜ê¸°</a>
+    </div>
     
-    <table border="1">
-        <tr>
-            <th>»óÇ° ID</th>
-            <th>»óÇ°¸í</th>
-            <th>ÀÌÀÚÀ²</th>
-            <th>ÃÖ¼ÒÀÜ¾×</th>
-        </tr>
-        <% for (Product accountProduct : accountProducts) { %>
-        <tr>
-            <td><%= accountProduct.getProductID() %></td>
-            <td><%= accountProduct.getProductName() %></td>
-            <td><%= accountProduct.getInterestRate() %></td>
-            <td><%= accountProduct.getMinimumBalance() %></td>
-        </tr>
-        <% } %>
-    </table>
+    <div id="addProductForm" style="display: none;">
+      <div class="card">
+        <h2 class="card-title">ìƒí’ˆ ì¶”ê°€</h2>
+        <form action="addProductaction.jsp" method="post">
+          <label class="form-label" for="productID">ìƒí’ˆ ë²ˆí˜¸:</label>
+          <input class="form-input" type="number" id="productID" name="productID" required>
+          <label class="form-label" for="productName">ìƒí’ˆëª…:</label>
+          <input class="form-input" type="text" id="productName" name="productName" required>
+          <label class="form-label" for="interestRate">ì´ììœ¨:</label>
+          <input class="form-input" type="number" id="interestRate" name="interestRate" step="0.01" required>
+          <label class="form-label" for="minimumBalance">ìµœì†Œì”ì•¡:</label>
+          <input class="form-input" type="number" id="minimumBalance" name="minimumBalance" required>
+          <input class="form-submit" type="submit" value="ì¶”ê°€">
+        </form>
+      </div>
+    </div>
     
-    <br>
-    <a href="addProduct.jsp">»óÇ° Ãß°¡</a>
-    <br>
-    <a href="deleteProduct.jsp">»óÇ° »èÁ¦</a>
+    <div id="deleteProductForm" style="display: none;">
+      <div class="card">
+        <h2 class="card-title">ìƒí’ˆ ì‚­ì œ</h2>
+        <form action="deleteProductProcess.jsp" method="post">
+          <label class="form-label" for="productID">ìƒí’ˆ ID:</label>
+          <input class="form-input" type="number" id="productID" name="productID" required>
+          <input class="form-submit" type="submit" value="ì‚­ì œ">
+        </form>
+      </div>
+    </div>
+    
+    <div class="row">
+      <% for (Product accountProduct : accountProducts) { %>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <img src="í†µì¥.png" alt="í†µì¥ ì•„ì´ì½˜">
+            <h6 class="card-subtitle mb-2 text-muted">ìƒí’ˆ ID: <%= accountProduct.getProductID() %></h6>
+            <h5 class="card-title" style="font-size: 18px; font-weight: bold;">ìƒí’ˆëª… : <%= accountProduct.getProductName() %></h5>
+            <p class="card-text" style="font-size: 20px; font-weight: bold;">ì´ììœ¨: <%= accountProduct.getInterestRate() %></p>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#addProductButton").click(function(e) {
+    e.preventDefault();
+    $("#addProductForm").toggle();
+  });
+
+  $("#deleteProductButton").click(function(e) {
+    e.preventDefault();
+    $("#deleteProductForm").toggle();
+  });
+});
+</script>
 </body>
 </html>

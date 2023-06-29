@@ -20,13 +20,17 @@
 
 <body>
 <%
-String selectedAccount = request.getParameter("selectedAccount");
+String selectedAccountParam = request.getParameter("selectedAccount");
 
 // BankDAO 인스턴스 생성
 BankDAO bankDAO = new BankDAO();
 
-//선택한 계좌의 거래 내역 조회
-List<TransactionHistory> transactionHistoryList = bankDAO.getTransactionHistory(selectedAccount);
+// 선택한 계좌의 거래 내역 조회
+List<TransactionHistory> transactionHistoryList = null;
+
+if (selectedAccountParam != null) {
+    transactionHistoryList = bankDAO.getTransactionHistory(selectedAccountParam);
+}
 %>
 
 <%@ include file="/jsp/bank/detalle.jsp" %>

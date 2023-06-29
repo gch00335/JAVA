@@ -16,6 +16,7 @@ request.setCharacterEncoding("UTF-8");
 <jsp:setProperty name="user" property="email" />
 <jsp:setProperty name="user" property="post" />
 <jsp:setProperty name="user" property="addr" />
+<jsp:setProperty name="user" property="DETAILADDRESS" />
 <jsp:setProperty name="user" property="birth" />
 
 <!DOCTYPE html>
@@ -30,6 +31,7 @@ request.setCharacterEncoding("UTF-8");
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
 	}
+	System.out.print("addr");
 	if (userID != null) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
