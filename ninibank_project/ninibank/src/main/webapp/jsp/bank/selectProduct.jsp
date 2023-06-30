@@ -305,7 +305,6 @@
 	margin-left: auto;
 }
 
-
 .col-auto {
 	position: absolute;
 	top: 350px;
@@ -326,7 +325,6 @@
 
 .body {
 	font-family: 'Nanum Gothic', sans-serif;
-	
 }
 
 .h4, .mb-3, .btn-primary, .mb-33 {
@@ -457,15 +455,13 @@
 .generate-button:hover {
 	background-color: #0056b3;
 }
-   .container2 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 150vh;
-  
-    }
-    
-  
+
+.container2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 180vh;
+}
 </style>
 
 <meta charset="EUC-KR">
@@ -483,11 +479,10 @@
 		isKakaoLoggedIn = true;
 		userID = (String) session.getAttribute("kakaoID");
 	}
-	
 	%>
 
-	
-	
+
+
 	<ul class="nav navbar-nav navbar-right">
 
 
@@ -551,46 +546,52 @@
 				<div class="right-side">
 					<div class="button-group">
 						<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
-							</div>
+						<a href="${pageContext.request.contextPath}/Mypage.do"
+							class="button"> MYPAGE</a> <a
+							href="${pageContext.request.contextPath}/logout.do"
+							class="button">로그아웃</a> <a
+							href="${pageContext.request.contextPath}/account.do"
+							class="button">MY계좌</a>
 					</div>
 				</div>
-				<%
-				} else {
-				%>
-				<div class="top-container">
-					<div class="left-side">
-						<a href="/bank/index.jsp"> <img src="니니찌니로고.png" alt="로고"
-							class="logo">
-						</a>
+			</div>
+			<%
+			} else {
+			%>
+			<div class="top-container">
+				<div class="left-side">
+					<a href="/bank/index.jsp"> <img src="니니찌니로고.png" alt="로고"
+						class="logo">
+					</a>
 
-						<h3>계좌관리</h3>
-						<br>
-						<div class="button-group">
-							<h4>
-								<span class="main-page"> MY메뉴 </span>
-							</h4>
-							<h4>
-								<span class="sub-page"> > 계좌관리 </span>
-							</h4>
+					<h3>계좌관리</h3>
+					<br>
+					<div class="button-group">
+						<h4>
+							<span class="main-page"> MY메뉴 </span>
+						</h4>
+						<h4>
+							<span class="sub-page"> > 계좌관리 </span>
+						</h4>
 
-						</div>
 					</div>
-					<div class="right-side">
-						<div class="button-group">
-							<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
-								</div>
-						</div>
+				</div>
+				<div class="right-side">
+					<div class="button-group">
+						<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/Mypage.do"
+							class="button"> MYPAGE</a> <a
+							href="${pageContext.request.contextPath}/logout.do"
+							class="button">로그아웃</a> <a
+							href="${pageContext.request.contextPath}/account.do"
+							class="button">MY계좌</a>
 					</div>
-					<%
-					}
-					%>
-				
+				</div>
+			</div>
+			<%
+			}
+			%>
+		
 	</ul>
 
 
@@ -639,7 +640,7 @@
 										while (rs.next()) {
 											int productID = rs.getInt("productID");
 											String productName = rs.getString("productName");
-											out.println("<option value='" + productName + "'>" + productName + "</option>");
+											 out.println("<option value='" + productID + "'>" + productName + "</option>");
 										}
 									} catch (Exception e) {
 										e.printStackTrace();
@@ -695,7 +696,20 @@
 								<div class="invalid-feedback"></div>
 							</div>
 						</div>
-
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="name">사용자 이름</label> <input type="text"
+									class="form-control" id="username" name="username"
+									placeholder="사용자 이름" required>
+								<div class="invalid-feedback">사용자 이름을 입력하세요.</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="name">통장명칭</label> <input type="text"
+									class="form-control" id="accountName" name="accountName"
+									placeholder="통장명칭" required>
+								<div class="invalid-feedback">통장명칭을 입력하세요.</div>
+							</div>
+						</div>
 						<div class="col-md-6 mb-3">
 
 							<label for="pw">은행코드</label> <input type="text"
@@ -804,7 +818,7 @@ document.querySelector('.validation-form').addEventListener('submit', function(e
 });
 </script>
 
-  
+
 
 
 

@@ -1,7 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="kr.ac.kopo.product.Product"%>
 <%@ page import="kr.ac.kopo.bank.Bank"%>
@@ -13,6 +11,7 @@
 <html>
 
 <head>
+ <meta charset="EUC-KR">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -108,7 +107,6 @@
 	align-items: center;
 	justify-content: center;
 }
-
 
 /* Additional styles */
 
@@ -501,7 +499,7 @@ h4 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 80vh;
+	height: 120vh;
 }
 
 .input-form-background {
@@ -534,7 +532,6 @@ h4 {
 	// getAccountList 메서드 호출 시 userID 전달
 	ArrayList<Bank> accountList = bankDAO.getAccountList(userID);
 	request.setAttribute("accountList", accountList);
-	
 	%>
 
 
@@ -579,7 +576,7 @@ h4 {
 					</div>
 				</div>
 			</div>
-		
+
 			<%
 			} else if (isKakaoLoggedIn) {
 			%>
@@ -604,46 +601,52 @@ h4 {
 				<div class="right-side">
 					<div class="button-group">
 						<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
-							</div>
+						<a href="${pageContext.request.contextPath}/Mypage.do"
+							class="button"> MYPAGE</a> <a
+							href="${pageContext.request.contextPath}/logout.do"
+							class="button">로그아웃</a> <a
+							href="${pageContext.request.contextPath}/account.do"
+							class="button">MY계좌</a>
 					</div>
 				</div>
-				<%
-				} else {
-				%>
-				<div class="top-container">
-					<div class="left-side">
-						<a href="/bank/index.jsp"> <img src="니니찌니로고.png" alt="로고"
-							class="logo">
-						</a>
+			</div>
+			<%
+			} else {
+			%>
+			<div class="top-container">
+				<div class="left-side">
+					<a href="/bank/index.jsp"> <img src="니니찌니로고.png" alt="로고"
+						class="logo">
+					</a>
 
-						<h3>계좌관리</h3>
-						<br>
-						<div class="button-group">
-							<h4>
-								<span class="main-page"> MY메뉴 </span>
-							</h4>
-							<h4>
-								<span class="sub-page"> > 계좌관리 </span>
-							</h4>
+					<h3>계좌관리</h3>
+					<br>
+					<div class="button-group">
+						<h4>
+							<span class="main-page"> MY메뉴 </span>
+						</h4>
+						<h4>
+							<span class="sub-page"> > 계좌관리 </span>
+						</h4>
 
-						</div>
 					</div>
-					<div class="right-side">
-						<div class="button-group">
-							<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
-								</div>
-						</div>
+				</div>
+				<div class="right-side">
+					<div class="button-group">
+						<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/Mypage.do"
+							class="button"> MYPAGE</a> <a
+							href="${pageContext.request.contextPath}/logout.do"
+							class="button">로그아웃</a> <a
+							href="${pageContext.request.contextPath}/account.do"
+							class="button">MY계좌</a>
 					</div>
-					<%
-					}
-					%>
-				
+				</div>
+			</div>
+			<%
+			}
+			%>
+		
 	</ul>
 
 
@@ -653,48 +656,70 @@ h4 {
 
 
 	<div class="container2">
-		<div class="row">
-			<div class="col-md-6 mx-auto">
-				<div class="input-form-background">
-					<h4 class="mb-33">계좌 이체</h4>
-					<form class="validation-form" method="post"
-						action="${pageContext.request.contextPath}/transferaction.do">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="input-form-background">
+                <h4 class="mb-33">계좌 이체</h4>
+                <form class="validation-form" method="post" action="${pageContext.request.contextPath}/transferaction.do">
+                    <div class="mb-3">
+                        <label for="bank">내 은행명</label>
+                        <select id="bank" name="bank" class="form-control" required>
+                            <option value="">은행을 선택하세요</option>
+                            <option value="NINI_bank">NINI_bank</option>
+                            <option value="NY_BANK">NY_BANK</option>
+                            <option value="YZ_BANK">YZ_BANK</option>
+                        </select>
+                    </div>
 
-						<div class="mb-3">
-							<label for="fromAccount">출금 계좌</label> <select id="fromAccount"
-								name="fromAccount" class="form-control" required>
-								<option value="">출금 계좌를 선택하세요</option>
-								<c:forEach var="account" items="${requestScope.accountList}">
-									<option value="${account.acc_num}">${account.acc_num}</option>
-								</c:forEach>
-							</select>
-						</div>
+                    <div class="mb-3">
+                        <label for="fromAccount">출금 계좌</label>
+                        <select id="fromAccount" name="fromAccount" class="form-control" required>
+                            <option value="">출금 계좌를 선택하세요</option>
+                            <c:forEach var="account" items="${requestScope.accountList}">
+                                <option value="${account.acc_num}">${account.acc_num}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+ 							<div class="mb-3">
+                        <label for="bank2">보낼 은행명</label>
+                        <select id="bank2" name="bank2" class="form-control" required>
+                            <option value="">은행을 선택하세요</option>
+                            <option value="NINI_bank">NINI_bank</option>
+                            <option value="NY_BANK">NY_BANK</option>
+                            <option value="YZ_BANK">YZ_BANK</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="toAccount">입금 계좌</label>
+                        <input type="text" class="form-control" id="toAccount" name="toAccount" placeholder="입금 계좌 번호" required>
+                    </div>
 
-						<div class="mb-3">
-							<label for="toAccount">입금 계좌</label> <input type="text"
-								class="form-control" id="toAccount" name="toAccount"
-								placeholder="입금 계좌 번호" required>
-						</div>
+                    <div class="mb-3">
+                        <label for="senderName">보내는 사람 이름</label>
+                        <input type="text" class="form-control" id="senderName" name="senderName" placeholder="보내는 사람 이름" required>
+                    </div>
 
-						<div class="mb-3">
-							<label for="amount">이체 금액</label> <input type="text"
-								class="form-control" id="amount" name="amount"
-								placeholder="이체 금액" required>
-						</div>
+                    <div class="mb-3">
+                        <label for="recipientName">받는 사람 이름</label>
+                        <input type="text" class="form-control" id="recipientName" name="recipientName" placeholder="받는 사람 이름" required>
+                    </div>
 
-						<div class="mb-3">
-							<label for="password">계좌 비밀번호</label> <input type="password"
-								class="form-control" id="password" name="password"
-								placeholder="계좌 비밀번호" required>
-						</div>
+                    <div class="mb-3">
+                        <label for="amount">이체 금액</label>
+                        <input type="text" class="form-control" id="amount" name="amount" placeholder="이체 금액" required>
+                    </div>
 
-						<button class="btn btn-primary btn-lg" type="submit">계좌
-							이체</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                   <!--  <div class="mb-3">
+                        <label for="password">계좌 비밀번호</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="계좌 비밀번호" required>
+                    </div> -->
+
+                    <button class="btn btn-primary btn-lg" type="submit">계좌 이체</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 	<div class="customer-service">
 		<h2>MY 계좌</h2>
@@ -705,7 +730,9 @@ h4 {
 		<p>
 			<a href="${pageContext.request.contextPath}/load.do">오픈뱅킹연결</a>
 		</p>
-		<p><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</p>
+		<p>
+			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회
+		</p>
 		<p style="margin-left: 100px;">
 			<a href="${pageContext.request.contextPath}/transfer.do">계좌이체 
 		</p>

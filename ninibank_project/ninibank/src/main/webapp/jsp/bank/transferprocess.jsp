@@ -1,10 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.UUID"%>
 <%@page import="kr.ac.kopo.transactionHistory.TransactionHistory"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    
     <%@ page import="java.io.PrintWriter"%>
     <%@ page import="kr.ac.kopo.product.Product"%>
 <%@ page import="kr.ac.kopo.bank.Bank"%>
@@ -15,74 +13,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
 <title>NINI_BANK</title>
 </head>
-
-<%
-    String fromAccount = request.getParameter("fromAccount");
-    String toAccount = request.getParameter("toAccount");
-    double amount = Double.parseDouble(request.getParameter("amount"));
-    String password = request.getParameter("password");
-
-    // BankDAO ÀÎ½ºÅÏ½º »ı¼º
-    BankDAO bankDAO = new BankDAO();
-
-    // °èÁÂ ÀÌÃ¼ ¼öÇà
-    boolean success = bankDAO.transferFunds(fromAccount, toAccount, amount, password);
-
-    if (success) {
-        // ÀÌÃ¼ ¼º°ø ½Ã Ã³¸®ÇÒ ³»¿ë
-
-        // ÀÌÃ¼ ³»¿ª ÀúÀå
-       TransactionHistory history = new TransactionHistory();
-		String transactionId = request.getParameter("fromAccount");
-        
-        history.setTransactionId(transactionId);
-        history.setAccountNumber(fromAccount);
-        history.setTransactionDate(new Date());
-        history.setTransactionType(amount > 0 ? "Ãâ±İ" : "ÀÔ±İ");
-        history.setAmount(amount);
-
-     
-
-        if (amount > 0) {
-            // ÀÔ±İ ³»¿ª »ı¼º
-            TransactionHistory depositHistory = new TransactionHistory();
-            depositHistory.setTransactionId(transactionId);
-            depositHistory.setAccountNumber(toAccount);
-            depositHistory.setTransactionDate(new Date());
-            depositHistory.setTransactionType("ÀÔ±İ");
-            depositHistory.setAmount(amount);
-            bankDAO.insertTransactionHistory(depositHistory);
-     
-            // Ãâ±İ ³»¿ª »ı¼º
-            TransactionHistory withdrawalHistory = new TransactionHistory();
-            withdrawalHistory.setTransactionId(toAccount);
-            System.out.println(fromAccount);
-            System.out.println(toAccount);
-            withdrawalHistory.setAccountNumber(fromAccount); // Ãâ±İ °èÁÂ·Î ¼³Á¤
-            withdrawalHistory.setTransactionDate(new Date());
-            withdrawalHistory.setTransactionType("Ãâ±İ");
-            withdrawalHistory.setAmount(Math.abs(amount));
-            bankDAO.insertTransactionHistory(withdrawalHistory);
-        }
-
-        %>
-        <script>
-            alert('ÀÌÃ¼°¡ ¼º°øÀûÀ¸·Î ¿Ï·áµÇ¾ú½À´Ï´Ù.');
-            location.href = '<%=request.getContextPath()%>/jsp/bank/account.jsp';
-        </script>
-        <%
-    } else {
-        // ÀÌÃ¼ ½ÇÆĞ ½Ã Ã³¸®ÇÒ ³»¿ë
-        %>
-        <script>
-            alert('ÀÌÃ¼¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù. °èÁÂ Á¤º¸³ª ºñ¹Ğ¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.');
-            location.href = '<%=request.getContextPath()%>/jsp/bank/transfer.jsp';
-        </script>
-        <%
-    }
-%>
+<script>
+if(${result}){
+alert('ì´ì²´ê°€ ì„±ê³µì ìœ¼ë¡œ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.');
+    location.href = '<%=request.getContextPath()%>/jsp/bank/account.jsp';
+} else {
+	
+alert('ì´ì²´ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ê³„ì¢Œ ì •ë³´ë‚˜ ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.');
+    location.href = '<%=request.getContextPath()%>/jsp/bank/transfer.jsp';
+}
+</script>
 </body>
 </html>

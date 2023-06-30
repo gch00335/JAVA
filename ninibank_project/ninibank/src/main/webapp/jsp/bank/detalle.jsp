@@ -365,7 +365,7 @@ crossorigin="anonymous"></script>
 
 .container2{
  position: absolute;
-  top: 50px;
+  top: 5px;
   left: 450px;
   width: 1000px; /* Adjust the width as desired */
   margin-top: 10px; /* 필요한 경우 여백 조정 */
@@ -573,58 +573,60 @@ crossorigin="anonymous"></script>
 
 
 
-
 <!-- 계좌 목록 출력 -->
 <div class="account-list">
-    <% if (accountList.isEmpty()) { %>
-        <p style="margin-top: 10px; display: flex; justify-content: center;">보유한 계좌가 없습니다.</p>
-    <% } else { %>
-        <div class="container2">
-            <div class="row">
-                <% for (Bank account : accountList) { %>
-                    <div class="col-md-4">
-                        <div class="card" style="margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-size: 18px; font-weight: bold;">계좌번호: <%= account.getAcc_num() %></h5>
-                                <h6 class="card-subtitle mb-2 text-muted">은행: <%= account.getAcName() %></h6>
-                                <p class="card-text" style="font-size: 20px; font-weight: bold;">잔액: <%= account.getBalance() %></p>
-                                <a href="?selectedAccount=<%= account.getAcc_num() %>" class="card-link" style="color: #007bff; font-weight: bold;">선택</a>
-                            </div>
-                        </div>
-                    </div>
-                <% } %>
+    <div class="container2">
+        <div class="row">
+            <% long totalBalance = 0; %>
+            <% for (Bank account : accountList) { %>
+                <% long balance = Long.parseLong(account.getBalance()); %>
+                <% totalBalance += balance; %>
+            <% } %>
+            <div class="col-md-12" style="text-align: left;">
+                <p style="font-size: 30px; font-weight: bold; color: darkgreen; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); margin-top: 2px;">
+                      내 계좌 총 금액: <%= String.format("%,d", totalBalance).replace(",", ", ") %> 원
+                </p>
             </div>
         </div>
-    <% } %>
+        <div class="row">
+            <% for (Bank account : accountList) { %>
+                <div class="col-md-4">
+                    <div class="card" style="margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 18px; font-weight: bold;">계좌번호: <%= account.getAcc_num() %></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">은행: <%= account.getAcName() %></h6>
+                            <p class="card-text" style="font-size: 20px; font-weight: bold;">잔액:  <%= String.format("%,d", Long.parseLong(account.getBalance())) %> 원</p>
+                            <a href="?selectedAccount=<%= account.getAcc_num() %>" class="card-link" style="color: #007bff; font-weight: bold;">선택</a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
 </div>
 <!-- 거래 내역 출력 -->
 
 <div class="transaction-history">
-  
-    <% if (transactionHistoryList == null || selectedAccount == null) { %>
-      <div class="card2">
-        <p style=" display: flex; justify-content: center;">계좌를 선택해주세요.</p>
-    <% } else if (transactionHistoryList.isEmpty()) { %>
-      <div class="card2">
-        <p style=" display: flex; justify-content: center;">거래 내역이 없습니다.</p>
+    <% if (transactionHistoryList == null || transactionHistoryList.isEmpty()) { %>
+      
     <% } else { %>
         <% for (TransactionHistory history : transactionHistoryList) { %>
             <div class="card2">
                 <div class="card-header">
                     <span class="date"><%= new SimpleDateFormat("yyyy-MM-dd HH:mm").format(history.getTransactionDate()) %></span>
                     <span class="account">
-                           <% if (history.getTransactionType().equals("입금")) { %>
-            || 보낸 계좌: <%= history.getTransactionId() %>
-        <% } else { %>
-            || 받은 계좌: <%= history.getAccountNumber() %>
-        <% } %>
+                          <% if (history.getTransactionType().equals("입금")) { %>
+           					 || 보낸 계좌: <%= history.getTransactionId() %> || 보낸 사람: <%= history.getSenderName() %>
+      					  <% } else { %>
+          					  || 받은 계좌: <%= history.getAccountNumber() %> || 받는 사람: <%= history.getRecipientName() %>
+          					    <% } %>
                     </span>
                 </div>
-                  <div class="amount <%= history.getTransactionType().equals("입금") ? "deposit" : "withdraw" %>">
+                <div class="amount <%= history.getTransactionType().equals("입금") ? "deposit" : "withdraw" %>">
                     <% if (history.getTransactionType().equals("입금")) { %>
-                        + <%= String.format("%.0f", history.getAmount()).replaceAll("\\.0+$", "") %> 
+                       + <%= String.format("%,d", (long) history.getAmount()).replaceAll(",", ", ") %>
                     <% } else { %>
-                        - <%= String.format("%.0f", history.getAmount()).replaceAll("\\.0+$", "") %>
+                       - <%= String.format("%,d", (long) history.getAmount()).replaceAll(",", ", ") %>
                     <% } %>
                 </div>
             </div>

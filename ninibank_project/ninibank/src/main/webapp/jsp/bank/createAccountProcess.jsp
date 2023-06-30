@@ -8,6 +8,8 @@
     
     // 전달받은 파라미터 추출
     int productID = Integer.parseInt(request.getParameter("productID"));
+    String userName = request.getParameter("username"); // Added: Extract user name
+    String accountName = request.getParameter("accountName"); // Added: Extract account name
     
     // DB 연결 및 계좌 개설 처리
     Connection conn = null;
@@ -33,6 +35,15 @@
             
             // 계좌 개설 로직 구현
             // ... 계좌 개설 처리 및 필요한 작업 수행 ...
+             // Insert account details into the account table
+            String insertQuery = "INSERT INTO account (userName, accountName, productName, interestRate, minimumBalance) VALUES (?, ?, ?, ?, ?)";
+            pstmt = conn.prepareStatement(insertQuery);
+            pstmt.setString(1, userName);
+            pstmt.setString(2, accountName);
+            pstmt.setString(3, productName);
+            pstmt.setDouble(4, interestRate);
+            pstmt.setDouble(5, minimumBalance);
+            pstmt.executeUpdate();
             
             // 개설된 계좌 정보 출력
             out.println("계좌 개설이 완료되었습니다.<br>");

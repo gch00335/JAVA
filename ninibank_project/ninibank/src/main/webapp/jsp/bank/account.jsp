@@ -454,49 +454,55 @@
 				<div class="right-side">
 					<div class="button-group">
 						<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
-									
-								</div>
+						<a href="${pageContext.request.contextPath}/Mypage.do"
+							class="button"> MYPAGE</a> <a
+							href="${pageContext.request.contextPath}/logout.do"
+							class="button">로그아웃</a> <a
+							href="${pageContext.request.contextPath}/account.do"
+							class="button">MY계좌</a>
+
 					</div>
 				</div>
-				<%
-				} else {
-				%>
-				<div class="top-container">
-					<div class="left-side">
-						<a href="/bank/index.jsp"> <img src="니니찌니로고.png" alt="로고"
-							class="logo">
-						</a>
+			</div>
+			<%
+			} else {
+			%>
+			<div class="top-container">
+				<div class="left-side">
+					<a href="/bank/index.jsp"> <img src="니니찌니로고.png" alt="로고"
+						class="logo">
+					</a>
 
-						<h3>계좌관리</h3>
-						<br>
-						<div class="button-group">
-							<h4>
-								<span class="main-page"> MY메뉴 </span>
-							</h4>
-							<h4>
-								<span class="sub-page"> > 계좌관리 </span>
-							</h4>
+					<h3>계좌관리</h3>
+					<br>
+					<div class="button-group">
+						<h4>
+							<span class="main-page"> MY메뉴 </span>
+						</h4>
+						<h4>
+							<span class="sub-page"> > 계좌관리 </span>
+						</h4>
 
-						</div>
 					</div>
+				</div>
 
-					<div class="right-side">
-						<div class="button-group">
+				<div class="right-side">
+					<div class="button-group">
 						<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
-									
-									</div>
-						</div>
+						<a href="${pageContext.request.contextPath}/Mypage.do"
+							class="button"> MYPAGE</a> <a
+							href="${pageContext.request.contextPath}/logout.do"
+							class="button">로그아웃</a> <a
+							href="${pageContext.request.contextPath}/account.do"
+							class="button">MY계좌</a>
+
 					</div>
-					<%
-					}
-					%>
-				
+				</div>
+			</div>
+			<%
+			}
+			%>
+		
 	</ul>
 
 
@@ -507,16 +513,15 @@
 
 	<div class="customer-service">
 		<h2>MY 계좌</h2>
-		<br>
-		<br>
+		<br> <br>
 		<p style="margin-left: 100px;">
 			<a href="${pageContext.request.contextPath}/account.do">계좌관리</a>
 		</p>
 		<p>
-			<a href="${pageContext.request.contextPath}/load.do">오픈뱅킹연결</a>
+			<a href="${pageContext.request.contextPath}/Openbank.do">오픈뱅킹연결</a>
 		</p>
 		<p>
-			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회
+			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회 
 		</p>
 		<p>
 			<a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a>
@@ -532,6 +537,7 @@
 				style="text-align: center; border: 1px solid #E6E6E6">
 				<thead>
 					<tr>
+						<th style="background-color: #BDBDBD; text-align: center;">적금</th>
 						<th style="background-color: #BDBDBD; text-align: center;">계좌번호</th>
 						<th style="background-color: #BDBDBD; text-align: center;">은행</th>
 						<th style="background-color: #BDBDBD; text-align: center;">잔액</th>
@@ -546,12 +552,13 @@
 					for (Bank account : accountList) {
 					%>
 					<tr>
+						<td><%=account.getAccountName()%></td>
 						<td><%=account.getAcc_num()%></td>
 						<td><%=account.getAcName()%></td>
 						<td><%=account.getBalance()%></td>
-						
+
 						<td><%=account.getAcmadedate().toString().substring(0, 10)%></td>
-						<td><%= account.getAcmadedate2() != null ? account.getAcmadedate2().substring(0, 10) : "" %></td>
+						<td><%=account.getAcmadedate2() != null ? account.getAcmadedate2().substring(0, 10) : ""%></td>
 						<td><%=account.getProductID()%></td>
 						<td>
 							<!-- 계좌 선택 체크박스 --> <input type="checkbox" name="accountNumbers"

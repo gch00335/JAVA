@@ -534,33 +534,9 @@ crossorigin="anonymous"></script>
       <a href="#" id="deleteProductButton" class="button text-center mt-2 ml-2" style="display: inline-block; color: white; background-color: #4CAF50;">삭제하기</a>
     </div>
     
-    <div id="addProductForm" style="display: none;">
-      <div class="card">
-        <h2 class="card-title">상품 추가</h2>
-        <form action="${pageContext.request.contextPath}/AddproductAction.do" method="post">
-          <label class="form-label" for="productID">상품 번호:</label>
-          <input class="form-input" type="number" id="productID" name="productID" required>
-          <label class="form-label" for="productName">상품명:</label>
-          <input class="form-input" type="text" id="productName" name="productName" required>
-          <label class="form-label" for="interestRate">이자율:</label>
-          <input class="form-input" type="number" id="interestRate" name="interestRate" step="0.01" required>
-          <label class="form-label" for="minimumBalance">최소잔액:</label>
-          <input class="form-input" type="number" id="minimumBalance" name="minimumBalance" required>
-          <input class="form-submit" type="submit" value="추가">
-        </form>
-      </div>
-    </div>
+   
     
-    <div id="deleteProductForm" style="display: none;">
-      <div class="card">
-        <h2 class="card-title">상품 삭제</h2>
-        <form action="deleteProductProcess.jsp" method="post">
-          <label class="form-label" for="productID">상품 ID:</label>
-          <input class="form-input" type="number" id="productID" name="productID" required>
-          <input class="form-submit" type="submit" value="삭제">
-        </form>
-      </div>
-    </div>
+
     
     <div class="row">
       <% for (Product accountProduct : accountProducts) { %>
