@@ -70,8 +70,8 @@ public class UserDAO {
 		            pstmt.setString(1, user.getID());
 		            pstmt.setString(2, user.getPASSWORD());
 		            pstmt.setString(3, user.getName());
-		            pstmt.setString(4, user.getEmail());
-		            pstmt.setString(5, user.getBirth()); // 추가: 생년월일 설정
+		            pstmt.setString(4, user.getBirth()); // 추가: 생년월일 설정
+		            pstmt.setString(5, user.getEmail());
 		            pstmt.setString(6, user.getPhone()); // 추가: 전화번호 설정
 		            pstmt.setString(7, user.getPost()); // 추가: 우편번호 설정
 		            pstmt.setString(8, user.getAddr()); // 추가: 주소 설정
@@ -100,26 +100,39 @@ public class UserDAO {
 		return -2; // 회원가입 실패
 	}
 
-	public ArrayList<User> getList(int pageNumber) {
-		conn = getConnection();
-		String SQL = "SELECT * FROM USERS ";
-		ArrayList<User> list = new ArrayList<User>();
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				User user = new User();
-				user.setID(rs.getString(1));
-				user.setPASSWORD(rs.getString(2));
-				user.setName(rs.getString(3));
-				user.setEmail(rs.getString(4));
+	public User getList(String userID) {
+	    Connection connection = null;
+	    PreparedStatement statement = null;
+	    ResultSet resultSet = null;
+	    User user = null;
 
-				list.add(user);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
+	    try {
+	        connection = getConnection();
+	        String query = "SELECT * FROM USERS WHERE ID = ?";
+	        statement = connection.prepareStatement(query);
+	        statement.setString(1, userID);
+	        resultSet = statement.executeQuery();
+
+	        if (resultSet.next()) {
+	            user = new User();
+	            user.setID(resultSet.getString("ID"));
+	            user.setPASSWORD(resultSet.getString("PASSWORD"));
+	            user.setName(resultSet.getString("Name"));
+	            user.setEmail(resultSet.getString("Email"));
+	            user.setBirth(resultSet.getString("Birth"));
+	            user.setPost(resultSet.getString("Post"));
+	            user.setAddr(resultSet.getString("Addr"));
+	            user.setDETAILADDRESS(resultSet.getString("DETAILADDRESS"));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResultSet(resultSet);
+	        closeStatement(statement);
+	        closeConnection(connection);
+	    }
+
+	    return user;
 	}
 
 	public User getID(String userID) {
@@ -136,7 +149,7 @@ public class UserDAO {
 				user.setPASSWORD(resultSet.getString("PASSWORD"));
 				user.setName(resultSet.getString("Name"));
 				user.setEmail(resultSet.getString("Email"));
-				user.setBirth(resultSet.getString("Bireth"));
+				user.setBirth(resultSet.getString("Birth"));
 				user.setPost(resultSet.getString("Post")); 
 		        user.setAddr(resultSet.getString("Addr")); 
 		        user.setDETAILADDRESS(resultSet.getString("DETAILADDRESS"));
@@ -165,7 +178,7 @@ public class UserDAO {
 	            user.setPASSWORD(resultSet.getString("PASSWORD"));
 	            user.setName(resultSet.getString("Name"));
 	            user.setEmail(resultSet.getString("Email"));
-	        	user.setBirth(resultSet.getString("Bireth"));
+	        	user.setBirth(resultSet.getString("Birth"));
 				user.setPost(resultSet.getString("Post")); 
 		        user.setAddr(resultSet.getString("Addr"));
 		        user.setDETAILADDRESS(resultSet.getString("DETAILADDRESS"));
@@ -260,4 +273,60 @@ public class UserDAO {
             System.out.println("세션 및 데이터베이스 저장 실패");
         }
     }
+	public boolean checkPassword(String userID, String password) {
+        conn = getConnection(); // 데이터베이스 연결
+        String SQL = "SELECT PASSWORD FROM USERS WHERE ID = ?";
+        try {
+            pstmt = conn.prepareStatement(SQL);
+            pstmt.setString(1, userID);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String storedPassword = rs.getString("PASSWORD");
+                return password.equals(storedPassword);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally { // 리소스 해제
+            closeResultSet(rs);
+            closeStatement(pstmt);
+            closeConnection(conn);
+        }
+        return false; // 비밀번호 확인 실패
+    }
+	
+	public ArrayList<User> getAllUsers() {
+	    Connection connection = null;
+	    PreparedStatement statement = null;
+	    ResultSet resultSet = null;
+	    ArrayList<User> userList = new ArrayList<>();
+
+	    try {
+	        connection = getConnection();
+	        String query = "SELECT * FROM USERS";
+	        statement = connection.prepareStatement(query);
+	        resultSet = statement.executeQuery();
+
+	        while (resultSet.next()) {
+	            User user = new User();
+	            user.setID(resultSet.getString("ID"));
+	            user.setPASSWORD(resultSet.getString("PASSWORD"));
+	            user.setName(resultSet.getString("Name"));
+	            user.setEmail(resultSet.getString("Email"));
+	            user.setBirth(resultSet.getString("Birth"));
+	            user.setPost(resultSet.getString("Post"));
+	            user.setAddr(resultSet.getString("Addr"));
+	            user.setDETAILADDRESS(resultSet.getString("DETAILADDRESS"));
+
+	            userList.add(user);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResultSet(resultSet);
+	        closeStatement(statement);
+	        closeConnection(connection);
+	    }
+
+	    return userList;
+	}
 	}

@@ -56,6 +56,15 @@ public class HandlerMapping {
         mappings.put("/detalleaction.do",  new detalleactionController());
         mappings.put("/productManagement.do",  new productManagementController());
         mappings.put("/Mypage.do",  new MypageController());
+        mappings.put("/AddproductAction.do",  new AddproductActionController());
+        mappings.put("/Openbank.do",  new OpenbankController());
+        mappings.put("/Opentransfer.do",  new OpentransferController());
+        mappings.put("/OpentransferAction.do",  new OpentransferActionController());
+        mappings.put("/UpdateUserInfo.do",  new UpdateUserInfoController());
+        mappings.put("/UpdateUserInfoACtion.do",  new UpdateUserInfoACtionController());
+        mappings.put("/managerbbs.do",  new ManagerBbsController());
+        mappings.put("/managerload.do",  new ManagerLoadController());
+        mappings.put("/ManageUserlist.do",  new ManageUserlistController());
        
         
         

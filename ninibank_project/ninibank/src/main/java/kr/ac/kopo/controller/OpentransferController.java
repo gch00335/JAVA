@@ -5,7 +5,7 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class transferController implements Controller {
+public class OpentransferController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
@@ -13,7 +13,7 @@ public class transferController implements Controller {
             request.setCharacterEncoding("UTF-8");
         } catch (UnsupportedEncodingException e) {
         }
-		return "/jsp/bank/transfer.jsp";
+		return "/jsp/openbank/opentransfer.jsp";
 	}
 	
 

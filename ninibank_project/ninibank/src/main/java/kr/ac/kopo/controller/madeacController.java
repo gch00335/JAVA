@@ -23,6 +23,8 @@ public class madeacController implements Controller {
 		String acmadedate = request.getParameter("acmadedate");
 		String productID =request.getParameter("productID");
 		String balance = request.getParameter("balance");
+		String username = request.getParameter("username"); // 사용자 이름
+	    String accountName = request.getParameter("accountName"); // 통장명칭
 		
 		Bank vo = new Bank();
 		vo.setAcc_num(acc_num);
@@ -32,7 +34,8 @@ public class madeacController implements Controller {
 		vo.setAcmadedate(acmadedate);
 		vo.setProductID(productID);
 		vo.setBalance(balance);
-
+		vo.setMemberName(username); // 사용자 이름 설정
+	     vo.setAccountName(accountName); // 통장명칭 설정
 		
 		BankDAO dao = new BankDAO();
 		dao.insertaccount(vo);

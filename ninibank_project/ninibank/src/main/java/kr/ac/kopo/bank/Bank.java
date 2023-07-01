@@ -6,7 +6,41 @@ public class Bank {
 	private String bankcode;
 	private String acpw;
 	private String acmadedate;
+	private String acmadedate2;
 	private String balance;
+	private String memberName;
+	private String accountName;
+	
+	public String getMemberName() {
+		return memberName;
+	}
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+
+	public String getAcmadedate2() {
+		return acmadedate2;
+	}
+
+
+	public void setAcmadedate2(String acmadedate2) {
+		this.acmadedate2 = acmadedate2;
+	}
+
+
 	private String ProductID;
 	private String acName;
 	
@@ -93,24 +127,28 @@ public class Bank {
 	}
 
 
-	public Bank(String acc_num, String id, String bankcode, String acpw, String acmadedate, String balance
-	, String ProductID ,String acName) {
+	public Bank(String acc_num, String id, String bankcode, String acpw, String acmadedate, String acmadedate2, String balance
+	, String ProductID ,String acName , String memberName, String accountName ) {
 		super();
 		this.acc_num = acc_num;
 		this.id = id;
 		this.bankcode = bankcode;
 		this.acpw = acpw;
 		this.acmadedate = acmadedate;
+		this.acmadedate2 = acmadedate2;
 		this.ProductID = ProductID;
 		this.balance = balance;
 		this.acName = acName;
+		this.memberName = memberName;
+		this.accountName = accountName;
 	}
+	
 
 
 	@Override
 	public String toString() {
 		return "Bank [acc_num=" + acc_num + ", id=" + id + ", bankcode=" + bankcode + ", acpw=" + acpw + ", acmadedate="
-				+ acmadedate + ", balance=" + balance + ", ProductID=" + ProductID +", acName=" + acName +"]";
+				+ acmadedate + ",acmadedate2="+ acmadedate2+ ", balance=" + balance + ", ProductID=" + ProductID +",accountName= " + accountName +",  memberName =" + memberName +", acName=" + acName +"]";
 	}
 
 
