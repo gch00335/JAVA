@@ -296,7 +296,21 @@ crossorigin="anonymous"></script>
   
 }
 
-=
+.dropdown-menu {
+   display: none;
+  position: absolute;
+  top: 100%; /* Change '0%' to '100%' */
+  left: 0; /* Change 'right' to 'left' */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 .top-container {
   position: relative; /* 상대적 위치 설정 */
 }
@@ -352,7 +366,8 @@ a, a:hover {
   <% if (userID == null && isKakaoLoggedIn == false ) { %>
     <div class="top-container">
   <div class="left-side">
-  <a href="/bank/index.jsp">
+ 
+  <a href="/bank/manegerindex.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
@@ -379,7 +394,8 @@ a, a:hover {
   <% } else if (isKakaoLoggedIn) { %>
    <div class="top-container">
   <div class="left-side">
-  <a href="/bank/index.jsp">
+  
+  <a href="/bank/manegerindex.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
@@ -392,7 +408,7 @@ a, a:hover {
   </div>
   <div class="right-side">
   <div class="button-group">
-   <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+   <a href="${pageContext.request.contextPath}/managerbbs.do" class="button">Q&A게시판</a>
 						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
 						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
 						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
@@ -402,7 +418,8 @@ a, a:hover {
   <% } else { %>
    <div class="top-container">
   <div class="left-side">
-  <a href="/bank/index.jsp">
+   
+  <a href="/bank/manegerindex.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
@@ -415,7 +432,7 @@ a, a:hover {
   </div>
   <div class="right-side">
   <div class="button-group">
-   <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+   <a href="${pageContext.request.contextPath}/managerbbs.do" class="button">Q&A게시판</a>
 						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
 						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
 						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
@@ -508,8 +525,8 @@ if (bbsDAO.nextPage(pageNumber + 1)) {
 <div class="help-image">
   <img src="도움.png" alt="도움 아이콘" width="140" height="98">
   <div class="help-menu">
-    <p><a href="${pageContext.request.contextPath}/load.do" >찾아오시는 길</a></p>
-     <p><a href="${pageContext.request.contextPath}/bbs.do" > 문의하기</a></p>
+    <p><a href="${pageContext.request.contextPath}/managerload.do" >찾아오시는 길</a></p>
+  <p><a href="${pageContext.request.contextPath}/managerbbs.do" > 문의하기</a></p>
   </div>
 </div>
 <script>

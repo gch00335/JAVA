@@ -446,6 +446,8 @@ crossorigin="anonymous"></script>
             isKakaoLoggedIn = true;
             userID = (String) session.getAttribute("kakaoID");
         }
+        
+        
  // 로그인 확인 및 처리
     if (userID == null && !isKakaoLoggedIn) {
         response.setContentType("text/html; charset=UTF-8");
@@ -486,10 +488,10 @@ crossorigin="anonymous"></script>
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-    <h3> Q&A 게시판</h3><br>
+    <h3> 거래내역조회</h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+      <h4><span class="main-page"> MY메뉴 </span></h4>
+		<h4><span class="sub-page"> > 거래내역조회</span></h4>
    
     </div>
   </div>
@@ -513,17 +515,17 @@ crossorigin="anonymous"></script>
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-<h3> 계좌관리 </h3><br>
+<h3> 거래내역조회 </h3><br>
     <div class="button-group">
       <h4><span class="main-page"> MY메뉴 </span></h4>
-		<h4><span class="sub-page"> > 계좌관리 </span></h4>
+		<h4><span class="sub-page"> > 거래내역조회 </span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE</a>
+						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
 						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
 						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
        </div>
@@ -536,17 +538,17 @@ crossorigin="anonymous"></script>
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
- <h3> 계좌관리 </h3><br>
+ <h3> 거래내역조회 </h3><br>
     <div class="button-group">
       <h4><span class="main-page"> MY메뉴 </span></h4>
-		<h4><span class="sub-page"> > 계좌관리 </span></h4>
+		<h4><span class="sub-page"> > 거래내역조회 </span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
     					<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/bbs.do" class="button"> MYPAGE</a>
+						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
 						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
 						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
        </div>
@@ -559,7 +561,7 @@ crossorigin="anonymous"></script>
   	<div class="customer-service">
   <h2>MY 계좌</h2><br><br>
   <p><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></p>
-  <p><a href="${pageContext.request.contextPath}/load.do">오픈뱅킹연결</a></p>
+  <p><a href="${pageContext.request.contextPath}/Openbank.do">오픈뱅킹연결</a></p>
   <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</p>
   <p><a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a></p>
  
@@ -639,7 +641,7 @@ crossorigin="anonymous"></script>
   <img src="도움.png" alt="도움 아이콘" width="140" height="98">
   <div class="help-menu">
     <p><a href="${pageContext.request.contextPath}/load.do" >찾아오시는 길</a></p>
-    <p>문의하기</p>
+    <p><a href="${pageContext.request.contextPath}/bbs.do" > 문의하기</a></p>
   </div>
 </div>
 <script>

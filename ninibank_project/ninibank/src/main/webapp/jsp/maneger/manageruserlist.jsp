@@ -1,8 +1,10 @@
+
+<%@page import="kr.ac.kopo.util.ConnectionFactory"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
     <%@ page import="java.io.PrintWriter"%>
-<%@ page import="kr.ac.kopo.bbs.Bbs"%>
-<%@ page import="kr.ac.kopo.bbs.BbsDAO"%>
+<%@page import="kr.ac.kopo.user.User"%>
+<%@page import="kr.ac.kopo.user.UserDAO"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -296,7 +298,21 @@ crossorigin="anonymous"></script>
   
 }
 
-=
+.dropdown-menu {
+   display: none;
+  position: absolute;
+  top: 100%; /* Change '0%' to '100%' */
+  left: 0; /* Change 'right' to 'left' */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 .top-container {
   position: relative; /* 상대적 위치 설정 */
 }
@@ -320,6 +336,46 @@ a, a:hover {
 	color: #000000;
 	test-dacoration: none;
 }
+.customer-service {
+	width: 300px;
+	height: 300px;
+	background-color: #ffffff; /* 하얀색으로 변경 */
+	border-radius: 10px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+	padding: 20px;
+}
+
+/* 이하 동일 */
+.customer-service h2 {
+	font-size: 18px;
+}
+
+.customer-service p {
+	font-size: 14px;
+}
+
+.customer-service a {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.customer-service a:hover {
+	text-decoration: underline;
+}
+
+.col-auto {
+	position: absolute;
+	top: 350px;
+	left: 450px;
+	margin-top: 10px; /* 필요한 경우 여백 조정 */
+}
+
+.container {
+	position: absolute;
+	top: 360px;
+	left: 450px;
+	margin-top: 10px; /* 필요한 경우 여백 조정 */
+}
 </style>
   <meta charset="EUC-KR">
   <title>NINI_BBS</title>
@@ -340,32 +396,26 @@ a, a:hover {
         isKakaoLoggedIn = true;
         userID = (String) session.getAttribute("kakaoID");
     } 
-    int pageNumber = 1;
-	if (request.getParameter("pageNumber") != null) {
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	}
+  
 %>
 	
-<ul class="nav navbar-nav navbar-right">
-
-
-  <% if (userID == null && isKakaoLoggedIn == false ) { %>
+  <% if (userID == null) { %>
     <div class="top-container">
   <div class="left-side">
-  <a href="/bank/index.jsp">
+  <a href="/bank/manegerindex.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-    <h3> Q&A 게시판</h3><br>
+    <h3> NINI_BANK 관리</h3><br>
     <div class="button-group">
       <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+		<h4><span class="sub-page"> > 회원정보관리</span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A게시판</button>
+    <button class="button">상품관리</button>
   <div class="dropdown">
     <button class="button"> 접속하기 </button>
     <ul class="dropdown-menu">
@@ -376,126 +426,82 @@ a, a:hover {
        </div>
   </div>
 </div>
-  <% } else if (isKakaoLoggedIn) { %>
-   <div class="top-container">
-  <div class="left-side">
-  <a href="/bank/index.jsp">
-  <img src="니니찌니로고.png" alt="로고" class="logo">
-</a>
-   
-    <h3> Q&A 게시판</h3><br>
-    <div class="button-group">
-      <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
-   
-    </div>
-  </div>
-  <div class="right-side">
-  <div class="button-group">
-   <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
-       </div>
-  </div>
-</div>
   <% } else { %>
    <div class="top-container">
   <div class="left-side">
-  <a href="/bank/index.jsp">
+  <a href="/bank/manegerindex.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-    <h3> Q&A 게시판</h3><br>
+ <h3> NINI_BANK 관리 </h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+      <h4><span class="main-page"> MY메뉴 </span></h4>
+		<h4><span class="sub-page"> > 회원정보 관리 </span></h4>
    
     </div>
   </div>
-  <div class="right-side">
-  <div class="button-group">
-   <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
-       </div>
-  </div>
+				<div class="right-side">
+					<div class="button-group">
+						<a href="${pageContext.request.contextPath}/managerbbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/Mypage.do"
+							class="button"> MYPAGE</a> <a
+							href="${pageContext.request.contextPath}/logout.do"
+							class="button">로그아웃</a> <a
+							href="${pageContext.request.contextPath}/account.do"
+							class="button">MY계좌</a>
+									</div>
+						</div>
+					</div>
+					<%
+					}
+					%>
+				
+	</ul>
+
+  	<div class="customer-service">
+  <h2>NINI_BANK 관리</h2><br><br>
+  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/account.do">상품관리</a></p>
+  <p><a href="${pageContext.request.contextPath}/managerbbs.do">Q&A게시판 관리</a></p>
+  <p><a href="${pageContext.request.contextPath}/ManageUserlist.do">회원정보 관리</a></p>
 </div>
-  <% } %>
-</ul>
-
-
 
 	<div class="container">
-		<div class="row">
+	<div class="row">
 			<table class="table table-striped"
 				style="text-align: center; border: 1px solid #E6E6E6">
 				<thead>
+				<h1> 가 입 회 원 목 록 </h1>
 					<tr>
-						<th style="background-color: #BDBDBD; text-align: center;">번호</th>
-						<th style="background-color: #BDBDBD; text-align: center;">제목</th>
-						<th style="background-color: #BDBDBD; text-align: center;">작성자</th>
-						<th style="background-color: #BDBDBD; text-align: center;">작성일</th>
+					
+						
+						<th style="background-color: #BDBDBD; text-align: center;">아이디</th>
+						<th style="background-color: #BDBDBD; text-align: center;">비밀번호</th>
+						<th style="background-color: #BDBDBD; text-align: center;">이름</th>
+						
+						<th style="background-color: #BDBDBD; text-align: center;">이메일</th>
 					</tr>
 				</thead>
-		<tbody>
+				<tbody>
 				<%
-				BbsDAO bbsDAO = new BbsDAO();
-				ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-				for (int i = 0; i < list.size(); i++) {
-				    Bbs bbs = list.get(i); 
-				    if (bbs.getPbbsID() == 0 ) {
-				    
-				%>
-				<tr>
-				    <td><%=bbs.getBbsID()%></td>
-				    <td><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=bbs.getBbsID()%>"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
-				    <td><%=bbs.getUserID()%></td>
-				    <td><%=bbs.getBbsDate().substring(0, 11) %></td>
-				</tr>
-				<%
-				    }
-				    int bbsID = bbs.getBbsID();
-				    ArrayList<Bbs> replyList = bbsDAO.getReplyList(bbsID); // 해당 게시글의 답변글 리스트 가져오기
-				    for (int j = 0; j < replyList.size(); j++) {
-				        Bbs reply = replyList.get(j);
-				        if (reply.getPbbsID() != 0 && bbs.getPbbsID() == 0 ) { // PBBSID가 0이 아닌 경우에만 답변글로 출력
-				%>
-				<tr>
-				     <td style="white-space: nowrap;"><span style="font-size: 20px;"> ↳&emsp;&emsp;</span> [<%=reply.getPbbsID()%>번 답변]</td> 
-				    <td style="text-align: left; padding-left: 20px;"><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=reply.getBbsID()%>"><%=reply.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
-				    <td><%=reply.getUserID()%></td>
-				    <td><%=reply.getBbsDate().substring(0, 11) %></td>
-				</tr>
-				<%
-				        }
-				    }
-				}
-				%>
-</tbody>
-</table>
-<%
-if (pageNumber != 1) {
+ConnectionFactory  connectionFactory = new ConnectionFactory(); // ConnectionFactory 객체 생성
+UserDAO userDAO = new UserDAO(connectionFactory); // UserDAO 객체 생성
+ArrayList<User> userList = userDAO.getAllUsers(); // 수정된 부분
+for (User user : userList) {
 %>
-<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arraw-left">이전</a>
-<%
-}
-if (bbsDAO.nextPage(pageNumber + 1)) {
-%>
-<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber + 1%>" class="btn btn-success btn-arraw-left">다음</a>
-<%
-}
-%>
-<div class="col-auto">
-<a href="${pageContext.request.contextPath}/write.do" class="btn btn-primary ">글쓰기</a>
-</div>
-</div>
-
-
-
-
-
+            <tr>
+                <td><%= user.getID() %></td>
+                <td><%= user.getPASSWORD() %></td>
+                <td><%= user.getName() %></td>
+                <td><%= user.getEmail() %></td>
+            </tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+		
+		</div>
+	</div>
 
 
 
@@ -508,8 +514,8 @@ if (bbsDAO.nextPage(pageNumber + 1)) {
 <div class="help-image">
   <img src="도움.png" alt="도움 아이콘" width="140" height="98">
   <div class="help-menu">
-    <p><a href="${pageContext.request.contextPath}/load.do" >찾아오시는 길</a></p>
-     <p><a href="${pageContext.request.contextPath}/bbs.do" > 문의하기</a></p>
+    <p><a href="${pageContext.request.contextPath}/managerload.do" >찾아오시는 길</a></p>
+  <p><a href="${pageContext.request.contextPath}/managerbbs.do" > 문의하기</a></p>
   </div>
 </div>
 <script>

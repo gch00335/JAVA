@@ -1,17 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="kr.ac.kopo.product.Product"%>
 <%@ page import="kr.ac.kopo.bank.Bank"%>
 <%@ page import="kr.ac.kopo.bank.BankDAO"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.ArrayList"%>
+
 <!DOCTYPE html>
 <html>
 
 <head>
+ <meta charset="EUC-KR">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -24,6 +24,7 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
 	crossorigin="anonymous"></script>
+
 <style>
 /* Reset some default styles for consistency */
 * {
@@ -356,12 +357,162 @@
 	left: 450px;
 	margin-top: 10px; /* 필요한 경우 여백 조정 */
 }
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
+body {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+h4, .mb-3, .btn-primary, .mb-33 {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.container {
+	position: relative;
+	width: 800px;
+	height: 100px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.input-form-background {
+	padding: 20px;
+	background-color: #ffffff;
+	border-radius: 5px;
+}
+
+h4 {
+	text-align: center;
+	margin-bottom: 10px;
+	color: #333333;
+}
+
+.mb-3 {
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+.mb-33 {
+	position: relative;
+	margin-bottom: 100px;
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.form-control {
+	width: 100%; /* 수정: 가로 길이를 100%로 변경 */
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	box-sizing: border-box; /* 수정: 상자 크기를 박스 모델에 맞춤 */
+	margin-top: 20px; /* 추가: 입력창 사이의 간격을 조정 */
+	margin-bottom: 10px; /* 추가: 입력창 사이의 간격을 조정 */
+}
+
+.invalid-feedback {
+	color: #dc3545;
+}
+
+.btn-primary {
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 3px;
+	cursor: pointer;
+	font-family: Arial, sans-serif; /* 폰트 설정 */
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+	background-color: #c0e1f5;
+	border-color: #c0e1f5;
+}
+
+.custom-control-label::before {
+	border-radius: 3px;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::after
+	{
+	border-color: #fff;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before
+	{
+	background-color: #c0e1f5;
+}
+
+.custom-control-label::after, .custom-control-label::before {
+	position: absolute;
+	top: 0;
+	left: -1.25rem;
+	display: block;
+	width: 1rem;
+	height: 1rem;
+	pointer-events: none;
+	content: "";
+}
+
+.custom-control-label::before {
+	border: 1px solid #adb5bd;
+}
+
+.custom-control-label::after {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 50% 50%;
+	background-image: none;
+}
+
+.custom-control-label::before, .custom-control-label::after {
+	background-color: #fff;
+	transition: background-color 0.2s ease-in-out, border-color 0.2s
+		ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.generate-button {
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	padding: 5px 10px;
+	font-size: 15px;
+	border-radius: 3px;
+	cursor: pointer;
+	font-family: Arial, sans-serif;
+	/* Add any additional custom styles here */
+}
+
+.generate-button:hover {
+	background-color: #0056b3;
+}
+
+.container2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 120vh;
+}
+
+.input-form-background {
+	background-color: #ffffff;
+	padding: 25px;
+	width: 700px; /* 원하는 넓이 설정 */
+	margin: 0 auto; /* 가운데 정렬을 위해 margin을 auto로 설정 */
+}
 </style>
 <meta charset="EUC-KR">
 <title>NINI_BBS</title>
 
 </head>
-
 <body>
 	<%
 	String userID = null;
@@ -374,22 +525,17 @@
 		isKakaoLoggedIn = true;
 		userID = (String) session.getAttribute("kakaoID");
 	}
+
 	// BankDAO 인스턴스 생성
 	BankDAO bankDAO = new BankDAO();
 
 	// getAccountList 메서드 호출 시 userID 전달
 	ArrayList<Bank> accountList = bankDAO.getAccountList(userID);
-	// 로그인 확인 및 처리
-	if (userID == null && !isKakaoLoggedIn) {
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter loginScript = response.getWriter();
-		loginScript.println("<script>");
-		loginScript.println("alert('로그인을 하세요');");
-		loginScript.println("location.href = '/bank/index.jsp';");
-		loginScript.println("</script>");
-		loginScript.close();
-	}
+	request.setAttribute("accountList", accountList);
 	%>
+
+
+
 
 	<ul class="nav navbar-nav navbar-right">
 
@@ -430,6 +576,7 @@
 					</div>
 				</div>
 			</div>
+
 			<%
 			} else if (isKakaoLoggedIn) {
 			%>
@@ -460,7 +607,6 @@
 							class="button">로그아웃</a> <a
 							href="${pageContext.request.contextPath}/account.do"
 							class="button">MY계좌</a>
-
 					</div>
 				</div>
 			</div>
@@ -485,7 +631,6 @@
 
 					</div>
 				</div>
-
 				<div class="right-side">
 					<div class="button-group">
 						<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
@@ -495,7 +640,6 @@
 							class="button">로그아웃</a> <a
 							href="${pageContext.request.contextPath}/account.do"
 							class="button">MY계좌</a>
-
 					</div>
 				</div>
 			</div>
@@ -511,101 +655,90 @@
 
 
 
+	<div class="container2">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="input-form-background">
+                <h4 class="mb-33">계좌 이체</h4>
+                <form class="validation-form" method="post" action="${pageContext.request.contextPath}/OpentransferAction.do">
+                    <div class="mb-3">
+                        <label for="bank">내 은행명</label>
+                        <select id="bank" name="bank" class="form-control" required>
+                            <option value="">은행을 선택하세요</option>
+                            <option value="NA_BANK">NA_BANK</option>
+                            <option value="YJ_BANK">YJ_BANK</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fromAccount">출금 계좌</label>
+                        <input type="text" class="form-control" id="fromAccount" name="fromAccount" placeholder="출금 계좌 번호" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="bank2">보낼 은행명</label>
+                        <select id="bank2" name="bank2" class="form-control" required>
+                            <option value="">은행을 선택하세요</option>
+                            <option value="NINI_bank">NINI_bank</option>
+                            <option value="NA_BANK">NA_BANK</option>
+                            <option value="YJ_BANK">YJ_BANK</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="toAccount">입금 계좌</label>
+                        <input type="text" class="form-control" id="toAccount" name="toAccount" placeholder="입금 계좌 번호" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="senderName">보내는 사람 이름</label>
+                        <input type="text" class="form-control" id="senderName" name="senderName" placeholder="보내는 사람 이름" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="recipientName">받는 사람 이름</label>
+                        <input type="text" class="form-control" id="recipientName" name="recipientName" placeholder="받는 사람 이름" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="amount">이체 금액</label>
+                        <input type="text" class="form-control" id="amount" name="amount" placeholder="이체 금액" required>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg" type="submit">계좌 이체</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<div class="customer-service">
 		<h2>MY 계좌</h2>
 		<br> <br>
-		<p style="margin-left: 100px;">
-			<a href="${pageContext.request.contextPath}/account.do">계좌관리</a>
+		<p>
+			<a href="${pageContext.request.contextPath}/account.do">계좌관리 
 		</p>
 		<p>
 			<a href="${pageContext.request.contextPath}/Openbank.do">오픈뱅킹연결</a>
 		</p>
 		<p>
-			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회 
+			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회
 		</p>
-		<p>
-			<a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a>
+		<p style="margin-left: 100px;">
+			<a href="${pageContext.request.contextPath}/transfer.do">계좌이체 
 		</p>
 	</div>
-
-
-
-
-	<div class="container">
-		<div class="row">
-			<table class="table table-striped"
-				style="text-align: center; border: 1px solid #E6E6E6">
-				<thead>
-					<tr>
-						<th style="background-color: #BDBDBD; text-align: center;">적금</th>
-						<th style="background-color: #BDBDBD; text-align: center;">계좌번호</th>
-						<th style="background-color: #BDBDBD; text-align: center;">은행</th>
-						<th style="background-color: #BDBDBD; text-align: center;">잔액</th>
-						<th style="background-color: #BDBDBD; text-align: center;">개설일자</th>
-						<th style="background-color: #BDBDBD; text-align: center;">만기일자</th>
-						<th style="background-color: #BDBDBD; text-align: center;">계좌상품</th>
-						<th style="background-color: #BDBDBD; text-align: center;">선택</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-					for (Bank account : accountList) {
-					%>
-					<tr>
-						<td><%=account.getAccountName()%></td>
-						<td><%=account.getAcc_num()%></td>
-						<td><%=account.getAcName()%></td>
-						<td><%=account.getBalance()%></td>
-
-						<td><%=account.getAcmadedate().toString().substring(0, 10)%></td>
-						<td><%=account.getAcmadedate2() != null ? account.getAcmadedate2().substring(0, 10) : ""%></td>
-						<td><%=account.getProductID()%></td>
-						<td>
-							<!-- 계좌 선택 체크박스 --> <input type="checkbox" name="accountNumbers"
-							value="<%=account.getAcc_num()%>">
-						</td>
-					</tr>
-					<%
-					}
-					%>
-				</tbody>
-			</table>
-		</div>
-	</div>
-
-	<div class="col-auto">
-		<form action="${pageContext.request.contextPath}/cancelAccounts.do"
-			method="post">
-			<input type="hidden" name="accountNumbers" value=""
-				id="selectedAccountsHidden"> <a
-				href="${pageContext.request.contextPath}/selectProduct.do"
-				class="btn btn-primary">계좌개설</a>
-			<button type="submit" class="btn btn-primary"
-				onclick="cancelAccounts()">계좌해지</button>
-		</form>
-	</div>
-
-	<script>
-  // 계좌 해지 버튼 클릭 시 호출되는 함수
-  function cancelAccounts() {
-    var selectedAccounts = [];
-    var checkboxes = document.getElementsByName('accountNumbers');
-    for (var i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i].checked) {
-        selectedAccounts.push(checkboxes[i].value);
-      }
-    }
-    document.getElementById('selectedAccountsHidden').value = selectedAccounts.join(',');
-
-    // 선택한 계좌가 없을 경우 경고창을 띄우고 폼 제출을 막음
-    if (selectedAccounts.length === 0) {
-      alert('선택한 계좌가 없습니다.');
-      return false;
-    }
-    return true;
-  }
-</script>
-
 
 
 
@@ -619,6 +752,10 @@
 			 <p><a href="${pageContext.request.contextPath}/bbs.do" > 문의하기</a></p>
 		</div>
 	</div>
+
+
+
+
 	<script>
   // JavaScript 코드 추가
   const helpImage = document.querySelector('.help-image');

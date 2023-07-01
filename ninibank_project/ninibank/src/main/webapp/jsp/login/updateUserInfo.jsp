@@ -540,11 +540,11 @@ style type ="text /css ">a, a:hover {
 	<div class="customer-service">
 		<h2>MyPage</h2>
 		<br> <br>
-		<p style="margin-left: 100px;">
+		<p >
 			<a href="${pageContext.request.contextPath}/Mypage.do">개인정보</a>
 		</p>
-		<p>
-			<a href="${pageContext.request.contextPath}/load.do">개인정보수정</a>
+		<p style="margin-left: 100px;">
+			<a href="${pageContext.request.contextPath}/UpdateUserInfo.do">개인정보수정</a>
 		</p>
 		<p>
 			<a href="${pageContext.request.contextPath}/detalle.do">회원탈퇴</a>
@@ -557,7 +557,8 @@ style type ="text /css ">a, a:hover {
 
 <div class="card">
     <h1 style="font-size: 30px; font-weight: bold; color: darkgreen; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">회원정보 수정</h1>
-    <form action="updateUserInfoProcess.jsp" method="post">
+    
+    <form action="${pageContext.request.contextPath}/UpdateUserInfoACtion.do" method="post">
         <div class="input-group">
             <label for="currentPassword">현재 비밀번호:</label>
             <input type="password" id="currentPassword" name="currentPassword" required>
@@ -569,26 +570,26 @@ style type ="text /css ">a, a:hover {
         <c:when test="${not empty errorMessage}">
             <p style="color: red;">${errorMessage}</p>
         </c:when>
-        <c:otherwise>
-         <div id="updateUserInfoProcess.jsp" style="display: none;">
-    <form id="userInfoForm" action="process.jsp" method="post">
-        <input type="hidden" name="userID" value="${user.ID}">
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" name="password"><br>
-        <label for="name">이름:</label>
-        <input type="text" id="name" name="name" value="${user.name}"><br>
-        <label for="email">이메일:</label>
-        <input type="email" id="email" name="email" value="${user.email}"><br>
-        <label for="post">우편번호:</label>
-        <input type="text" id="post" name="post" value="${user.post}"><br>
-        <label for="addr">주소:</label>
-        <input type="text" id="addr" name="addr" value="${user.addr}"><br>
-        <label for="detailAddress">상세주소:</label>
-        <input type="text" id="detailAddress" name="detailAddress" value="${user.DETAILADDRESS}"><br>
-        <button type="submit" name="action" value="update" onclick="return confirm('정말로 회원정보를 수정하시겠습니까?')">수정</button>
-    </form>
-</div>
-        </c:otherwise>
+       <c:otherwise>
+    <div id="userInfoForm" style="display: block;">
+        <form id="userInfoForm" action="${pageContext.request.contextPath}/UpdateUserInfoACtion.do" method="post">
+            <input type="hidden" name="userID" value="${user.ID}">
+            <label for="password">비밀번호:</label>
+            <input type="password" id="password" name="password"><br>
+            <label for="name">이름:</label>
+            <input type="text" id="name" name="name" value="${user.name}"><br>
+            <label for="email">이메일:</label>
+            <input type="email" id="email" name="email" value="${user.email}"><br>
+            <label for="post">우편번호:</label>
+            <input type="text" id="post" name="post" value="${user.post}"><br>
+            <label for="addr">주소:</label>
+            <input type="text" id="addr" name="addr" value="${user.addr}"><br>
+            <label for="detailAddress">상세주소:</label>
+            <input type="text" id="detailAddress" name="detailAddress" value="${user.DETAILADDRESS}"><br>
+            <button type="submit" name="action" value="update" onclick="return confirm('정말로 회원정보를 수정하시겠습니까?')">수정</button>
+        </form>
+    </div>
+</c:otherwise>
     </c:choose>
 </div>
 

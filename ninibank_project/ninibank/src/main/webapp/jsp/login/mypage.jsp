@@ -514,7 +514,7 @@ if (userID != null) {
 			<a href="${pageContext.request.contextPath}/Mypage.do">개인정보</a>
 		</p>
 		<p>
-			<a href="${pageContext.request.contextPath}/load.do">개인정보수정</a>
+			<a href="${pageContext.request.contextPath}/UpdateUserInfo.do">개인정보수정</a>
 		</p>
 		<p>
 			<a href="${pageContext.request.contextPath}/detalle.do">회원탈퇴</a>
@@ -559,7 +559,7 @@ if (userID != null) {
   <img src="도움.png" alt="도움 아이콘" width="140" height="98">
   <div class="help-menu">
     <p><a href="${pageContext.request.contextPath}/load.do" >찾아오시는 길</a></p>
-    <p>문의하기</p>
+    <p><a href="${pageContext.request.contextPath}/bbs.do" > 문의하기</a></p>
   </div>
 </div>
 <script>

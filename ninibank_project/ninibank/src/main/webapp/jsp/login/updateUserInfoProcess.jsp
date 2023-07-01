@@ -90,9 +90,10 @@ if ("passwordCheck".equals(action)) {
     // 회원 정보 업데이트
     userDAO.updateUser(user);
     
-    response.sendRedirect("/mypage.jsp");
+    request.getRequestDispatcher("/jsp/login/updateUserInfo.jsp").forward(request, response);
 }
 %>
+ 
 </body>
 
 </html>

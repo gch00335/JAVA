@@ -549,14 +549,14 @@ h4 {
 					class="logo">
 				</a>
 
-				<h3>Q&A 게시판</h3>
+				<h3>계좌이체 </h3>
 				<br>
 				<div class="button-group">
 					<h4>
 						<span class="main-page"> 메인메뉴 </span>
 					</h4>
 					<h4>
-						<span class="sub-page"> > Q&A 게시판</span>
+						<span class="sub-page"> > 계좌이체 </span>
 					</h4>
 
 				</div>
@@ -586,14 +586,14 @@ h4 {
 						class="logo">
 					</a>
 
-					<h3>계좌관리</h3>
+					<h3>계좌이체 </h3>
 					<br>
 					<div class="button-group">
 						<h4>
 							<span class="main-page"> MY메뉴 </span>
 						</h4>
 						<h4>
-							<span class="sub-page"> > 계좌관리 </span>
+							<span class="sub-page"> > 계좌이체  </span>
 						</h4>
 
 					</div>
@@ -619,14 +619,14 @@ h4 {
 						class="logo">
 					</a>
 
-					<h3>계좌관리</h3>
+					<h3>계좌이체 </h3>
 					<br>
 					<div class="button-group">
 						<h4>
 							<span class="main-page"> MY메뉴 </span>
 						</h4>
 						<h4>
-							<span class="sub-page"> > 계좌관리 </span>
+							<span class="sub-page"> > 계좌이체  </span>
 						</h4>
 
 					</div>
@@ -665,9 +665,8 @@ h4 {
                         <label for="bank">내 은행명</label>
                         <select id="bank" name="bank" class="form-control" required>
                             <option value="">은행을 선택하세요</option>
-                            <option value="NINI_bank">NINI_bank</option>
-                            <option value="NY_BANK">NY_BANK</option>
-                            <option value="YZ_BANK">YZ_BANK</option>
+                            <option value="NA_BANK">NA_BANK</option>
+                            <option value="YJ_BANK">YJ_BANK</option>
                         </select>
                     </div>
 
@@ -721,6 +720,19 @@ h4 {
     </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<div class="customer-service">
 		<h2>MY 계좌</h2>
 		<br> <br>
@@ -728,7 +740,7 @@ h4 {
 			<a href="${pageContext.request.contextPath}/account.do">계좌관리 
 		</p>
 		<p>
-			<a href="${pageContext.request.contextPath}/load.do">오픈뱅킹연결</a>
+			<a href="${pageContext.request.contextPath}/Openbank.do">오픈뱅킹연결</a>
 		</p>
 		<p>
 			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회
@@ -747,7 +759,7 @@ h4 {
 			<p>
 				<a href="${pageContext.request.contextPath}/load.do">찾아오시는 길</a>
 			</p>
-			<p>문의하기</p>
+			 <p><a href="${pageContext.request.contextPath}/bbs.do" > 문의하기</a></p>
 		</div>
 	</div>
 
