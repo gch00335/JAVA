@@ -65,7 +65,10 @@ public class HandlerMapping {
         mappings.put("/managerbbs.do",  new ManagerBbsController());
         mappings.put("/managerload.do",  new ManagerLoadController());
         mappings.put("/ManageUserlist.do",  new ManageUserlistController());
-       
+        mappings.put("/Product.do",  new ProductController());
+        mappings.put("/OtherBank.do",  new OtherBankManagerController());
+        mappings.put("/ManagerMypage.do",  new ManagerMypageController());
+        
         
         
     } catch (Exception e) {

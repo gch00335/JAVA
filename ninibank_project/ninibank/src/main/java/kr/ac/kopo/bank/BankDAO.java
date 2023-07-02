@@ -346,6 +346,7 @@ public class BankDAO {
 	        return userName;
 	    }
 	    
+	    //나연은행 거래 가져오기 (계좌)
 	    public List<Openbank> getRelatedAccounts(String userID, String username) {
 		    List<Openbank> accounts = new ArrayList<>();
 
@@ -382,22 +383,7 @@ public class BankDAO {
 		    } catch (SQLException e) {
 		        e.printStackTrace();
 		    }
-		 // 두 번째 테이블 조회
-		    String queryYJ = "SELECT * FROM ACCOUNT @YJ WHERE MEMBER_NAME = ?";
-		    try (Connection connection = getConnection();
-		         PreparedStatement statement = connection.prepareStatement(queryYJ)) {
-		        statement.setString(1, username);
-		        ResultSet resultSet = statement.executeQuery();
-
-		        while (resultSet.next()) {
-		            // 가져온 계좌 정보를 Openbank 객체로 변환하여 리스트에 추가
-		            Openbank account = new Openbank();
-		            // 계좌 정보 설정
-		            accounts.add(account);
-		        }
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
+	
 
 		    return accounts;
 		}
@@ -440,7 +426,7 @@ public class BankDAO {
 	        return transactionHistoryList;
 	    }
 	    
-	    // 계좌이체
+	    // 오픈뱅킹 계좌이체
 	    public int Transaction2(TransactionHistory transD, TransactionHistory transW) {
 	        int result = 0;
 	        StringBuilder sql = new StringBuilder();
@@ -481,5 +467,84 @@ public class BankDAO {
 	        }
 	        return result;
 	    }
-	  
+	    //여준은행 가져오기
+	    public  List<Openbank> getRelatedAccounts2(String userID, String username) {
+
+			    List<Openbank> accounts2 = new ArrayList<>();// transactionHistoryList 변수 추가
+	        String query = "SELECT * FROM ACCOUNT @YJ WHERE MEMBER_NAME = ?";
+	        
+	
+	        System.out.println(username);
+		    try (Connection connection = getConnection();
+		         PreparedStatement statement = connection.prepareStatement(query)) {
+		        statement.setString(1, username);
+		        ResultSet resultSet = statement.executeQuery();
+
+
+	            	 while (resultSet.next()) {
+	                	  // 가져온 계좌 정보를 Openbank 객체로 변환하여 리스트에 추가
+			            Openbank account = new Openbank();
+			            account.setOp_acc_num(resultSet.getString("ACCOUNT_NO"));
+			            account.setOp_id(resultSet.getString("ID"));
+			            account.setOp_bankcode(resultSet.getString("ACCOUNT_CODE"));
+			            account.setOp_acpw(resultSet.getString("ACCOUNT_PW"));
+			            account.setOp_acmadedate(resultSet.getString("ACCOUNT_DATE"));
+			            account.setOp_balance(resultSet.getString("ACCOUNT_BALANCE"));
+			            account.setOp_memberName(resultSet.getString("MEMBER_NAME"));
+			            account.setOp_accountName(resultSet.getString("ACCOUNT_TYPE"));
+
+
+	                 
+	                    accounts2.add(account);
+	                    
+			            System.out.println(resultSet.getString("ACCOUNT_DATE"));
+			            System.out.println(resultSet.getString("ACCOUNT_BALANCE"));
+			            System.out.println(resultSet.getString("MEMBER_NAME"));
+			            System.out.println(resultSet.getString("ACCOUNT_TYPE"));
+
+	            
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        return  accounts2;
+	    }
+	    // 계좌 번호에 해당하는 거래 내역을 조회하는 메서드
+	    public List<TransactionHistory> getOpentransactionHistory2(String accountNumber) {
+	        List<TransactionHistory> transactionHistoryList2 = new ArrayList<>();
+	        String query = "SELECT * FROM TRANSACTION @YJ WHERE TRANS_ACCOUNT = ?";
+	        
+	        try (Connection conn = getConnection();
+	             PreparedStatement stmt = conn.prepareStatement(query)) {
+	            
+	            stmt.setString(1, accountNumber);
+	            
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                while (rs.next()) {
+	                    TransactionHistory history = new TransactionHistory();
+	                    history.setTransactionId(rs.getString("TRANS_ACCOUNT"));
+	                  
+	                    history.setTransactionDate(rs.getDate("TRANS_DATE"));
+	                    history.setTransactionType(rs.getString("TRANS_TYPE"));
+	                   
+	                   history.setAmount(rs.getLong("TRANS_AMOUNT"));
+	                   
+	                   
+	                   if (history.getTransactionType().equals("입금")) {
+	                        history.setSenderName(rs.getString("TRANS_NAME"));
+	                    } else {
+	                        history.setRecipientName(rs.getString("TRANS_NAME"));
+	                    }
+	                 
+	                    
+	                    transactionHistoryList2.add(history);
+	                }
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        return transactionHistoryList2;
+	    }
 }

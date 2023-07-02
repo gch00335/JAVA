@@ -8,6 +8,17 @@ public class Bbs {
 	private String bbsDate;
 	private String bbsContent;
 	private int bbsAvailable;
+	private int pbbsID;
+	
+	
+	
+	
+	public int getPbbsID() {
+		return pbbsID;
+	}
+	public void setPbbsID(int pbbsID) {
+		this.pbbsID = pbbsID;
+	}
 	
 	public int getBbsID() {
 		return bbsID;
@@ -44,6 +55,10 @@ public class Bbs {
 	}
 	public void setBbsAvailable(int bbsAvailable) {
 		this. bbsAvailable = bbsAvailable;
+	}
+	public void setReply(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
