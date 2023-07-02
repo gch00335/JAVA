@@ -431,11 +431,16 @@ crossorigin="anonymous"></script>
 <body>
 <%   
 
-	String userID = null;
-	if (session.getAttribute("ID") != null){
-		userID = (String) session.getAttribute("ID");
-	}	    // 카카오톡 로그인 확인
-
+String userID = null;
+if (session.getAttribute("ID") != null) {
+	userID = (String) session.getAttribute("ID");
+} // 카카오톡 로그인 확인
+boolean isKakaoLoggedIn = false;
+String kakaoID = (String) session.getAttribute("kakaoID");
+if (kakaoID != null) {
+	isKakaoLoggedIn = true;
+	userID = (String) session.getAttribute("kakaoID");
+}
  	
 	
 %>
@@ -451,7 +456,7 @@ crossorigin="anonymous"></script>
     <h3> NINI_BANK 관리</h3><br>
     <div class="button-group">
       <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > 상품관리</span></h4>
+		<h4><span class="sub-page"> > NINI_BANK 관리</span></h4>
    
     </div>
   </div>
@@ -485,12 +490,10 @@ crossorigin="anonymous"></script>
 				<div class="right-side">
 					<div class="button-group">
 						<a href="${pageContext.request.contextPath}/managerbbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do"
+						<a href="${pageContext.request.contextPath}/ManagerMypage.do"
 							class="button"> MYPAGE</a> <a
 							href="${pageContext.request.contextPath}/logout.do"
-							class="button">로그아웃</a> <a
-							href="${pageContext.request.contextPath}/account.do"
-							class="button">MY계좌</a>
+							class="button">로그아웃</a> 
 									</div>
 						</div>
 					</div>
@@ -508,9 +511,9 @@ crossorigin="anonymous"></script>
   
   	<div class="customer-service">
   <h2>NINI_BANK 관리</h2><br><br>
-  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/account.do">상품관리</a></p>
-  <p><a href="${pageContext.request.contextPath}/managerbbs.do">Q&A게시판 관리</a></p>
-  <p><a href="${pageContext.request.contextPath}/detalle.do">회원정보 관리</a></p>
+  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/productManagement.do">상품관리</a></p>
+  <p><a href="${pageContext.request.contextPath}/OtherBank.do">타은행 관리</a></p>
+  <p><a href="${pageContext.request.contextPath}/ManageUserlist.do">회원정보 관리</a></p>
 </div>
  
 <div class="account-list">
@@ -558,7 +561,7 @@ crossorigin="anonymous"></script>
             <img src="통장.png" alt="통장 아이콘">
             <h6 class="card-subtitle mb-2 text-muted">상품 ID: <%= accountProduct.getProductID() %></h6>
             <h5 class="card-title" style="font-size: 18px; font-weight: bold;">상품명 : <%= accountProduct.getProductName() %></h5>
-            <p class="card-text" style="font-size: 20px; font-weight: bold;">이자율: <%= accountProduct.getInterestRate() %></p>
+            <p class="card-text" style="font-size: 20px; font-weight: bold;">이자율: <%= accountProduct.getInterestRate() %> %</p>
           </div>
         </div>
       </div>

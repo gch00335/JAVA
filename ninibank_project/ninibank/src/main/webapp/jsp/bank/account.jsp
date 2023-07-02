@@ -517,16 +517,21 @@
 		<p style="margin-left: 100px;">
 			<a href="${pageContext.request.contextPath}/account.do">계좌관리</a>
 		</p>
+		<p >
+			<a href="${pageContext.request.contextPath}/Product.do">계좌상품</a>
+		</p>
 		<p>
 			<a href="${pageContext.request.contextPath}/Openbank.do">오픈뱅킹연결</a>
 		</p>
 		<p>
 			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회 
-		</p>
+		</a></p>
 		<p>
 			<a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a>
 		</p>
 	</div>
+
+
 
 
 

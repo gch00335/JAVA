@@ -1,3 +1,6 @@
+<%@page import="kr.ac.kopo.bank.Bank"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 
@@ -429,59 +432,92 @@ crossorigin="anonymous"></script>
     <title>상품 관리</title>
 </head>
 <body>
-<%   
-
+	<%
 	String userID = null;
-	if (session.getAttribute("ID") != null){
+	if (session.getAttribute("ID") != null) {
 		userID = (String) session.getAttribute("ID");
-	}	    // 카카오톡 로그인 확인
-
- 	
+	} // 카카오톡 로그인 확인
+	boolean isKakaoLoggedIn = false;
+	String kakaoID = (String) session.getAttribute("kakaoID");
+	if (kakaoID != null) {
+		isKakaoLoggedIn = true;
+		userID = (String) session.getAttribute("kakaoID");
+	}
 	
-%>
+	// getAccountList 메서드 호출 시 userID 전달
+	ArrayList<Bank> accountList = bankDAO.getAccountList(userID);
+	// 로그인 확인 및 처리
+	if (userID == null && !isKakaoLoggedIn) {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter loginScript = response.getWriter();
+		loginScript.println("<script>");
+		loginScript.println("alert('로그인을 하세요');");
+		loginScript.println("location.href = '/bank/index.jsp';");
+		loginScript.println("</script>");
+		loginScript.close();
+	}
+	%>
+
+	<ul class="nav navbar-nav navbar-right">
 
 
-  <% if (userID == null) { %>
-    <div class="top-container">
-  <div class="left-side">
-  <a href="/bank/manegerindex.jsp">
-  <img src="니니찌니로고.png" alt="로고" class="logo">
-</a>
-   
-    <h3> NINI_BANK 관리</h3><br>
-    <div class="button-group">
-      <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > 상품관리</span></h4>
-   
-    </div>
-  </div>
-  <div class="right-side">
-  <div class="button-group">
-    <button class="button">상품관리</button>
-  <div class="dropdown">
-    <button class="button"> 접속하기 </button>
-    <ul class="dropdown-menu">
-      <li> <a href="${pageContext.request.contextPath}/login.do" class="button">로그인</a></li>
-      <li>   <a href="${pageContext.request.contextPath}/join.do" class="button">회원 가입</a></li>
-    </ul>
-    </li>
-       </div>
-  </div>
-</div>
-  <% } else { %>
-   <div class="top-container">
-  <div class="left-side">
-  <a href="/bank/manegerindex.jsp">
-  <img src="니니찌니로고.png" alt="로고" class="logo">
-</a>
-   
- <h3> NINI_BANK 관리 </h3><br>
-    <div class="button-group">
-      <h4><span class="main-page"> MY메뉴 </span></h4>
-		<h4><span class="sub-page"> > NINI_BANK 관리 </span></h4>
-   
-    </div>
-  </div>
+		<%
+		if (userID == null && isKakaoLoggedIn == false) {
+		%>
+		<div class="top-container">
+			<div class="left-side">
+				<a href="/bank/index.jsp"> <img src="니니찌니로고.png" alt="로고"
+					class="logo">
+				</a>
+
+				<h3>계좌관리</h3>
+				<br>
+				<div class="button-group">
+					<h4>
+						<span class="main-page"> MY메뉴 </span>
+					</h4>
+					<h4>
+						<span class="sub-page"> > 계좌상품판</span>
+					</h4>
+
+				</div>
+			</div>
+			<div class="right-side">
+				<div class="button-group">
+					<button class="button">Q&A게시판</button>
+					<div class="dropdown">
+						<button class="button">접속하기</button>
+						<ul class="dropdown-menu">
+							<li><a href="${pageContext.request.contextPath}/login.do"
+								class="button">로그인</a></li>
+							<li><a href="${pageContext.request.contextPath}/join.do"
+								class="button">회원 가입</a></li>
+						</ul>
+						</li>
+					</div>
+				</div>
+			</div>
+			<%
+			} else if (isKakaoLoggedIn) {
+			%>
+			<div class="top-container">
+				<div class="left-side">
+					<a href="/bank/index.jsp"> <img src="니니찌니로고.png" alt="로고"
+						class="logo">
+					</a>
+
+					<h3>계좌관리</h3>
+					<br>
+					<div class="button-group">
+						<h4>
+							<span class="main-page"> MY메뉴 </span>
+						</h4>
+						<h4>
+							<span class="sub-page"> > 계좌상품 </span>
+						</h4>
+
+					</div>
+				</div>
 				<div class="right-side">
 					<div class="button-group">
 						<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
@@ -491,35 +527,84 @@ crossorigin="anonymous"></script>
 							class="button">로그아웃</a> <a
 							href="${pageContext.request.contextPath}/account.do"
 							class="button">MY계좌</a>
-									</div>
-						</div>
+
 					</div>
-					<%
-					}
-					%>
-				
+				</div>
+			</div>
+			<%
+			} else {
+			%>
+			<div class="top-container">
+				<div class="left-side">
+					<a href="/bank/index.jsp"> <img src="니니찌니로고.png" alt="로고"
+						class="logo">
+					</a>
+
+					<h3>계좌관리</h3>
+					<br>
+					<div class="button-group">
+						<h4>
+							<span class="main-page"> MY메뉴 </span>
+						</h4>
+						<h4>
+							<span class="sub-page"> > 계좌상품 </span>
+						</h4>
+
+					</div>
+				</div>
+
+				<div class="right-side">
+					<div class="button-group">
+						<a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/Mypage.do"
+							class="button"> MYPAGE</a> <a
+							href="${pageContext.request.contextPath}/logout.do"
+							class="button">로그아웃</a> <a
+							href="${pageContext.request.contextPath}/account.do"
+							class="button">MY계좌</a>
+
+					</div>
+				</div>
+			</div>
+			<%
+			}
+			%>
+		
 	</ul>
 
 
+	<div class="customer-service">
+		<h2>MY 계좌</h2>
+		<br> <br>
+		<p>
+			<a href="${pageContext.request.contextPath}/account.do">계좌관리</a>
+		</p>
+		<p style="margin-left: 100px;">
+			<a href="${pageContext.request.contextPath}/Product.do">계좌상품</a>
+		</p>
+		<p>
+			<a href="${pageContext.request.contextPath}/Openbank.do">오픈뱅킹연결</a>
+		</p>
+		<p>
+			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회 
+		</p>
+		<p>
+			<a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a>
+		</p>
+	</div>
 
-  
-  
-  
-  
-  	<div class="customer-service">
-  <h2>NINI_BANK 관리</h2><br><br>
-  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/account.do">상품관리</a></p>
-  <p><a href="${pageContext.request.contextPath}/bbs.do">Q&A게시판 관리</a></p>
-  <p><a href="${pageContext.request.contextPath}/detalle.do">회원정보 관리</a></p>
-</div>
+
+
  
 <div class="account-list">
   <div class="container2">
-    <h1 style="font-size: 30px; font-weight: bold; color: darkgreen; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">상품 관리</h1>
+    <h1 style="font-size: 30px; font-weight: bold; color: darkgreen; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">NINI_BANK 상품</h1>
        
     <div style="display: flex; align-items: flex-start;">
-      <a href="#" id="addProductButton" class="button text-center mt-2" style="display: block; color: white; background-color: #4CAF50;">추가하기</a>
-      <a href="#" id="deleteProductButton" class="button text-center mt-2 ml-2" style="display: inline-block; color: white; background-color: #4CAF50;">삭제하기</a>
+     <input type="hidden" name="accountNumbers" value=""
+				id="selectedAccountsHidden"> <a
+				href="${pageContext.request.contextPath}/selectProduct.do"
+				class="btn btn-primary">계좌개설</a>
     </div>
     
    
@@ -534,7 +619,7 @@ crossorigin="anonymous"></script>
             <img src="통장.png" alt="통장 아이콘">
             <h6 class="card-subtitle mb-2 text-muted">상품 ID: <%= accountProduct.getProductID() %></h6>
             <h5 class="card-title" style="font-size: 18px; font-weight: bold;">상품명 : <%= accountProduct.getProductName() %></h5>
-            <p class="card-text" style="font-size: 20px; font-weight: bold;">이자율: <%= accountProduct.getInterestRate() %></p>
+            <p class="card-text" style="font-size: 20px; font-weight: bold;">이자율: <%= accountProduct.getInterestRate() %> %</p>
           </div>
         </div>
       </div>

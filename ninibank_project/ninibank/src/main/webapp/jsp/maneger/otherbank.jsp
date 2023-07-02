@@ -1,14 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter"%>
-    <%@ page import="java.io.PrintWriter"%>
-<%@ page import="kr.ac.kopo.bbs.Bbs"%>
-<%@ page import="kr.ac.kopo.bbs.BbsDAO"%>
-<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.sql.*" %>
+
+<%@page import="kr.ac.kopo.product.Product"%>
+<%@page import="kr.ac.kopo.bank.BankDAO"%>
+
+<%@ page import="java.util.List" %>
+<%@ page import="kr.ac.kopo.bank.BankDAO" %>
+<%
+    // BankDAO 인스턴스 생성
+    BankDAO bankDAO = new BankDAO();
+    
+    // 상품 목록 조회
+    List<Product> accountProducts = bankDAO.getAllAccountProducts();
+%>
+
 <!DOCTYPE html>
 <html>
-
 <head>
-<link rel="stylesheet" 
+   <link rel="stylesheet" 
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
 integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
 crossorigin="anonymous">
@@ -88,7 +97,6 @@ crossorigin="anonymous"></script>
 }
 
 
-
 .button-group {
 	display: flex;
 	justify-content: space-between;
@@ -102,8 +110,6 @@ crossorigin="anonymous"></script>
 	align-items: center;
 	justify-content: center;
 }
-
-
 
 
 /* Additional styles */
@@ -256,16 +262,7 @@ crossorigin="anonymous"></script>
   margin-bottom: 10px;
 }
 
-.map-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding-left: 20px;
-  margin-top: 150px; /* 원하는 여백 크기로 조정 */
-  margin-left: 200px; /* 원하는 만큼 오른쪽으로 이동 */
-}
+
  .customer-service {
     width: 240px;
   height: 168px;
@@ -278,6 +275,7 @@ crossorigin="anonymous"></script>
    .customer-service p {
   margin-right: 10px; /* 오른쪽으로 10px의 띄어쓰기 적용 */
 }
+
  /* 추가 스타일 코드 */
 .logo {
   position: absolute;
@@ -315,8 +313,7 @@ crossorigin="anonymous"></script>
   position: relative; /* 상대적 위치 설정 */
 }
 .table {
-	margin-top: 5px; /* 기존 값에 25px 더해서 조정 */
-	
+	margin-top: 40px; /* 기존 값에 25px 더해서 조정 */
 }
 
 .row {
@@ -329,58 +326,139 @@ crossorigin="anonymous"></script>
     margin-left: auto;
 }
 
-<style type="text/css">
-a, a:hover {
-	color: #000000;
-	test-dacoration: none;
+
+
+.customer-service {
+  width: 300px;
+  height: 300px;
+  background-color: #ffffff; /* 하얀색으로 변경 */
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+
+/* 이하 동일 */
+.customer-service h2 {
+  font-size: 18px;
+}
+
+.customer-service p {
+  font-size: 14px;
+}
+
+.customer-service a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.customer-service a:hover {
+  text-decoration: underline;
+}
+.col-auto {
+  position: absolute;
+  top: 350px;
+  left: 450px;
+  margin-top: 10px; /* 필요한 경우 여백 조정 */
+}
+
+ .container2 {
+    position: absolute;
+    top: 360px;
+    left: 450px;
+    margin-top: 10px;
+    /* 필요한 경우 여백 조정 */
+  }
+
+  .card {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h2 {
+    font-size: 20px;
+    margin: 0;
+  }
+
+  .card p {
+    margin: 5px 0;
+  }
+ .card-body img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+  
+}.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.form-submit {
+  padding: 10px 20px;
+  background-color: darkgreen;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-submit:hover {
+  background-color: green;
 }
 </style>
-  <meta charset="EUC-KR">
-  <title>NINI_BBS</title>
- 
+    <title>상품 관리</title>
 </head>
-
 <body>
-
 <%   
 
 	String userID = null;
 	if (session.getAttribute("ID") != null){
 		userID = (String) session.getAttribute("ID");
 	}	    // 카카오톡 로그인 확인
-	boolean isKakaoLoggedIn = false;
-	String kakaoID = (String) session.getAttribute("kakaoID");
-    if (kakaoID != null) {
-        isKakaoLoggedIn = true;
-        userID = (String) session.getAttribute("kakaoID");
-    } 
-    int pageNumber = 1;
-	if (request.getParameter("pageNumber") != null) {
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	}
-%>
+
+ 	
 	
-<ul class="nav navbar-nav navbar-right">
+%>
 
 
-  <% if (userID == null && isKakaoLoggedIn == false ) { %>
+  <% if (userID == null) { %>
     <div class="top-container">
   <div class="left-side">
- 
   <a href="/bank/manegerindex.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-    <h3> Q&A 게시판</h3><br>
+    <h3> NINI_BANK 관리</h3><br>
     <div class="button-group">
       <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+		<h4><span class="sub-page"> > 타은행관리</span></h4>
    
     </div>
   </div>
   <div class="right-side">
   <div class="button-group">
-    <button class="button">Q&A게시판</button>
+    <button class="button"> 상품관리</button>
   <div class="dropdown">
     <button class="button"> 접속하기 </button>
     <ul class="dropdown-menu">
@@ -391,166 +469,93 @@ a, a:hover {
        </div>
   </div>
 </div>
-  <% } else if (isKakaoLoggedIn) { %>
-   <div class="top-container">
-  <div class="left-side">
-  
-  <a href="/bank/manegerindex.jsp">
-  <img src="니니찌니로고.png" alt="로고" class="logo">
-</a>
-   
-    <h3> Q&A 게시판</h3><br>
-    <div class="button-group">
-      <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
-   
-    </div>
-  </div>
-  <div class="right-side">
-  <div class="button-group">
-   <a href="${pageContext.request.contextPath}/managerbbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/ManagerMypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						 
-       </div>
-  </div>
-</div>
   <% } else { %>
    <div class="top-container">
   <div class="left-side">
-   
   <a href="/bank/manegerindex.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-    <h3> Q&A 게시판</h3><br>
+ <h3> NINI_BANK 관리 </h3><br>
     <div class="button-group">
-      <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+      <h4><span class="main-page"> MY메뉴 </span></h4>
+		<h4><span class="sub-page"> > NINI_BANK 관리 </span></h4>
    
     </div>
   </div>
-  <div class="right-side">
-  <div class="button-group">
-   <a href="${pageContext.request.contextPath}/managerbbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/ManagerMypage.do" class="button"> MYPAGE</a>
-						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
-						
-       </div>
-  </div>
+				<div class="right-side">
+					<div class="button-group">
+						<a href="${pageContext.request.contextPath}/managerbbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/ManagerMypage.do"
+							class="button"> MYPAGE</a> <a
+							href="${pageContext.request.contextPath}/logout.do"
+							class="button">로그아웃</a> 
+									</div>
+						</div>
+					</div>
+					<%
+					}
+					%>
+				
+	</ul>
+
+
+
+  
+  
+  
+  
+    	<div class="customer-service">
+  <h2>NINI_BANK 관리</h2><br><br>
+  <p ><a href="${pageContext.request.contextPath}/productManagement.do">상품관리</a></p>
+  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/OtherBank.do">타은행 관리</a></p>
+  <p><a href="${pageContext.request.contextPath}/ManageUserlist.do">회원정보 관리</a></p>
 </div>
-  <% } %>
-</ul>
-
-
-
-	<div class="container">
-		<div class="row">
-			<table class="table table-striped"
-				style="text-align: center; border: 1px solid #E6E6E6">
-				<thead>
-					<tr>
-						<th style="background-color: #BDBDBD; text-align: center;">번호</th>
-						<th style="background-color: #BDBDBD; text-align: center;">제목</th>
-						<th style="background-color: #BDBDBD; text-align: center;">작성자</th>
-						<th style="background-color: #BDBDBD; text-align: center;">작성일</th>
-					</tr>
-				</thead>
-		<tbody>
-				<%
-				BbsDAO bbsDAO = new BbsDAO();
-				ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-				for (int i = 0; i < list.size(); i++) {
-				    Bbs bbs = list.get(i); 
-				    if (bbs.getPbbsID() == 0 ) {
-				    
-				%>
-				<tr>
-				    <td><%=bbs.getBbsID()%></td>
-				    <td><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=bbs.getBbsID()%>"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
-				    <td><%=bbs.getUserID()%></td>
-				    <td><%=bbs.getBbsDate().substring(0, 11) %></td>
-				</tr>
-				<%
-				    }
-				    int bbsID = bbs.getBbsID();
-				    ArrayList<Bbs> replyList = bbsDAO.getReplyList(bbsID); // 해당 게시글의 답변글 리스트 가져오기
-				    for (int j = 0; j < replyList.size(); j++) {
-				        Bbs reply = replyList.get(j);
-				        if (reply.getPbbsID() != 0 && bbs.getPbbsID() == 0 ) { // PBBSID가 0이 아닌 경우에만 답변글로 출력
-				%>
-				<tr>
-				     <td style="white-space: nowrap;"><span style="font-size: 20px;"> ↳&emsp;&emsp;</span> [<%=reply.getPbbsID()%>번 답변]</td> 
-				    <td style="text-align: left; padding-left: 20px;"><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=reply.getBbsID()%>"><%=reply.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
-				    <td><%=reply.getUserID()%></td>
-				    <td><%=reply.getBbsDate().substring(0, 11) %></td>
-				</tr>
-				<%
-				        }
-				    }
-				}
-				%>
-</tbody>
-</table>
-<%
-if (pageNumber != 1) {
-%>
-<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arraw-left">이전</a>
-<%
-}
-if (bbsDAO.nextPage(pageNumber + 1)) {
-%>
-<a href="${pageContext.request.contextPath}/bbs.do?pageNumber=<%=pageNumber + 1%>" class="btn btn-success btn-arraw-left">다음</a>
-<%
-}
-%>
-<div class="col-auto">
-<a href="${pageContext.request.contextPath}/write.do" class="btn btn-primary ">글쓰기</a>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="help-image">
-  <img src="도움.png" alt="도움 아이콘" width="140" height="98">
-  <div class="help-menu">
-    <p><a href="${pageContext.request.contextPath}/managerload.do" >찾아오시는 길</a></p>
-  <p><a href="${pageContext.request.contextPath}/managerbbs.do" > 문의하기</a></p>
-  </div>
-</div>
-<script>
-  // JavaScript 코드 추가
-  const helpImage = document.querySelector('.help-image');
-  const helpMenu = document.querySelector('.help-menu');
-
-  helpImage.addEventListener('mouseover', () => {
-    helpMenu.style.display = 'block';
-  });
-
-  helpImage.addEventListener('mouseout', () => {
-    helpMenu.style.display = 'none';
-  });
-</script>
+ 
+<div class="account-list">
+  <div class="container2">
+    <h1 style="font-size: 30px; font-weight: bold; color: darkgreen; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">타은행 관리</h1>
+       
    
-					<footer id="footer">
-						
-					
-						<ul class="copyright">
-							<li>&copy; 니니찌니'S </li ><li>E -Mail : gch00335@naver.com </li><li>PH : 010-4090-9045 </li><li>git-hub: <a href="https://github.com/gch00335/JAVA">gch00335</a></li>
-						</ul>
-					</footer>
+    
+   
+    
+  <div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <img src="통장.png" alt="통장 아이콘">
+        <h6 class="card-subtitle mb-2 text-muted">은행코드: 333</h6>
+        <h5 class="card-title" style="font-size: 18px; font-weight: bold;">은행 이름: NA_BANK</h5>
+        <p class="card-text" style="font-size: 20px; font-weight: bold;"></p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <img src="통장.png" alt="통장 아이콘">
+        <h6 class="card-subtitle mb-2 text-muted">은행코드: 777</h6>
+        <h5 class="card-title" style="font-size: 18px; font-weight: bold;">은행 이름: YJ_BANK</h5>
+        <p class="card-text" style="font-size: 20px; font-weight: bold;"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#addProductButton").click(function(e) {
+    e.preventDefault();
+    $("#addProductForm").toggle();
+  });
 
+  $("#deleteProductButton").click(function(e) {
+    e.preventDefault();
+    $("#deleteProductForm").toggle();
+  });
+});
+</script>
 </body>
-
 </html>

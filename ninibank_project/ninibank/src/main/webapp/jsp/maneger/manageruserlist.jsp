@@ -443,12 +443,10 @@ a, a:hover {
 				<div class="right-side">
 					<div class="button-group">
 						<a href="${pageContext.request.contextPath}/managerbbs.do" class="button">Q&A게시판</a>
-						<a href="${pageContext.request.contextPath}/Mypage.do"
+						<a href="${pageContext.request.contextPath}/ManagerMypage.do"
 							class="button"> MYPAGE</a> <a
 							href="${pageContext.request.contextPath}/logout.do"
-							class="button">로그아웃</a> <a
-							href="${pageContext.request.contextPath}/account.do"
-							class="button">MY계좌</a>
+							class="button">로그아웃</a> 
 									</div>
 						</div>
 					</div>
@@ -458,13 +456,13 @@ a, a:hover {
 				
 	</ul>
 
-  	<div class="customer-service">
+    	<div class="customer-service">
   <h2>NINI_BANK 관리</h2><br><br>
-  <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/account.do">상품관리</a></p>
-  <p><a href="${pageContext.request.contextPath}/managerbbs.do">Q&A게시판 관리</a></p>
-  <p><a href="${pageContext.request.contextPath}/ManageUserlist.do">회원정보 관리</a></p>
+  <p><a href="${pageContext.request.contextPath}/account.do">상품관리</a></p>
+  <p ><a href="${pageContext.request.contextPath}/OtherBank.do">타은행 관리</a></p>
+  <p  style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/detalle.do">회원정보 관리</a></p>
 </div>
-
+ 
 	<div class="container">
 	<div class="row">
 			<table class="table table-striped"

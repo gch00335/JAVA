@@ -665,6 +665,7 @@ h4 {
                         <label for="bank">내 은행명</label>
                         <select id="bank" name="bank" class="form-control" required>
                             <option value="">은행을 선택하세요</option>
+                            <option value="NINI_bank">NINI_bank</option>
                             <option value="NA_BANK">NA_BANK</option>
                             <option value="YJ_BANK">YJ_BANK</option>
                         </select>
@@ -733,22 +734,26 @@ h4 {
 
 
 
-	<div class="customer-service">
+		<div class="customer-service">
 		<h2>MY 계좌</h2>
 		<br> <br>
 		<p>
-			<a href="${pageContext.request.contextPath}/account.do">계좌관리 
+			<a href="${pageContext.request.contextPath}/account.do">계좌관리</a>
+		</p>
+		<p >
+			<a href="${pageContext.request.contextPath}/Product.do">계좌상품</a>
 		</p>
 		<p>
 			<a href="${pageContext.request.contextPath}/Openbank.do">오픈뱅킹연결</a>
 		</p>
 		<p>
-			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회
+			<a href="${pageContext.request.contextPath}/detalle.do">거래내역조회 
 		</p>
 		<p style="margin-left: 100px;">
-			<a href="${pageContext.request.contextPath}/transfer.do">계좌이체 
+			<a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a>
 		</p>
 	</div>
+
 
 
 

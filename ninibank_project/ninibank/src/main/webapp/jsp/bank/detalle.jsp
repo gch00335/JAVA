@@ -375,7 +375,7 @@ crossorigin="anonymous"></script>
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-  width: 300px; /* Adjust the width as desired */
+  width: 360px; /* Adjust the width as desired */
   margin-left: auto;
   margin-right: auto;
 }
@@ -385,7 +385,7 @@ crossorigin="anonymous"></script>
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 50px;
-  width: 600px; /* Adjust the width as desired */
+  width: 800px; /* Adjust the width as desired */
   margin-left: 1800px;
 }
 
@@ -561,6 +561,9 @@ crossorigin="anonymous"></script>
   	<div class="customer-service">
   <h2>MY 계좌</h2><br><br>
   <p><a href="${pageContext.request.contextPath}/account.do">계좌관리</a></p>
+   <p>
+  <a href="${pageContext.request.contextPath}/Product.do">계좌상품</a>
+		</p>
   <p><a href="${pageContext.request.contextPath}/Openbank.do">오픈뱅킹연결</a></p>
   <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/detalle.do">거래내역조회</p>
   <p><a href="${pageContext.request.contextPath}/transfer.do">계좌이체</a></p>

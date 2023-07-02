@@ -38,12 +38,14 @@
 				          
 				          success: function(response) {
 				            console.log('세션에 카카오 ID 저장 완료');
-				            alert('이미 가입한 카카오 계정입니다.');
+				            alert('가입 되었습니다.');
 				            location.href = 'index.jsp';
 				            // 세션 저장이 완료되었을 때 index.jsp로 이동
 				          },
 				          error: function(xhr, status, error) {
 				            console.log('세션에 카카오 ID 저장 실패');
+				            alert('이미 가입이 되어있습니다.');
+				            location.href = 'index.jsp';
 				            // 실패 시에도 index.jsp로 이동
 				          
 				          }

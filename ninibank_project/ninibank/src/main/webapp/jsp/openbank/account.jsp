@@ -280,26 +280,6 @@
 	height: 50; /* 이미지 높이 자동 조정 */
 }
 
-/* 추가 스타일 코드 */
-.dropdown {
-	position: relative;
-	display: inline-block;
-}
-
-.dropdown-menu {
-	display: none;
-	position: absolute;
-	top: 100%; /* Change '0%' to '100%' */
-	left: 0; /* Change 'right' to 'left' */
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-}
-
-.dropdown:hover .dropdown-menu {
-	display: block;
-}
 
 .top-container {
 	position: relative; /* 상대적 위치 설정 */
@@ -348,37 +328,43 @@
 
 .col-auto {
 	position: absolute;
-	top: 310px;
+	top: 380px;
 	left: 450px;
 	
 }
 
 
 
-.container2{
- position: absolute;
+.container2 {
+  position: absolute;
   top: 350px;
   left: 450px;
-  width: 1000px; /* Adjust the width as desired */
-  margin-top: 10px; /* 필요한 경우 여백 조정 */
+  width: 1000px;
+  margin-top: 20px;
 }
-	.card {
+
+.card {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-  width: 300px; /* Adjust the width as desired */
+  width: 370px;
   margin-left: auto;
   margin-right: auto;
-}
-.card2 {
 
+}
+
+.card2 {
+	
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  margin-bottom: 50px;
-  width: 600px; /* Adjust the width as desired */
-  margin-left: 1000px;
+  margin-bottom: 10px;
+  width: 600px;
+  margin-left: 700px;
+   margin-top: 50px;
+  position: relative; 
+  top: 340px
 }
 
 .card-header {
@@ -394,7 +380,6 @@
 
 .account {
   color: #000;
-  
 }
 
 .amount {
@@ -410,12 +395,10 @@
 }
 
 .transaction-history {
-  margin-top: 400px; /* 필요한 경우 상단 여백을 조정하세요 */
   display: flex;
   flex-direction: column;
- 
-}		
-	
+
+}
 	
 </style>
 <meta charset="EUC-KR">
@@ -452,15 +435,29 @@
 			// getRelatedAccounts 메서드 호출
 		 relatedAccounts = bankDAO.getRelatedAccounts(userID, userName);
 			
+
+		    // getYJAccounts 메서드 호출 (YJ은행)
+		    List<Openbank> yjAccounts = bankDAO.getRelatedAccounts2(userID, userName);
+			
+		 // yjAccounts 메서드 호출
+			 yjAccounts = bankDAO.getRelatedAccounts2(userID, userName);
+		    
+		    
 		// 클릭한 계좌 정보 가져오기
 		    String selectedAccount = request.getParameter("selectedAccount");
 		
 		 // 선택한 계좌에 해당하는 거래 내역 조회
 		    List<TransactionHistory> OpenttransactionHistoryList = null;
 		    if (selectedAccount != null) {
-		        OpenttransactionHistoryList = bankDAO.getOpentransactionHistory(selectedAccount);
+		    	if (selectedAccount != null && selectedAccount.startsWith("777")) {
+		        	OpenttransactionHistoryList = bankDAO.getOpentransactionHistory2(selectedAccount);
+		        } else {
+		        	OpenttransactionHistoryList = bankDAO.getOpentransactionHistory(selectedAccount);
+		        }
 		    }
 		    
+		    
+		
 			
 	
 	
@@ -602,6 +599,10 @@
 	<p >
 		<a href="${pageContext.request.contextPath}/account.do">계좌관리</a>
 	</p>
+	<p >
+			<a href="${pageContext.request.contextPath}/Product.do">계좌상품</a>
+		</p>
+	
 	<p style="margin-left: 100px;">
 		<a href="${pageContext.request.contextPath}/Openbank.do">오픈뱅킹연결</a>
 	</p>
@@ -615,38 +616,57 @@
 
 
 
-<!-- 계좌 목록 출력 -->
+<<!-- 계좌 목록 출력 -->
 <div class="account-list">
     <div class="container2">
         <div class="row">
             <% long totalBalance = 0; %>
             <% for (Openbank account : relatedAccounts) { %>
-
+                <% long balance = Long.parseLong(account.getOp_balance()); %>
+                <% totalBalance += balance; %>
+            <% } %>
+            <% for (Openbank account : yjAccounts) { %>
                 <% long balance = Long.parseLong(account.getOp_balance()); %>
                 <% totalBalance += balance; %>
             <% } %>
             <div class="col-md-12" style="text-align: left;">
-                <p style="font-size: 30px; font-weight: bold; color: darkgreen; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); margin-top: 2px;">
+                <p style="font-size: 30px; font-weight: bold; color: darkgreen; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); margin-left: 170px;">
                       오픈뱅킹 총 금액: <%= String.format("%,d", totalBalance).replace(",", ", ") %> 원
                 </p>
             </div>
         </div>
         <div class="row">
-           <% for (Openbank account : relatedAccounts) { %>
+            <% for (Openbank account : relatedAccounts) { %>
                 <div class="col-md-4">
                     <div class="card" style="margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 18px; font-weight: bold;">계좌번호: <%= account.getOp_acc_num() %></h5>
                             <h6 class="card-subtitle mb-2 text-muted">
-                            
-                            
-                             <% if (account.getOp_bankcode().equals("999")) { %>
-                            은행: NA_BANK
-                        <% } else if (account.getOp_bankcode().equals("777")) { %>
-                            은행: YJ_BANK
-                        <% } %>
-                        </h6>
-                            <p class="card-text" style="font-size: 20px; font-weight: bold;">잔액:  <%= String.format("%,d", Long.parseLong(account.getOp_balance())) %> 원</p>
+                                <% if (account.getOp_bankcode().equals("999")) { %>
+                                    은행: NA_BANK
+                                <% } else if (account.getOp_bankcode().equals("777")) { %>
+                                    은행: YJ_BANK
+                                <% } %>
+                            </h6>
+                            <p class="card-text" style="font-size: 20px; font-weight: bold;">잔액: <%= String.format("%,d", Long.parseLong(account.getOp_balance())) %> 원</p>
+                            <a href="?selectedAccount=<%= account.getOp_acc_num() %>" class="card-link" style="color: #007bff; font-weight: bold;">선택</a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+            <% for (Openbank account : yjAccounts) { %>
+                <div class="col-md-4">
+                    <div class="card" style="margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 18px; font-weight: bold;">계좌번호: <%= account.getOp_acc_num() %></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                <% if (account.getOp_bankcode().equals("999")) { %>
+                                    은행: NA_BANK
+                                <% } else if (account.getOp_bankcode().equals("777")) { %>
+                                    은행: YJ_BANK
+                                <% } %>
+                            </h6>
+                            <p class="card-text" style="font-size: 20px; font-weight: bold;">잔액: <%= String.format("%,d", Long.parseLong(account.getOp_balance())) %> 원</p>
                             <a href="?selectedAccount=<%= account.getOp_acc_num() %>" class="card-link" style="color: #007bff; font-weight: bold;">선택</a>
                         </div>
                     </div>
@@ -655,38 +675,43 @@
         </div>
     </div>
 </div>
-
-
 <!-- 거래 내역 출력 -->
-
- <!-- 거래 내역 출력 -->
-    <div class="transaction-history">
-        <% if (OpenttransactionHistoryList == null || OpenttransactionHistoryList.isEmpty()) { %>
-            <!-- 거래 내역이 없을 경우에 대한 처리 -->
-        <% } else { %>
-            <% for (TransactionHistory history : OpenttransactionHistoryList) { %>
-                <div class="card2">
-                <div class="card-header">
-                    <span class="date"><%= history.getTransactionDate() + " " + history.getTransactiontime() %></span>
-                    <span class="account">
-                          <% if (history.getTransactionType().equals("입금")) { %>
-           					 || 보낸 사람: <%= history.getSenderName() %>
-      					  <% } else { %>
-          					 || 받는 사람: <%= history.getRecipientName() %>
-          					    <% } %> 
+<% if (OpenttransactionHistoryList == null || OpenttransactionHistoryList.isEmpty()) { %>
+    <!-- 거래 내역이 없을 경우에 대한 처리 -->
+<% } else { %>
+    <% for (TransactionHistory history : OpenttransactionHistoryList) { %>
+        <div class="card2" >
+            <div class="card-header">
+                <span class="date"><%= history.getTransactionDate() + " " + history.getTransactiontime() %></span>
+              <span class="account">
+                        <% if (history.getTransactionType().equals("입금")) { %>
+                            || 보낸 사람: <%= history.getSenderName() %>
+                        <% } else { %>
+                            || 받는 사람: <%= history.getRecipientName() %>
+                        <% } %> 
                     </span>
                 </div>
-                <div class="amount <%= history.getTransactionType().equals("D") ? "deposit" : "withdraw" %>">
-                    <% if (history.getTransactionType().equals("D")) { %>
-                       + <%= String.format("%,d", (long) history.getAmount()).replaceAll(",", ", ") %>
+            <div class="amount <%= history.getTransactionType().equals("D") ? "deposit" : "withdraw" %>">
+                <% if (history.getTransactionType().equals("D")) { %>
+                    <% if (selectedAccount != null && selectedAccount.startsWith("777")) { %>
+                        - <%= String.format("%,d", (long) history.getAmount()).replaceAll(",", ", ") %>
                     <% } else { %>
-                       - <%= String.format("%,d", (long) history.getAmount()).replaceAll(",", ", ") %>
+                        + <%= String.format("%,d", (long) history.getAmount()).replaceAll(",", ", ") %>
                     <% } %>
-                </div>
+                <% } else { %>
+                    <% if (selectedAccount != null && selectedAccount.startsWith("777")) { %>
+                        + <%= String.format("%,d", (long) history.getAmount()).replaceAll(",", ", ") %>
+                    <% } else { %>
+                        - <%= String.format("%,d", (long) history.getAmount()).replaceAll(",", ", ") %>
+                    <% } %>
+                <% } %>
             </div>
-        <% } %>
+        </div>
     <% } %>
-</div>
+<% } %>
+
+
+
 
 	<div class="col-auto">
 	
@@ -694,10 +719,8 @@
 				id="selectedAccountsHidden"> <a
 				href="${pageContext.request.contextPath}/Opentransfer.do"
 				class="btn btn-primary">계좌이체</a>
+
 			
-			
-			<button type="submit" class="btn btn-primary"
-				onclick="cancelAccounts()">계좌해지</button>
 		</form>
 	</div>
 
@@ -739,6 +762,6 @@
 			<li>git-hub: <a href="https://github.com/gch00335/JAVA">gch00335</a></li>
 		</ul>
 	</footer>
-</div>
+
 </body>
 </html>

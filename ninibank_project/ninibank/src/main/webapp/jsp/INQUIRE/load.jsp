@@ -72,24 +72,6 @@
   margin-top: 60px;
 }
 
-.button-group {
-  display: flex;
-  justify-content: space-between; /* 수정: 버튼을 옆으로 나열 */
-
-   margin-bottom: 10px; /* 간격 조정을 위한 수정 */
-}
-.button {
-  width: 100px;
-  height: 40px;
-  margin-top: 10px;
-  background-color:  #ffffff;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-   margin-right: 10px;
-     font-family: 'WooridaumB', sans-serif; 
-}
-
 
 
 /* Additional styles */
@@ -153,14 +135,16 @@
 
 
 .button {
-  width: 100px;
+   width: 100px;
   height: 40px;
   margin-top: 10px;
+  background-color: #4CAF50;
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-   font-weight: bold;
-  font-family: 'WooridaumB', sans-serif; 
+   margin-right: 10px;
+    font-family: 'WooridaumB', sans-serif; 
+}
   
 }
 
@@ -297,6 +281,53 @@
 .customer-service a:hover {
   text-decoration: underline;
 }
+
+.button-group {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-family: 'WooridaumB', sans-serif; 
+}
+
+.button-group a {
+	color: white;
+	text-decoration: none; /* 링크 효과 제거 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'WooridaumB', sans-serif; 
+}
+/* 추가 스타일 코드 */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  
+}
+
+.dropdown-menu {
+   display: none;
+  position: absolute;
+  top: 100%; /* Change '0%' to '100%' */
+  left: 0; /* Change 'right' to 'left' */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.top-container {
+  position: relative; /* 상대적 위치 설정 */
+}
+
+.table {
+	margin-top: 40px; /* 기존 값에 25px 더해서 조정 */
+}
+
+
 </style>
 
   <meta charset="UTF-8" />
@@ -311,25 +342,112 @@
 	String userID = null;
 	if (session.getAttribute("ID") != null){
 		userID = (String) session.getAttribute("ID");
+	}	    // 카카오톡 로그인 확인
+	boolean isKakaoLoggedIn = false;
+	String kakaoID = (String) session.getAttribute("kakaoID");
+    if (kakaoID != null) {
+        isKakaoLoggedIn = true;
+        userID = (String) session.getAttribute("kakaoID");
+    } 
+    int pageNumber = 1;
+	if (request.getParameter("pageNumber") != null) {
+		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
-
 %>
-	 <div class="top-container">
+	
+<ul class="nav navbar-nav navbar-right">
+
+
+  <% if (userID == null && isKakaoLoggedIn == false ) { %>
+    <div class="top-container">
   <div class="left-side">
   <a href="/bank/index.jsp">
   <img src="니니찌니로고.png" alt="로고" class="logo">
 </a>
    
-    <h3>지점안내</h3><br>
+    <h3> 지점안내</h3><br>
     <div class="button-group">
-      <h4><span class="main-page">메인화면</span></h4>
-		<h4><span class="sub-page"> > 찾아오시는 길</span></h4>
+      <h4><span class="main-page"> 메인메뉴 </span></h4>
+		<h4><span class="sub-page"> > 지점안내</span></h4>
    
     </div>
   </div>
   <div class="right-side">
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a> </div>
+  <div class="button-group">
+    <button class="button">Q&A게시판</button>
+  <div class="dropdown">
+    <button class="button"> 접속하기 </button>
+    <ul class="dropdown-menu">
+      <li> <a href="${pageContext.request.contextPath}/login.do" class="button">로그인</a></li>
+      <li>   <a href="${pageContext.request.contextPath}/join.do" class="button">회원 가입</a></li>
+    </ul>
+    </li>
+       </div>
+  </div>
 </div>
+  <% } else if (isKakaoLoggedIn) { %>
+   <div class="top-container">
+  <div class="left-side">
+  <a href="/bank/index.jsp">
+  <img src="니니찌니로고.png" alt="로고" class="logo">
+</a>
+   
+    <h3> 지점안내 </h3><br>
+    <div class="button-group">
+      <h4><span class="main-page"> 메인메뉴 </span></h4>
+		<h4><span class="sub-page"> > 지점안내</span></h4>
+   
+    </div>
+  </div>
+  <div class="right-side">
+  <div class="button-group">
+   <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
+						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
+						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
+       </div>
+  </div>
+</div>
+  <% } else { %>
+   <div class="top-container">
+  <div class="left-side">
+  <a href="/bank/index.jsp">
+  <img src="니니찌니로고.png" alt="로고" class="logo">
+</a>
+   
+    <h3> Q&A 게시판</h3><br>
+    <div class="button-group">
+      <h4><span class="main-page"> 메인메뉴 </span></h4>
+		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+   
+    </div>
+  </div>
+  <div class="right-side">
+  <div class="button-group">
+   <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a>
+						<a href="${pageContext.request.contextPath}/Mypage.do" class="button"> MYPAGE</a>
+						 <a href="${pageContext.request.contextPath}/logout.do" class="button">로그아웃</a>
+						 <a href="${pageContext.request.contextPath}/account.do" class="button">MY계좌</a>
+       </div>
+  </div>
+</div>
+  <% } %>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  <div class="map-container">
   <div style="display: flex;">
@@ -349,7 +467,7 @@
   </div>
   	<div class="customer-service">
   <h2>고객센터</h2><br><br>
-  <p>1:1 문의하기</p><br>
+  <p><a href="${pageContext.request.contextPath}/bbs.do" > 문의하기</a></p><br>
   <p style="margin-left: 100px;"><a href="${pageContext.request.contextPath}/load.do">찾아오시는 길</a></p>
 </div>
  
@@ -368,7 +486,7 @@
   <img src="도움.png" alt="도움 아이콘" width="140" height="98">
   <div class="help-menu">
     <p><a href="${pageContext.request.contextPath}/load.do" >찾아오시는 길</a></p>
-    <p>문의하기</p>
+     <p><a href="${pageContext.request.contextPath}/bbs.do" > 문의하기</a></p>
   </div>
 </div>
 <script>

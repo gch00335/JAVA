@@ -77,13 +77,6 @@ crossorigin="anonymous"></script>
 			BbsDAO bbsDAO = new BbsDAO();
 			int result = bbsDAO.delete(bbsID);
 
-			if (result == -1) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('글 삭제에 실패했습니다.')");
-			script.println("history.back()");
-			script.println("</script>");
-		} else {
 			
 			System.out.println(request.getParameter("bbsTilte"));
 			
@@ -91,7 +84,6 @@ crossorigin="anonymous"></script>
 			script.println("<script>");
 			script.println("location.href = '" + bbsDoURL + "'");
 			script.println("</script>");
-		}
 	}
 
 	%>

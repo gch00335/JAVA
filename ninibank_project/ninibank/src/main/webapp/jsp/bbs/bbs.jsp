@@ -88,22 +88,46 @@ crossorigin="anonymous"></script>
 }
 
 
-
-.button-group {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+/* 추가 스타일 코드 */
+.dropdown {
+	position: relative;
+	display: inline-block;
 }
 
-.button-group a {
-	color: white;
-	text-decoration: none; /* 링크 효과 제거 */
-	display: flex;
-	align-items: center;
-	justify-content: center;
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	top: 100%; /* Change '0%' to '100%' */
+	left: 0; /* Change 'right' to 'left' */
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
 }
 
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
 
+.top-container {
+	position: relative; /* 상대적 위치 설정 */
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.btn-left {
+    margin-right: 10px;
+}
+.btn-right {
+    margin-left: auto;
+}
+
+.btn-write {
+    margin-left: auto;
+}
 
 
 /* Additional styles */
@@ -409,7 +433,7 @@ a, a:hover {
     <h3> Q&A 게시판</h3><br>
     <div class="button-group">
       <h4><span class="main-page"> 메인메뉴 </span></h4>
-		<h4><span class="sub-page"> > Q&A 게시판</span></h4>
+		<h4><span class="sub-page">> Q&A 게시판</span></h4>
    
     </div>
   </div>
@@ -449,7 +473,7 @@ a, a:hover {
 				    
 				%>
 				<tr>
-				    <td><%=bbs.getBbsID()%></td>
+				    <td>[문의]</td>
 				    <td><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=bbs.getBbsID()%>"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
 				    <td><%=bbs.getUserID()%></td>
 				    <td><%=bbs.getBbsDate().substring(0, 11) %></td>
@@ -463,7 +487,7 @@ a, a:hover {
 				        if (reply.getPbbsID() != 0 && bbs.getPbbsID() == 0 ) { // PBBSID가 0이 아닌 경우에만 답변글로 출력
 				%>
 				<tr>
-				     <td style="white-space: nowrap;"><span style="font-size: 20px;"> ↳&emsp;&emsp;</span> [<%=reply.getPbbsID()%>번 답변]</td> 
+				     <td style="white-space: nowrap;"><span style="font-size: 20px;"> ↳&emsp;&emsp;</span> [답변]</td> 
 				    <td style="text-align: left; padding-left: 20px;"><a href="${pageContext.request.contextPath}/view.do?bbsID=<%=reply.getBbsID()%>"><%=reply.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
 				    <td><%=reply.getUserID()%></td>
 				    <td><%=reply.getBbsDate().substring(0, 11) %></td>

@@ -328,7 +328,7 @@
     </div>
   </div>
   <div class="right-side">
-     <a href="${pageContext.request.contextPath}/bbs.do" class="button">Q&A게시판</a> </div>
+     <a href="${pageContext.request.contextPath}/managerbbs.do" class="button">Q&A게시판</a> </div>
 </div>
 
  <div class="map-container">
