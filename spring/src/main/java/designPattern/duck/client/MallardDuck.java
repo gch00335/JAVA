@@ -1,7 +1,7 @@
 package designPattern.duck.client;
 
-import designPatten.duck.flyBehavior.FlyWithWings;
-import dexignPAttern.duck.quackBehavior.Quack;
+import designPattern.duck.flyBehavior.FlyWithWings;
+import designPattern.duck.quackBehavior.Quack;
 
 public class  MallardDuck extends Duck {
     public MallardDuck() {

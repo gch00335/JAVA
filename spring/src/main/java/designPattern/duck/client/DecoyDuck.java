@@ -1,15 +1,15 @@
 package designPattern.duck.client;
 
-import designPatten.duck.flyBehavior.FlyNoWay;
-import dexignPAttern.duck.quackBehavior.MuteQuack;
+import designPattern.duck.flyBehavior.FlyWithWings;
+import designPattern.duck.quackBehavior.MuteQuack;
 
 public class  DecoyDuck extends Duck {
     public DecoyDuck() {
-        flyBehavior = new FlyNoWay();
+        flyBehavior = new FlyWithWings();
         quackBehavior = new MuteQuack();
   }
     
     public void display() {
-        System.out.println("Looks like a rubber duck");
+        System.out.println("Looks like a decoy duck");
     }
 }

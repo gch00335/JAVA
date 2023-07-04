@@ -1,7 +1,7 @@
 package designPattern.duck.client;
 
-import designPatten.duck.flyBehavior.FlyBehavior;
-import dexignPAttern.duck.quackBehavior.QuackBehavior;
+import designPattern.duck.flyBehavior.FlyBehavior;
+import designPattern.duck.quackBehavior.QuackBehavior;
 
 public abstract class Duck {
     FlyBehavior flyBehavior;

@@ -1,9 +1,9 @@
 package designPattern.duck.client;
 
-import designPatten.duck.flyBehavior.FlyBehavior;
-import designPatten.duck.flyBehavior.FlyNoWay;
-import dexignPAttern.duck.quackBehavior.QuackBehavior;
-import dexignPAttern.duck.quackBehavior.Squeak;
+import designPattern.duck.flyBehavior.FlyBehavior;
+import designPattern.duck.flyBehavior.FlyNoWay;
+import designPattern.duck.quackBehavior.QuackBehavior;
+import designPattern.duck.quackBehavior.Squeak;
 
 public class RubberDuck extends Duck {
     public RubberDuck() {

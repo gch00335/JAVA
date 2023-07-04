@@ -6,13 +6,38 @@
    xmlns:context="http://www.springframework.org/schema/context"
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Behavior  -->
+    <bean id="flyWithWings" class="designPattern.duck.flyBehavior.FlyWithWings"/>
+    <bean id="flyNoWay" class="designPattern.duck.flyBehavior.FlyNoWay"/>
+    
+    <bean id="quack" class="designPattern.duck.quackBehavior.Quack" />
+    <bean id="squeak" class="designPattern.duck.quackBehavior.Squeak" />
+    <bean id="muteQuack" class="designPattern.duck.quackBehavior.MuteQuack" />
+    
+	<!-- 오리들 -->
+    <bean id="MallardDuck" class="designPattern.duck.client.MallardDuck">
+        <property name="flyBehavior" ref="flyWithWings"/>
+        <property name="quackBehavior" ref="quack"/>
+    </bean>
 
-   <!-- aisw.entity.AiswExam 를 가지고 exam 객체를 만든다-->
-   
-   <bean id="duck" class="spring.duck.client">
-      <property name="rubberDuck" ref="Squeak" />
-       <property name="decoyDuck" ref="MuteQuack" />
-        <property name="mallardDuck" ref="Quack" />
-        
-   </bean>
+    <bean id="RedheadDuck" class="designPattern.duck.client.RedheadDuck">
+        <property name="flyBehavior" ref="flyWithWings"/>
+        <property name="quackBehavior" ref="quack"/>
+    </bean>
+
+    <bean id="RubberDuck" class="designPattern.duck.client.RubberDuck">
+        <property name="flyBehavior" ref="flyNoWay"/>
+        <property name="quackBehavior" ref="squeak"/>
+    </bean>
+
+    <bean id="DecoyDuck" class="designPattern.duck.client.DecoyDuck">
+        <property name="flyBehavior" ref="flyWithWings"/>
+        <property name="quackBehavior" ref="muteQuack"/>
+    </bean>
+    
+    <!-- 원하는 오리 ID로 변경 -->
+    <bean id="duck" class="designPattern.duck.client.DecoyDuck" />
+    
+
 </beans>
